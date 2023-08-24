@@ -8,7 +8,7 @@ import Panel from "../../components/Panel"
 export default function BeaconPlusPage({ cytoBands }) {
   return (
     <>
-      <BeaconPlusNav beaconName="" />
+      <BeaconPlusNav />
       <div className="section">
         <div className="BeaconPlus__container">
           <Panel className="content">

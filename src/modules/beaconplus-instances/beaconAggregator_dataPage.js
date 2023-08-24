@@ -11,7 +11,7 @@ import { SITE_DEFAULTS } from "../../hooks/api"
 export default function BeaconAggregatorPage({ cytoBands }) {
   return (
     <>
-      <BeaconPlusNav beaconName="" />
+      <BeaconPlusNav />
       <div className="section">
         <div className="BeaconPlus__container">
           <Panel className="content">

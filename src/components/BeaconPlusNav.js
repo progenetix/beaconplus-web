@@ -1,11 +1,8 @@
 import React from "react"
-import { useRouter } from "next/router"
-import ActiveLink from "./ActiveLink"
 import Link from "next/link"
 import { SITE_DEFAULTS } from "../hooks/api"
 
-export default function BeaconPlusNav({ beaconName }) {
-  const router = useRouter()
+export default function BeaconPlusNav() {
   return (
     <header className="section Nav__header">
       <nav
@@ -13,9 +10,9 @@ export default function BeaconPlusNav({ beaconName }) {
         role="navigation"
         aria-label="main navigation"
       >
-        <Link href={router}>
+        <Link href="/">
           <a className="Nav__logo">
-            {beaconName} Beacon<sup className="Nav__plus">+</sup>
+            Beacon<sup className="Nav__plus">+</sup>
           </a>
         </Link>        
 
@@ -23,7 +20,9 @@ export default function BeaconPlusNav({ beaconName }) {
 {/*
           <ActiveLink label="Aggregator" href="/beaconAggregator/" />
 */}
-          <ActiveLink label="Progenetix" href="/" />
+          <a href={SITE_DEFAULTS.MASTERROOTLINK} className="navbar-item">
+            Progenetix
+          </a>
           <a href={SITE_DEFAULTS.MASTERDOCLINK} className="navbar-item">
             Help
           </a>

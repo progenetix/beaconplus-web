@@ -7,25 +7,27 @@ import { SITE_DEFAULTS, THISYEAR } from "../hooks/api"
 
 export function EntityLayout({ title, headline, children }) {
   return (
-    <div className="Layout__app">
-      <Head>
-        <title>{title || ""}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <BeaconPlusNav beaconName="" />
-      <main className="Layout__main">
-        <div className="Layout__lead">
-          {headline && <h1 className="title is-4">{headline}</h1>}
-            <ErrorBoundary
-              FallbackComponent={ErrorFallback}
-              onReset={() => {
-                // reset the state of your app so the error doesn't happen again
-              }}
-            >
-              {children}
-            </ErrorBoundary>
+    <>
+      <BeaconPlusNav />
+      <div className="section">
+        <div className="BeaconPlus__container">
+          <Head>
+            <title>{title || ""}</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          </Head>
+          <div className="Layout__lead">
+            {headline && <h1 className="title is-4">{headline}</h1>}
+              <ErrorBoundary
+                FallbackComponent={ErrorFallback}
+                onReset={() => {
+                  // reset the state of your app so the error doesn't happen again
+                }}
+              >
+                {children}
+              </ErrorBoundary>
+          </div>
         </div>
-      </main>
+      </div>
       <footer className="footer">
         <div className="content container has-text-centered">
           © 2000 - {THISYEAR} Progenetix Cancer Genomics Information Resource by
@@ -52,6 +54,6 @@ export function EntityLayout({ title, headline, children }) {
           nor the results achieved with the Progenetix tools.
         </div>
       </footer>
-    </div>
+    </>
   )
 }
