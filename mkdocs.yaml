@@ -1,26 +1,16 @@
-site_name: Progenetix Documentation
-site_description: 'Documentation for the Progenetix oncogenomics resource'
+site_name: BeaconPlus Documentation
+site_description: 'BeaconPlus UI Notes'
 site_author: Michael Baudis
 copyright: '&copy; Copyright 2023, Michael Baudis and progenetix.org'
-repo_name: progenetix-web
-repo_url: https://github.com/progenetix/progenetix-web
+repo_name: beaconplus-web
+repo_url: https://github.com/progenetix/beaconplus-web
 
 ###############################################################################
 
 nav:
-  - Documentation Home: index.md
+  - General: index.md
   - News & Changes: news
   - Pages & Forms: ui
-  - Services API: services
-  - File Formats: file-formats
-  - Beacon+ API & bycon: beaconplus
-  - Plotting & Visualizations: plotting
-  - Use Case Examples: use-cases
-  - Classifications, Ontologies & Standards: classifications-and-ontologies
-  - Publication Collection: publication-collection
-  - Data Review: progenetix-data-review
-  - Technical Notes: technical-notes
-  - Progenetix Website Builds: progenetix-website-builds
   - Progenetix Data &#8599;: http://progenetix.org
   - cancercelllines.org &#8599;: http://cancercelllines.org
   - Baudisgroup @ UZH &#8599;: http://info.baudisgroup.org
@@ -100,6 +90,5 @@ extra:
 extra_css:
   - css/theme_overrides.css
 extra_javascript:
-  # - https://unpkg.com/mermaid/dist/mermaid.min.js
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
     

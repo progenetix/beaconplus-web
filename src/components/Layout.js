@@ -90,103 +90,7 @@ function Side({ onClick }) {
           alt="progenetix"
         />
       </a>
-      <ul className="Layout__side__items">
-        <MenuInternalLinkItem
-          href="/subsets/NCIT-subsets"
-          label="CNV Profiles by Cancer Type"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/NCIT-subsets"
-          label="NCIT Neoplasia Codes"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/icdom-subsets"
-          label="ICD-O Morphologies"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/icdot-subsets"
-          label="ICD-O Organ Sites"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/NCITclinical-subsets"
-          label="Clinical Categories"
-          isSub="isSub"
-        />
         <MenuInternalLinkItem href="/search/" label="Search Samples" />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/arraymap"
-          label="Data Cohorts"
-        />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/arraymap"
-          label="arrayMap"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/TCGA"
-          label="TCGA Samples"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/oneKgenomes"
-          label="1000 Genomes Reference Samples"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/DIPG"
-          label="DIPG Samples"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/cbioportal-subsets"
-          label="cBioPortal Studies"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/gao-2021-signatures"
-          label="Gao & Baudis, 2021"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="http://cancercelllines.org"
-          label={
-            <>
-              Cances Cell Lines<sup style={{ color: "red" }}>o</sup>
-            </>
-          }
-        />
-        <MenuInternalLinkItem href="/publications" label="Publication DB" />
-        <MenuInternalLinkItem
-          href="/publications"
-          label="Genome Profiling"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/publicationsProgenetixRef"
-          label="Progenetix Use"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/ontologymaps"
-          label="Services"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/ontologymaps"
-          label="NCIt Mappings"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/uberonmaps"
-          label="UBERON Mappings"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/uploader"
-          label="Upload & Plot"
-        />
         <MenuInternalLinkItem
           href="/beaconPlus/"
           label={
@@ -196,23 +100,6 @@ function Side({ onClick }) {
           }
         />
         <MenuInternalLinkItem href={SITE_DEFAULTS.MASTERDOCLINK} label="Documentation" />
-        <MenuInternalLinkItem
-          href={SITE_DEFAULTS.NEWSLINK}
-          label="News"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href={`${SITE_DEFAULTS.MASTERDOCLINK}/use-cases`}
-          label="Downloads & Use Cases"
-          isSub="isSub"
-        />
-
-        <MenuInternalLinkItem
-          href={`${SITE_DEFAULTS.MASTERDOCLINK}/services`}
-          label="Sevices & API"
-          isSub="isSub"
-        />
-
         <MenuInternalLinkItem
           href={SITE_DEFAULTS.ORGSITELINK}
           label="Baudisgroup @ UZH"
