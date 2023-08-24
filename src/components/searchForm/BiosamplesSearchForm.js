@@ -118,7 +118,7 @@ export function Form({
     watch
   )
   
-  const biosubsetsOptions = biosubsetsResponse?.response.results.map((value) => ({
+  const biosubsetsOptions = biosubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
   }))
@@ -132,7 +132,7 @@ export function Form({
     watch
   )
   
-  const refsubsetsOptions = refsubsetsResponse?.response.results.map((value) => ({
+  const refsubsetsOptions = refsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
   }))
@@ -146,7 +146,7 @@ const { data: clinicalResponse, isLoading: isClinicalDataLoading } = useClinical
   watch
 )
 
-const clinicalOptions = clinicalResponse?.response.results.map((value) => ({
+const clinicalOptions = clinicalResponse?.response?.filteringTerms?.map((value) => ({
   value: value.id,
   label: `${value.id}: ${value.label} (${value.count})`
 }))

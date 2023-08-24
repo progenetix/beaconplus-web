@@ -371,21 +371,13 @@ export function useCollationsById({ datasetIds }) {
 }
 
 export function useCollations({ datasetIds, method, filters }) {
-  const url = `${SITE_DEFAULTS.API_PATH}services/collations/?datasetIds=${datasetIds}&method=${method}&filters=${filters}`
+  const url = `${SITE_DEFAULTS.API_PATH}beacon/filteringTerms/?datasetIds=${datasetIds}&method=${method}&filters=${filters}`
   return useProgenetixApi(url)
 }
 
 export function useCollationsByType({ datasetIds, method, collationTypes }) {
-  const url = `${SITE_DEFAULTS.API_PATH}services/collations/?datasetIds=${datasetIds}&method=${method}&collationTypes=${collationTypes}`
+  const url = `${SITE_DEFAULTS.API_PATH}beacon/filteringTerms/?datasetIds=${datasetIds}&method=${method}&collationTypes=${collationTypes}`
   return useProgenetixApi(url)
-}
-
-export function sampleSearchPageFiltersLink({
-  datasetIds,
-  sampleFilterScope,
-  filters
-}) {
-  return `/filterSearch/?${sampleFilterScope}=${filters}&datasetIds=${datasetIds}`
 }
 
 export function useGeoCity({ city }) {
