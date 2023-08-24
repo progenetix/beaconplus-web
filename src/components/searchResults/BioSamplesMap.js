@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from 'react-dom';
 import L from "leaflet"
 import { centerPopup, createCircle, getLatlngFromGeoJSON, useMap } from "../mapComps/map"
 import { groupBy } from "lodash"
@@ -42,12 +42,10 @@ function Map({ biosamples, height, datasetId }) {
       const geoLocation = biosamples[0].provenance?.geoLocation
       if (!geoLocation) return []
       const radius = 3000 + 2000 * biosamples.length
+      const root = createRoot(document.getElementById(randomId));
       const render = () =>
         // eslint-disable-next-line react/no-render-return-value
-        ReactDOM.render(
-          <BiosamplesTable biosamples={biosamples} datasetId={datasetId} />,
-          document.getElementById(randomId)
-        )
+        root.render( <BiosamplesTable biosamples={biosamples} datasetId={datasetId} /> )
       const latlng = getLatlngFromGeoJSON(geoLocation)
       const circle = createCircle(latlng, radius).bindPopup(
         `

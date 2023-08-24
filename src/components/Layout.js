@@ -90,6 +90,7 @@ function Side({ onClick }) {
           alt="progenetix"
         />
       </a>
+      <ul className="Layout__side__items">
         <MenuInternalLinkItem href="/search/" label="Search Samples" />
         <MenuInternalLinkItem
           href="/beaconPlus/"

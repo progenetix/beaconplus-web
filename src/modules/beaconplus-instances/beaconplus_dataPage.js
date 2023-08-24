@@ -52,7 +52,9 @@ function BeaconPlusNav({ beaconName }) {
         </Link>        
 
         <div className="Nav__links">
+{/*
           <ActiveLink label="Aggregator" href="/beaconAggregator/" />
+*/}
           <ActiveLink label="Progenetix" href="/" />
           <a href={SITE_DEFAULTS.MASTERDOCLINK} className="navbar-item">
             Help

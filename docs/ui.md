@@ -56,9 +56,5 @@ as well as the visualization of clustered CNV sample plots. Optios include the
 selection of individual chromosomes and the addition of labels (e.g. for selected
 genes or custom markers).
 
-## Ontology Services
-
-Please see the [Services & API](services.md) page for more information.
-
 
 [^1]: Values may change.
