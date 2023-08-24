@@ -1,5 +1,5 @@
 import { withUrlQuery } from "../../hooks/url-query"
-import { Layout } from "../../components/Layout"
+import { EntityLayout } from "../../components/EntityLayout"
 import React, { useRef, useState } from "react"
 import { GeneLabelOptions } from "../../components/formShared/GenespanUtilities"
 import { useForm } from "react-hook-form"
@@ -29,7 +29,7 @@ const DataVisualizationPage = withUrlQuery(({ urlQuery }) => {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
   return (
-    <Layout
+    <EntityLayout
       title="Data visualization"
       headline={`Data visualization (${sampleCount} samples)`}
     >
@@ -55,7 +55,7 @@ const DataVisualizationPage = withUrlQuery(({ urlQuery }) => {
           )}
         </div>
       )}
-    </Layout>
+    </EntityLayout>
   )
 })
 

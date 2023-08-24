@@ -31,19 +31,21 @@ export default function BiosamplesDataTable({ apiReply, datasetId }) {
           "Dx Classifications",
           "Terms for biological classifications associated with the sample (e.g. diagnosis, histology, organ site)"
         ),
-        accessor: "icdoMorphology.id",
+        accessor: "histologicalDiagnosis.id",
         // eslint-disable-next-line react/display-name
         Cell: (cell) => (
           <div>
             {BIOKEYS.map(bioc => (
-              <div key={bioc}>
-                <Link
-                href={`/subset/?id=${cell.row.original[bioc].id}&datasetIds=${datasetId}`}
-                >
-                  <a>{cell.row.original[bioc].id}</a>
-                </Link>{" "}
-                {cell.row.original[bioc].label}
-              </div>
+              cell.row.original[bioc]?.id && (
+                <div key={bioc}>
+                  <Link
+                  href={`/subset/?id=${cell.row.original[bioc].id}&datasetIds=${datasetId}`}
+                  >
+                    <a>{cell.row.original[bioc].id}</a>
+                  </Link>{" "}
+                  {cell.row.original[bioc].label}
+                </div>
+              )
             ))}
           </div>
         )

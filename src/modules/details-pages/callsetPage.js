@@ -7,7 +7,7 @@ import { BeaconRESTLink, InternalLink } from "../../components/helpersShared/lin
 
 import { Loader } from "../../components/Loader"
 import { withUrlQuery } from "../../hooks/url-query"
-import { Layout } from "../../components/Layout"
+import { EntityLayout } from "../../components/EntityLayout"
 
 const itemColl = "callsets"
 const exampleId = "pgxcs-kftvlijb"
@@ -17,13 +17,13 @@ const CallsetDetailsPage = withUrlQuery(({ urlQuery }) => {
   var datasetIds = SITE_DEFAULTS.DATASETID
   const hasAllParams = id && datasetIds
   return (
-    <Layout title="Callset Details" headline="Callset Details">
+    <EntityLayout title="Callset Details" headline="Callset Details">
       {!hasAllParams ? (
         NoResultsHelp(exampleId, itemColl)
       ) : (
         <CallsetLoader csId={id} datasetIds={datasetIds} />
       )}
-    </Layout>
+    </EntityLayout>
   )
 })
 

@@ -9,7 +9,7 @@ import { BeaconRESTLink, InternalLink, ReferenceLink } from "../../components/he
 import { WithData } from "../../components/Loader"
 import { withUrlQuery } from "../../hooks/url-query"
 import { AncestryData } from "../../components/AncestryData"
-import { Layout } from "../../components/Layout"
+import { EntityLayout } from "../../components/EntityLayout"
 import { ShowJSON } from "../../components/RawData"
 import { CallsetHistogram } from "../../components/SVGloaders"
 import { pluralizeWord }  from "../../components/helpersShared/labelHelpers"
@@ -37,13 +37,13 @@ const SampleDetailsPage = withUrlQuery(({ urlQuery }) => {
    }, [setIndividual]);
 
   return (
-    <Layout title="Sample Details">
+    <EntityLayout title="Sample Details">
       {!hasAllParams ? (
         NoResultsHelp(exampleId, itemColl)
       ) : (
         <BiosampleLoader biosId={id} individual={individual} datasetIds={datasetIds} />
       )}
-    </Layout>
+    </EntityLayout>
   )
 })
 
@@ -105,13 +105,14 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
   <h5>Diagnostic Classifications </h5>
   <ul>
   {BIOKEYS.map(bioc => (
+    biosample[bioc]?.id && (
     <li key={bioc}>
-      {biosample[bioc].label}{": "}
       <InternalLink
         href={`/subset/?id=${biosample[bioc].id}&datasetIds=${ datasetIds }`}
         label={biosample[bioc].id}
       />
     </li>
+    )
   ))}      
   </ul>
 

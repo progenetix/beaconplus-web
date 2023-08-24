@@ -5,7 +5,7 @@ beaconplus:
   description: ""
   parameters:
     datasetIds:
-      defaultValue: ["progenetix"]
+      defaultValue: ["examplez"]
     cohorts:
       defaultValue: [""]
     assemblyId:
@@ -33,7 +33,7 @@ beaconplus:
         This example shows the query for CNV deletion variants overlapping the
         CDKN2A gene's coding region with at least a single base, but limited
         to "focal" hits (here i.e. <= ~2Mbp in size). The query is against the
-        progenetix collection and can be modified e.g. through changing the position
+        examplez collection and can be modified e.g. through changing the position
         parameters or data source.
       parameters:
         referenceName:
@@ -67,7 +67,7 @@ beaconplus:
         mutation in the EIF4A1 gene, in the DIPG childhood brain tumor dataset.
       parameters:
         datasetIds:
-          defaultValue: ["progenetix"]
+          defaultValue: ["examplez"]
         assemblyId:
           defaultValue: "GRCh38"
         referenceName:
@@ -116,7 +116,7 @@ beaconplus:
         handover [H—>O] link.
       parameters:
         datasetIds:
-          defaultValue: ["progenetix"]
+          defaultValue: ["examplez"]
         assemblyId:
           defaultValue: "GRCh38"
           isHidden: true

@@ -7,7 +7,7 @@ import { ReferenceLink, BeaconRESTLink, InternalLink, ExternalLink } from "../..
 import { AncestryData } from "../../components/AncestryData"
 import { WithData } from "../../components/Loader"
 import { withUrlQuery } from "../../hooks/url-query"
-import { Layout } from "../../components/Layout"
+import { EntityLayout } from "../../components/EntityLayout"
 import { ShowJSON } from "../../components/RawData"
 
 const itemColl = "individuals"
@@ -18,13 +18,13 @@ const IndividualDetailsPage = withUrlQuery(({ urlQuery }) => {
   var datasetIds = SITE_DEFAULTS.DATASETID
   const hasAllParams = id && datasetIds
   return (
-    <Layout title="Individual Details">
+    <EntityLayout title="Individual Details">
       {!hasAllParams ? (
         NoResultsHelp(exampleId, itemColl)
       ) : (
         <IndividualLoader id={id} datasetIds={datasetIds} />
       )}
-    </Layout>
+    </EntityLayout>
   )
 })
 
