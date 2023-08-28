@@ -95,7 +95,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     Sample Details for <i>{biosId}</i>
   </h2>
 
-  {biosample.notes && (
+  {biosample?.notes && (
     <>
       <h5>Description</h5>
       <p>{biosample.notes}</p>
@@ -116,7 +116,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
   ))}      
   </ul>
 
-  {biosample.celllineInfo && (
+  {biosample?.celllineInfo && (
     <>
     <h5>Cell Line Info</h5>
     <ul>
@@ -207,7 +207,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </>
   )}
 
-  {biosample.externalReferences && (
+  {biosample?.externalReferences && (
     <>
     <h5>External References</h5>
     <ul>
@@ -233,7 +233,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </>
   )}
 
-  { biosample.info && biosample.info?.callsetIds?.length > 0 && (
+  { biosample?.info && biosample.info?.callsetIds?.length > 0 && (
     <>
       <h5>CNV {pluralizeWord("Plot", biosample.info.callsetIds.length)}</h5>
       {biosample.info?.callsetIds.map((csid, i) => (
