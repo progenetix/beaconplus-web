@@ -1,14 +1,15 @@
 import React from "react"
-import { useRouter } from "next/router"
-import parametersConfig from "../shared/searchParameters.yaml"
-import requestTypesConfig from "./beaconAggregator_searchParameters.yaml"
-import AggregatorSearchPanel from "../../components/searchForm/AggregatorSearchPanel"
-import ActiveLink from "../../components/ActiveLink"
-import Panel from "../../components/Panel"
 import Link from "next/link"
-import { SITE_DEFAULTS } from "../../hooks/api"
+import { useRouter } from "next/router"
+import parametersConfig from "../config/searchParameters.yaml"
+import requestTypesConfig from "../config/beaconAggregator_searchParameters.yaml"
+import AggregatorSearchPanel from "../components/searchForm/AggregatorSearchPanel"
+import ActiveLink from "../components/ActiveLink"
+import Panel from "../components/Panel"
+import { SITE_DEFAULTS } from "../hooks/api"
 
-export default function BeaconAggregatorPage({ cytoBands }) {
+
+export default function BeaconAggregatorPage({cytoBands}) {
   return (
     <>
       <BeaconPlusNav />
@@ -31,6 +32,7 @@ export default function BeaconAggregatorPage({ cytoBands }) {
     </>
   )
 }
+            // cytoBands={cytoBands}
 
 function BeaconPlusNav({ beaconName }) {
   const router = useRouter()

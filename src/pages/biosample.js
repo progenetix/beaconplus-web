@@ -1,2 +1,2 @@
-import Page from "../modules/details-pages/biosamplePage"
+import Page from "../modules/biosamplePage"
 export default Page

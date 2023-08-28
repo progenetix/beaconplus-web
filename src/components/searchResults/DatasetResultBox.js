@@ -17,7 +17,7 @@ import BiosamplesStatsDataTable from "./BiosamplesStatsDataTable"
 import { WithData } from "../Loader"
 import { openJsonInNewTab } from "../../utils/files"
 import dynamic from "next/dynamic"
-import { getVisualizationLink } from "../../modules/service-pages/dataVisualizationPage"
+import { getVisualizationLink } from "../../modules/dataVisualizationPage"
 
 const HANDOVER_IDS = {
   histoplot: "histoplot", //  "pgx:HO.histoplot",

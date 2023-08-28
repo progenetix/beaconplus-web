@@ -1,2 +1,2 @@
-import Page from "../modules/details-pages/individualPage"
+import Page from "../modules/individualPage"
 export default Page

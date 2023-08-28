@@ -2,13 +2,13 @@ import {
   SITE_DEFAULTS,
   useDataItemDelivery,
   NoResultsHelp
-} from "../../hooks/api"
-import { ReferenceLink, BeaconRESTLink, InternalLink, ExternalLink } from "../../components/helpersShared/linkHelpers"
-import { AncestryData } from "../../components/AncestryData"
-import { WithData } from "../../components/Loader"
-import { withUrlQuery } from "../../hooks/url-query"
-import { EntityLayout } from "../../components/EntityLayout"
-import { ShowJSON } from "../../components/RawData"
+} from "../hooks/api"
+import { ReferenceLink, BeaconRESTLink, InternalLink, ExternalLink } from "../components/helpersShared/linkHelpers"
+import { AncestryData } from "../components/AncestryData"
+import { WithData } from "../components/Loader"
+import { withUrlQuery } from "../hooks/url-query"
+import { EntityLayout } from "../components/EntityLayout"
+import { ShowJSON } from "../components/RawData"
 
 const itemColl = "individuals"
 const exampleId = "pgxind-kftx266l"

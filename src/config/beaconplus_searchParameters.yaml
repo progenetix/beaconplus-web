@@ -129,7 +129,7 @@ beaconplus:
         end:
           defaultValue: 7579005
         variantType:
-          defaultValue: ""
+          defaultValue: "SO:0001059"
         alternateBases:
           defaultValue: ""
         referenceBases:

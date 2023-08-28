@@ -1,2 +1,2 @@
-import Page from "../modules/details-pages/callsetPage"
+import Page from "../modules/callsetPage"
 export default Page

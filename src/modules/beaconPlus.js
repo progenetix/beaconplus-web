@@ -1,11 +1,11 @@
 import React from "react"
-import parametersConfig from "../shared/searchParameters.yaml"
-import requestTypesConfig from "./beaconplus_searchParameters.yaml"
-import BiosamplesSearchPanel from "../../components/searchForm/BiosamplesSearchPanel"
-import BeaconPlusNav from "../../components/BeaconPlusNav"
-import Panel from "../../components/Panel"
+import parametersConfig from "../config/searchParameters.yaml"
+import requestTypesConfig from "../config/beaconplus_searchParameters.yaml"
+import BiosamplesSearchPanel from "../components/searchForm/BiosamplesSearchPanel"
+import BeaconPlusNav from "../components/BeaconPlusNav"
+import Panel from "../components/Panel"
 
-export default function BeaconPlusPage({ cytoBands }) {
+export default function BeaconPlusPage({cytoBands}) {
   return (
     <>
       <BeaconPlusNav />
@@ -33,3 +33,36 @@ export default function BeaconPlusPage({ cytoBands }) {
   )
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import Page from "../modules/beaconplus-instances/beaconPlus_dataPage"
+// import { getCytoBands } from "../utils/genome"
+// export default Page
+
+// // This function gets called at build time on server-side.
+// export const getStaticProps = async () => ({
+//   props: {
+//     cytoBands: await getCytoBands()
+//   }
+// })

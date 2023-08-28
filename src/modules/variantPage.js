@@ -3,13 +3,13 @@ import {
   useDataItemDelivery,
   NoResultsHelp,
   SITE_DEFAULTS
-} from "../../hooks/api"
-import { ExternalLink, ReferenceLink } from "../../components/helpersShared/linkHelpers"
-import { WithData } from "../../components/Loader"
-import { withUrlQuery } from "../../hooks/url-query"
-import { EntityLayout } from "../../components/EntityLayout"
-import { ShowJSON } from "../../components/RawData"
-import { BiosamplePlot } from "../../components/SVGloaders"
+} from "../hooks/api"
+import { ExternalLink, ReferenceLink } from "../components/helpersShared/linkHelpers"
+import { WithData } from "../components/Loader"
+import { withUrlQuery } from "../hooks/url-query"
+import { EntityLayout } from "../components/EntityLayout"
+import { ShowJSON } from "../components/RawData"
+import { BiosamplePlot } from "../components/SVGloaders"
 import React from "react"
 
 const entity = "variants"

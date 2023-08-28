@@ -2,12 +2,12 @@ import {
   SITE_DEFAULTS,
   useDataItemDelivery,
   NoResultsHelp
-} from "../../hooks/api"
-import { BeaconRESTLink, InternalLink } from "../../components/helpersShared/linkHelpers"
+} from "../hooks/api"
+import { BeaconRESTLink, InternalLink } from "../components/helpersShared/linkHelpers"
 
-import { Loader } from "../../components/Loader"
-import { withUrlQuery } from "../../hooks/url-query"
-import { EntityLayout } from "../../components/EntityLayout"
+import { Loader } from "../components/Loader"
+import { withUrlQuery } from "../hooks/url-query"
+import { EntityLayout } from "../components/EntityLayout"
 
 const itemColl = "callsets"
 const exampleId = "pgxcs-kftvlijb"

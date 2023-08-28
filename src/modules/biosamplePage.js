@@ -4,15 +4,15 @@ import {
   BIOKEYS,
   useDataItemDelivery,
   NoResultsHelp
-} from "../../hooks/api"
-import { BeaconRESTLink, InternalLink, ReferenceLink } from "../../components/helpersShared/linkHelpers"
-import { WithData } from "../../components/Loader"
-import { withUrlQuery } from "../../hooks/url-query"
-import { AncestryData } from "../../components/AncestryData"
-import { EntityLayout } from "../../components/EntityLayout"
-import { ShowJSON } from "../../components/RawData"
-import { CallsetHistogram } from "../../components/SVGloaders"
-import { pluralizeWord }  from "../../components/helpersShared/labelHelpers"
+} from "../hooks/api"
+import { BeaconRESTLink, InternalLink, ReferenceLink } from "../components/helpersShared/linkHelpers"
+import { WithData } from "../components/Loader"
+import { withUrlQuery } from "../hooks/url-query"
+import { AncestryData } from "../components/AncestryData"
+import { EntityLayout } from "../components/EntityLayout"
+import { ShowJSON } from "../components/RawData"
+import { CallsetHistogram } from "../components/SVGloaders"
+import { pluralizeWord }  from "../components/helpersShared/labelHelpers"
 
 const itemColl = "biosamples"
 const exampleId = "pgxbs-kftvir6m"

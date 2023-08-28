@@ -1,2 +1,2 @@
-import Page from "../modules/details-pages/variantPage"
+import Page from "../modules/variantPage"
 export default Page

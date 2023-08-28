@@ -1,4 +1,4 @@
-import Page from "../modules/beaconplus-instances/beaconAggregator_dataPage"
+import Page from "../modules/beaconAggregator"
 import { getCytoBands } from "../utils/genome"
 export default Page
 
