@@ -39,7 +39,7 @@ function Map({ biosamples, height, datasetId }) {
 
     const circles = Object.entries(byCoordinates).flatMap(([, biosamples]) => {
       const randomId = Math.random().toString(36).substring(2, 15)
-      const geoLocation = biosamples[0].provenance?.geoLocation
+      const geoLocation = biosamples[0]?.provenance?.geoLocation
       if (!geoLocation) return []
       const radius = 3000 + 2000 * biosamples.length
       const root = createRoot(document.getElementById(randomId));
