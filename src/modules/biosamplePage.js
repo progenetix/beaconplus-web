@@ -265,7 +265,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
       <BeaconRESTLink
         entryType="biosamples"
         idValue={biosId}
-        responseType="variants"
+        responseType="genomicVariations"
         datasetIds={datasetIds}
         label="Beacon JSON"
       />
@@ -274,7 +274,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
       <BeaconRESTLink
         entryType="biosamples"
         idValue={biosId}
-        responseType="variants"
+        responseType="genomicVariations"
         datasetIds={datasetIds}
         output="pgxseg"
         label="Progenetix .pgxseg file"
@@ -284,7 +284,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
       <BeaconRESTLink
         entryType="biosamples"
         idValue={biosId}
-        responseType="variants"
+        responseType="genomicVariations"
         datasetIds={datasetIds}
         output="vcf"
         label="(experimental) VCF 4.4 file"
