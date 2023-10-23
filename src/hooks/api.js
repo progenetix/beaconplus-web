@@ -327,7 +327,7 @@ export function useGeneSymbol({ geneId }) {
 }
 
 export function subsetHistoBaseLink(id, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}services/intervalFrequencies/?datasetIds=${datasetIds}&id=${id}&output=histoplot`
+  return `${SITE_DEFAULTS.API_PATH}services/collationplots/?datasetIds=${datasetIds}&id=${id}`
 }
 
 // the targets are resolved by `bycon` (bycon/services/ids.py)

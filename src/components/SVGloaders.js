@@ -99,6 +99,5 @@ export function BiosamplePlot({ biosid, datasetIds, plotRegionLabels, plotChros}
 
 SubsetHistogram.propTypes = {
   id: PropTypes.string.isRequired,
-  filter: PropTypes.string,
   background: PropTypes.bool
 }
