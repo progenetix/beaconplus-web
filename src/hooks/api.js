@@ -205,13 +205,10 @@ export function buildQueryParameters(queryData) {
 }
 
 export function useDataVisualization(queryData) {
-
   var q_path = "beacon/biosamples"
-
   if (queryData.fileId && queryData.fileId != "null") {
     q_path = "services/samplesPlotter"
   }
-
   return useProgenetixApi(
     queryData
       ? `${SITE_DEFAULTS.API_PATH}${q_path}/?${buildDataVisualizationParameters(
@@ -239,27 +236,11 @@ export function getDataItemUrl(id, entity, datasetIds) {
   return `${SITE_DEFAULTS.API_PATH}beacon/${entity}/${id}/?datasetIds=${datasetIds}`
 }
 
-export function useServiceItemDelivery(id, entity, datasetIds) {
-  return useProgenetixApi(getServiceItemUrl(id, entity, datasetIds))
-}
-
-export function getServiceItemUrl(id, collection, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}services/${collection}?id=${id}&datasetIds=${datasetIds}`
-}
-
-export function getDataItemPageUrl(id, entity, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}${entity}/?datasetIds=${datasetIds}&${
-    entity == "variants" ? "_id" : "id"
-  }=${id}`
-}
-
 export function NoResultsHelp(id, entity) {
-  const url = getDataItemPageUrl(id, entity, SITE_DEFAULTS.DATASETID)
   return (
     <div className="notification is-size-5">
-      This page will only show content if called with a specific biosample ID
-      which already exists in Progenetix {" "}
-      <strong>{entity}</strong> database, e.g. <a href={url}>{url}</a>.
+      This page will only show content if called with an existing {entity} ID;{" "}
+      is not valid.
     </div>
   )
 }
@@ -272,7 +253,7 @@ export function useCytomapper(querytext) {
   return useProgenetixApi(url)
 }
 
-export function useSubsethistogram({ datasetIds, id, filter, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, size, chr2plot }) {
+export function useSubsethistogram({ datasetIds, id, filter, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, size, plotChros }) {
   const svgbaseurl = subsetHistoBaseLink(id, datasetIds)
   const params = []
   filter && params.push(["filter", filter])
@@ -280,7 +261,7 @@ export function useSubsethistogram({ datasetIds, id, filter, plotRegionLabels, p
   plotGeneSymbols && params.push(["plotGeneSymbols", plotGeneSymbols])
   plotCytoregionLabels && params.push(["plotCytoregionLabels", plotCytoregionLabels])
   size && params.push(["plotWidth", size])
-  chr2plot && params.push(["chr2plot", chr2plot])
+  plotChros && params.push(["plotChros", plotChros])
   const searchQuery = new URLSearchParams(params).toString()
   return useExtendedSWR(size > 0 && `${svgbaseurl}&${searchQuery}`, svgFetcher)
 }
