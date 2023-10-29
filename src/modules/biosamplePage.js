@@ -11,7 +11,7 @@ import { withUrlQuery } from "../hooks/url-query"
 import { AncestryData } from "../components/AncestryData"
 import { EntityLayout } from "../components/EntityLayout"
 import { ShowJSON } from "../components/RawData"
-import { CallsetHistogram } from "../components/SVGloaders"
+import { BiosamplePlot } from "../components/SVGloaders"
 import { pluralizeWord }  from "../components/helpersShared/labelHelpers"
 
 const itemColl = "biosamples"
@@ -233,14 +233,8 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </>
   )}
 
-  { biosample?.info && biosample.info?.callsetIds?.length > 0 && (
-    <>
-      <h5>CNV {pluralizeWord("Plot", biosample.info.callsetIds.length)}</h5>
-      {biosample.info?.callsetIds.map((csid, i) => (
-        <CallsetHistogram key={i} csid={csid} datasetIds={datasetIds} />
-      ))}
-    </>
-  )}
+  <h5>CNV Data</h5>
+  <BiosamplePlot key={i} biosid={biosId} datasetIds={datasetIds} />
 
   <h5>Download</h5>
   <ul>
