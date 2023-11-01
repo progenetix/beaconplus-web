@@ -2,16 +2,6 @@
 datasetIds:
   label: Dataset
   isMulti: true
-  rules:
-    required: true
-  defaultValue: ["progenetix"]
-  options:
-    - value: progenetix
-      label: Progenetix
-    - value: cellz
-      label: Cancer Cell Lines Collection
-    - value: examplez
-      label: Test Database - examplez
 assemblyId:
   label: Genome Assembly
   infoText: |
@@ -22,59 +12,67 @@ assemblyId:
       label: GRCh38 / hg38
 geneId:
   label: Gene Symbol
-  infoText: The gene symbol (HUGO).
+  infoText: The gene symbol (HUGO), e.g. "TP53".
+  placeholder: CDKN2A
+aminoacidChange:
+  label: Aminoacid alteration
+  infoText: Aminoacid alteration in 1 letter format (e.g. "V600E").
+  placeholder: V600E
+genomicAlleleShortForm:
+  label: Genomic HGVS ID 
+  infoText: Genomic HGVSId descriptor.
+  placeholder: NC_000017.11:g.7674232C>G
 referenceName:
   label: Chromosome
   infoText: The chromosome with the variant(s).
-  placeholder: "refseq:NC_000009.12"
   options:
-    - label: "NC_000001.11"
+    - label: "1 (NC_000001.11)"
       value: "refseq:NC_000001.11"
-    - label: "NC_000002.12"
+    - label: "2 (NC_000002.12)"
       value: "refseq:NC_000002.12"
-    - label: "NC_000003.12"
+    - label: "3 (NC_000003.12)"
       value: "refseq:NC_000003.12"
-    - label: "NC_000004.12"
+    - label: "4 (NC_000004.12)"
       value: "refseq:NC_000004.12"
-    - label: "NC_000005.10"
+    - label: "5 (NC_000005.10)"
       value: "refseq:NC_000005.10"
-    - label: "NC_000006.12"
+    - label: "6 (NC_000006.12)"
       value: "refseq:NC_000006.12"
-    - label: "NC_000007.14"
+    - label: "7 (NC_000007.14)"
       value: "refseq:NC_000007.14"
-    - label: "NC_000008.11"
+    - label: "8 (NC_000008.11)"
       value: "refseq:NC_000008.11"
-    - label: "NC_000009.12"
+    - label: "9 (NC_000009.12)"
       value: "refseq:NC_000009.12"
-    - label: "NC_000010.11"
+    - label: "10 (NC_000010.11)"
       value: "refseq:NC_000010.11"
-    - label: "NC_000011.10"
+    - label: "11 (NC_000011.10)"
       value: "refseq:NC_000011.10"
-    - label: "NC_000012.12"
+    - label: "12 (NC_000012.12)"
       value: "refseq:NC_000012.12"
-    - label: "NC_000013.11"
+    - label: "13 (NC_000013.11)"
       value: "refseq:NC_000013.11"
-    - label: "NC_000014.9"
+    - label: "14 (NC_000014.9)"
       value: "refseq:NC_000014.9"
-    - label: "NC_000015.10"
+    - label: "15 (NC_000015.10)"
       value: "refseq:NC_000015.10"
-    - label: "NC_000016.10"
+    - label: "16 (NC_000016.10)"
       value: "refseq:NC_000016.10"
-    - label: "NC_000017.11"
+    - label: "17 (NC_000017.11)"
       value: "refseq:NC_000017.11"
-    - label: "NC_000018.10"
+    - label: "18 (NC_000018.10)"
       value: "refseq:NC_000018.10"
-    - label: "NC_000019.10"
+    - label: "19 (NC_000019.10)"
       value: "refseq:NC_000019.10"
-    - label: "NC_000020.11"
+    - label: "20 (NC_000020.11)"
       value: "refseq:NC_000020.11"
-    - label: "NC_000021.9"
+    - label: "21 (NC_000021.9)"
       value: "refseq:NC_000021.9"
-    - label: "NC_000022.11"
+    - label: "22 (NC_000022.11)"
       value: "refseq:NC_000022.11"
-    - label: "NC_000023.11 (X)"
+    - label: "X (NC_000023.11)"
       value: "refseq:NC_000023.11"
-    - label: "NC_000024.10 (Y)"
+    - label: "Y (NC_000024.10)"
       value: "refseq:NC_000024.10"
 variantType:
   label: "Variant Type"
@@ -123,14 +121,10 @@ cohorts:
   label: Cohorts
   infoText: >
     An aggregation of samples by origin (e.g. study, external resource), shared features or use in a publication.
+  isMulti: true
   rules:
     required: false
   defaultValue: ""
-  # options:
-  #   - value: ""
-  #     label: "(no selection)"
-  #   - value: pgx:cohort-arraymap
-  #     label: arrayMap Samples
 bioontology:
   label: Cancer Classification(s)
   infoLink: "https://info.progenetix.org/doc/filters-documentation.html"

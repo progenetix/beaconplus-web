@@ -224,6 +224,22 @@ parameters = merge({}, parameters, {
             <GeneSymbolSelector {...parameters.geneId} {...selectProps} />
           )}
           <div className="columns my-0">
+            <InputField
+              className={cn(
+                !parameters.aminoacidChange.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.aminoacidChange} {...selectProps}
+            />
+            <InputField
+              className={cn(
+                !parameters.genomicAlleleShortForm.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.genomicAlleleShortForm} {...selectProps}
+            />
+          </div>
+          <div className="columns my-0">
             <SelectField
               className={cn(
                 !parameters.referenceName.isHidden && "column",
@@ -518,6 +534,8 @@ function validateForm(formValues) {
     start,
     end,
     geneId,
+    aminoacidChange,
+    genomicAlleleShortForm,
     bioontology,
     clinicalClasses,
     referenceid,
@@ -529,7 +547,7 @@ function validateForm(formValues) {
   const setMissing = (name) =>
     errors.push([name, { type: "manual", message: "Parameter is missing" }])
 
-  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !variantType && !geneId && !bioontology && !referenceid && !freeFilters && !clinicalClasses && !cohorts) {
+  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !variantType && !geneId && !aminoacidChange && !genomicAlleleShortForm && !bioontology && !referenceid && !freeFilters && !clinicalClasses && !cohorts) {
     !referenceName && setMissing("referenceName")
     !referenceBases && setMissing("referenceBases")
     !alternateBases && setMissing("alternateBases")

@@ -38,10 +38,6 @@
     This example shows a core Beacon query, against a specific
     mutation in the EIF4A1 gene, in the DIPG childhood brain tumor dataset.
   parameters:
-    datasetIds:
-      defaultValue: ["examplez"]
-    assemblyId:
-      defaultValue: "GRCh38"
     referenceName:
       defaultValue: "refseq:NC_000017.11"
     start:
@@ -89,9 +85,6 @@
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
-    assemblyId:
-      defaultValue: "GRCh38"
-      isHidden: true
     referenceName:
       defaultValue: "refseq:NC_000017.11"
     geneId:
@@ -132,3 +125,68 @@
       isHidden: true
     cohorts:
       isHidden: true
+- label: "Aminoacid Example"
+  note: "Where supported beacons can discover variants by their aminoacid change."
+  description: |
+    Beacons in v2 can support the discovery of variants by their amino acid change
+    in the single AA alteration form (e.g. "V600E"). For more specificity this
+    parameter can be combined with the gene symbol (e.g. "BRAF").
+  parameters:
+    datasetIds:
+      defaultValue: ["cellz"]
+    aminoacidChange:
+      isHidden: false
+      defaultValue: V600E
+    geneId:
+      isHidden: false
+      defaultValue: BRAF
+    genomicAlleleShortForm:
+      isHidden: true
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantMinLength:
+      isHidden: true
+    variantMaxLength:
+      isHidden: true
+    variantType:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: true
+    clinicalClasses:
+      isHidden: true
+    accessid:
+      isHidden: true
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    geoCity:
+      isHidden: true
+    geodistanceKm:
+      isHidden: true
+    skip:
+      defaultValue: 0
+    limit:
+      defaultValue: 100
+    freeFilters:
+      isHidden: true
+    sex:
+      isHidden: true
+    materialtype:
+      isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+- label: "All Fields"
+  parameters: {}
+
+

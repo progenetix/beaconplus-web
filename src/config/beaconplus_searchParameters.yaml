@@ -5,12 +5,20 @@ description: ""
 parameters:
   datasetIds:
     defaultValue: ["examplez"]
+    options:
+      - value: progenetix
+        label: Progenetix
+      - value: cellz
+        label: Cancer Cell Lines Collection
+      - value: examplez
+        label: Test Database - examplez
   cohorts:
     defaultValue: [""]
   assemblyId:
-    placeholder: "GRCh38"
+    defaultValue: "GRCh38"
+    isHidden: true
   referenceName:
-    placeholder: "9"
+    placeholder: "refseq:NC_000009.12"
   start:
     placeholder: "19000001-21975098"
   end:

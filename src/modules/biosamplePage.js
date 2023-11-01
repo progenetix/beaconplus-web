@@ -12,7 +12,6 @@ import { AncestryData } from "../components/AncestryData"
 import { EntityLayout } from "../components/EntityLayout"
 import { ShowJSON } from "../components/RawData"
 import { BiosamplePlot } from "../components/SVGloaders"
-import { pluralizeWord }  from "../components/helpersShared/labelHelpers"
 
 const itemColl = "biosamples"
 const exampleId = "pgxbs-kftvir6m"
@@ -234,7 +233,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
   )}
 
   <h5>CNV Data</h5>
-  <BiosamplePlot key={i} biosid={biosId} datasetIds={datasetIds} />
+  <BiosamplePlot biosid={biosId} datasetIds={datasetIds} />
 
   <h5>Download</h5>
   <ul>
