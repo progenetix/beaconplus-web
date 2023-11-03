@@ -35,13 +35,12 @@ BiosamplesSearchForm.propTypes = {
   cytoBands: PropTypes.object.isRequired,
   isQuerying: PropTypes.bool.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
-  requestTypeConfig: PropTypes.object.isRequired,
   requestTypeExamples: PropTypes.object.isRequired,
   parametersConfig: PropTypes.object.isRequired
 }
 
 function urlQueryToFormParam(urlQuery, key, parametersConfig) {
-  const isMulti = !!parametersConfig[key]?.isMulti ?? false
+  const isMulti = !!parametersConfig.parameters[key]?.isMulti ?? false
   const value = urlQuery[key]
   if (value == null) return value
   if (isMulti) {
@@ -74,7 +73,6 @@ export function Form({
   cytoBands,
   isQuerying,
   setSearchQuery,
-  requestTypeConfig,
   requestTypeExamples,
   parametersConfig,
   urlQuery,
@@ -84,8 +82,8 @@ export function Form({
   const [example, setExample] = useState(null)
   let parameters = useMemo(
     () =>
-      makeParameters(parametersConfig, requestTypeConfig, example),
-    [example, parametersConfig, requestTypeConfig]
+      makeParameters(parametersConfig, example),
+    [example, parametersConfig]
   )
 
   const initialValues = transform(parameters, (r, v, k) => {
@@ -218,27 +216,33 @@ parameters = merge({}, parameters, {
               {errors.global.message}
             </div>
           )}
-          <SelectField {...parameters.datasetIds} {...selectProps} />
           <SelectField {...parameters.assemblyId} {...selectProps} />
-          {!parameters.geneId.isHidden && (
-            <GeneSymbolSelector {...parameters.geneId} {...selectProps} />
+          {!parameters.datasetIds.isHidden && (
+            <SelectField
+              {...parameters.datasetIds} {...selectProps}
+            />
           )}
           <div className="columns my-0">
-            <InputField
-              className={cn(
-                !parameters.aminoacidChange.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...parameters.aminoacidChange} {...selectProps}
-            />
             <InputField
               className={cn(
                 !parameters.genomicAlleleShortForm.isHidden && "column",
                 "py-0 mb-3"
               )}
-              {...parameters.genomicAlleleShortForm} {...selectProps}
+              {...parameters.genomicAlleleShortForm} {...fieldProps}
+            />
+            <InputField
+              className={cn(
+                !parameters.aminoacidChange.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.aminoacidChange} {...fieldProps}
             />
           </div>
+          {!parameters.geneId.isHidden && (
+            <GeneSymbolSelector
+              {...parameters.geneId} {...selectProps}
+            />
+          )}
           <div className="columns my-0">
             <SelectField
               className={cn(
@@ -301,8 +305,6 @@ parameters = merge({}, parameters, {
                 validate: checkIntegerRange
               }}
             />
-          </div>
-          <div className="columns my-0">
             <InputField
               className={cn(
                 !parameters.referenceBases.isHidden && "column",
@@ -462,6 +464,11 @@ parameters = merge({}, parameters, {
           </div>
         </form>
       </div>
+      {example?.img && (
+          <div>
+            <img src={example.img}/>
+          </div>
+      )}
     </>
   )
 }
@@ -494,21 +501,18 @@ function ExampleDescription({ example }) {
 
 function makeParameters(
   parametersConfig,
-  requestTypeConfig,
   example
 ) {
   // merge base parameters config and request config
   const mergedConfigs = merge(
     {}, // important to not mutate the object
-    parametersConfig,
-    requestTypeConfig?.parameters,
+    parametersConfig.parameters,
     example?.parameters ?? {}
   )
   // add name the list
   let parameters = transform(mergedConfigs, (r, v, k) => {
     r[k] = { name: k, ...v }
   })
-
   return parameters
 }
 
@@ -620,24 +624,3 @@ function FilterLogicWarning({ isVisible }) {
     </span>
   )
 }
-
-// function ShowMoreParameters() {
-
-//   const [isOpened, setIsOpened] = useState(false);
-
-//   function toggle() {
-//     setIsOpened(wasOpened => !wasOpened);
-//   }
-
-//   return (
-//     <>
-//       <h5><span onClick={toggle}>More Parameters (click to show/hide)</span></h5>
-//         {isOpened && (
-//           <div>
-//             <pre className="prettyprint">{ JSON.stringify(data, null, 2) }</pre>
-//           </div>
-//         )}
-//     </>
-//   )
-// }
-

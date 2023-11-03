@@ -2,7 +2,6 @@ import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import parametersConfig from "../config/searchParameters.yaml"
-import requestTypeConfig from "../config/beaconAggregator_searchParameters.yaml"
 import AggregatorSearchPanel from "../components/searchForm/AggregatorSearchPanel"
 import ActiveLink from "../components/ActiveLink"
 import Panel from "../components/Panel"
@@ -24,7 +23,6 @@ export default function BeaconAggregatorPage({cytoBands}) {
           <AggregatorSearchPanel
             cytoBands={cytoBands}
             parametersConfig={parametersConfig}
-            requestTypeConfig={requestTypeConfig}
             collapsed={false}
           />
         </div>

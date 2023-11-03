@@ -52,6 +52,18 @@ function QuerySummary({ query }) {
           {query.geneId.value}
         </li>
       )}
+      {query.aminoacidChange && (
+        <li>
+          <small>Aminoacid Change: </small>
+          {query.aminoacidChange.value}
+        </li>
+      )}
+      {query.genomicAlleleShortForm && (
+        <li>
+          <small>HGVS: </small>
+          {query.genomicAlleleShortForm.value}
+        </li>
+      )}
       {query.referenceName && (
         <li>
           <small>Chro: </small>

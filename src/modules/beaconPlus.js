@@ -1,6 +1,5 @@
 import React from "react"
 import parametersConfig from "../config/searchParameters.yaml"
-import requestTypeConfig from "../config/beaconplus_searchParameters.yaml"
 import requestTypeExamples from "../config/beaconplus_searchExamples.yaml"
 import BiosamplesSearchPanel from "../components/searchForm/BiosamplesSearchPanel"
 import BeaconPlusNav from "../components/BeaconPlusNav"
@@ -25,7 +24,6 @@ export default function BeaconPlusPage({cytoBands}) {
           <BiosamplesSearchPanel
             cytoBands={cytoBands}
             parametersConfig={parametersConfig}
-            requestTypeConfig={requestTypeConfig}
             requestTypeExamples={requestTypeExamples}
             collapsed={false}
           />

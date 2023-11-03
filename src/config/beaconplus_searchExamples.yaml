@@ -7,7 +7,14 @@
     to "focal" hits (here i.e. <= ~2Mbp in size). The query is against the
     examplez collection and can be modified e.g. through changing the position
     parameters or data source.
+  img: https://docs.genomebeacons.org/img/BeaconBracketQuery-limited-match-graphics.png
   parameters:
+    aminoacidChange:
+      isHidden: true
+    geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: true
     referenceName:
       defaultValue: "refseq:NC_000009.12"
     start:
@@ -17,10 +24,12 @@
     variantType:
       defaultValue: "EFO:0030067"
     alternateBases:
-      defaultValue: ""
       isHidden: true
     referenceBases:
-      defaultValue: ""
+      isHidden: true
+    variantMinLength:
+      isHidden: true
+    variantMaxLength:
       isHidden: true
     bioontology:
       defaultValue: [NCIT:C3058]
@@ -38,31 +47,33 @@
     This example shows a core Beacon query, against a specific
     mutation in the EIF4A1 gene, in the DIPG childhood brain tumor dataset.
   parameters:
+    aminoacidChange:
+      isHidden: true
+    geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: true
     referenceName:
       defaultValue: "refseq:NC_000017.11"
     start:
       defaultValue: 7577121
     end:
-      defaultValue: ""
+      isHidden: true
     variantType:
-      defaultValue: ""
+      defaultValue: "SO:0001059"
     alternateBases:
       defaultValue: "A"
-      isHidden: false
     referenceBases:
       defaultValue: "G"
-      isHidden: false
-    clinicalClasses:
+    variantMinLength:
       isHidden: true
-    accessid:
+    variantMaxLength:
+      isHidden: true
+    clinicalClasses:
       isHidden: true
     filterLogic:
       isHidden: true
     includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
       isHidden: true
     skip:
       defaultValue: 0
@@ -71,11 +82,13 @@
     freeFilters:
       defaultValue: ""
       isHidden: true
+    accessid:
+      isHidden: true
 - label: "SNV Range Example"
   note: "Example for EIF4A1 transcript region matches (precise variants)"
   description: |
     As in the standard SNV query, this example shows a Beacon query against
-    mutations in the EIF4A1 gene in the DIPG childhood brain tumor dataset.
+    mutations in the `EIF4A1` gene in the DIPG childhood brain tumor dataset.
     However, this range + wildcard query will return any variant with
     alternate bases (indicated through "N").
     Since parameters will be interpreted using an "AND" paradigm, either <i>Alternate
@@ -88,6 +101,10 @@
     referenceName:
       defaultValue: "refseq:NC_000017.11"
     geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: true
+    aminoacidChange:
       isHidden: true
     start:
       defaultValue: 7572826
@@ -118,11 +135,75 @@
     freeFilters:
       isHidden: true
     sex:
-      isHidden: true
+      isHidden: false
     materialtype:
       isHidden: true
     referenceid:
       isHidden: true
+    cohorts:
+      isHidden: true
+- label: "Gene Match"
+  note: |
+    Where supported beacons can discover variants overlap with the region of a known gene.
+  description: |
+    Beacons in v2 can support the discovery of variants with overlap with the
+    genomic location of a gene, indicated by its symbol (e.g. `BRAF`). Additional
+    parameters can _optionally_ be used to make matches more specific:
+    - `variantMinLength` and `variantMaxLength` to limit matched CNV sizes
+    - `genomicAlleleShortForm` (e.g. `V600E` with `BRAF`)
+    - `variantType` and `alternateBases` to specify variants
+    Here we also show the fields for some commonly used metadata elements.
+  parameters:
+    datasetIds:
+      defaultValue: ["cellz"]
+    aminoacidChange:
+      isHidden: false
+    geneId:
+      isHidden: false
+    genomicAlleleShortForm:
+      isHidden: true
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantMinLength:
+      isHidden: false
+    variantMaxLength:
+      isHidden: false
+    variantType:
+      isHidden: false
+    alternateBases:
+      isHidden: false
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: true
+    clinicalClasses:
+      isHidden: true
+    accessid:
+      isHidden: true
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    geoCity:
+      isHidden: true
+    geodistanceKm:
+      isHidden: true
+    skip:
+      defaultValue: 0
+    limit:
+      defaultValue: 100
+    freeFilters:
+      isHidden: true
+    sex:
+      isHidden: false
+    materialtype:
+      isHidden: false
+    referenceid:
+      isHidden: false
     cohorts:
       isHidden: true
 - label: "Aminoacid Example"
@@ -139,7 +220,7 @@
       defaultValue: V600E
     geneId:
       isHidden: false
-      defaultValue: BRAF
+      defaultValue: [BRAF]
     genomicAlleleShortForm:
       isHidden: true
     referenceName:
@@ -187,6 +268,58 @@
     cohorts:
       isHidden: true
 - label: "All Fields"
-  parameters: {}
+  parameters:
+    datasetIds:
+      defaultValue: ["examplez"]
+    aminoacidChange:
+      isHidden: false
+    geneId:
+      isHidden: false
+    genomicAlleleShortForm:
+      isHidden: false
+    referenceName:
+      isHidden: false
+    start:
+      isHidden: false
+    end:
+      isHidden: false
+    variantMinLength:
+      isHidden: false
+    variantMaxLength:
+      isHidden: false
+    variantType:
+      isHidden: false
+    alternateBases:
+      isHidden: false
+    referenceBases:
+      isHidden: false
+    bioontology:
+      isHidden: false
+    clinicalClasses:
+      isHidden: false
+    accessid:
+      isHidden: false
+    filterLogic:
+      isHidden: false
+    includeDescendantTerms:
+      isHidden: false
+    geoCity:
+      isHidden: false
+    geodistanceKm:
+      isHidden: false
+    skip:
+      defaultValue: 0
+    limit:
+      defaultValue: 100
+    freeFilters:
+      isHidden: false
+    sex:
+      isHidden: false
+    materialtype:
+      isHidden: false
+    referenceid:
+      isHidden: false
+    cohorts:
+      isHidden: false
 
 
