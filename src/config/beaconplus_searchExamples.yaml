@@ -18,7 +18,7 @@
     genomicAlleleShortForm:
       isHidden: true
     referenceName:
-      defaultValue: "refseq:NC_000009.12"
+      defaultValue: "9" #"refseq:NC_000009.12"
     start:
       defaultValue: "21000001-21975098"
     end:
@@ -68,7 +68,7 @@
     genomicAlleleShortForm:
       isHidden: true
     referenceName:
-      defaultValue: "refseq:NC_000017.11"
+      defaultValue: "17" #"refseq:NC_000017.11"
     start:
       defaultValue: 7577121
     end:
@@ -113,7 +113,7 @@
     datasetIds:
       defaultValue: ["examplez"]
     referenceName:
-      defaultValue: "refseq:NC_000017.11"
+      defaultValue: "17" # "refseq:NC_000017.11"
     geneId:
       isHidden: true
     genomicAlleleShortForm:
