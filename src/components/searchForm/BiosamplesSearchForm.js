@@ -112,6 +112,20 @@ export function BeaconSearchForm({
   // reset form when default values changes
   useDeepCompareEffect(() => reset(initialValues), [initialValues])
   
+  // all subsets lookup
+  const { data: allsubsetsResponse, isLoading: isAllSubsetsDataLoading } = useAllSubsets(
+    watch
+  )
+
+  const allsubsetsOptions = allsubsetsResponse?.response?.filteringTerms?.map((value) => ({
+    value: value.id,
+    label: `${value.id}: ${value.label} (${value.count})`
+  }))
+  
+  parameters = merge({}, parameters, {
+    freeFilters: { options: allsubsetsOptions }
+  })
+
   // biosubsets lookup
   const { data: biosubsetsResponse, isLoading: isBioSubsetsDataLoading } = useBioSubsets(
     watch
@@ -196,7 +210,7 @@ parameters = merge({}, parameters, {
         </div>
 */}          
         <QuerytypesTabs
-          onExampleClicked={handleExampleClicked(
+          onExampleClicked={handleQuerytypeClicked(
             reset,
             setExample,
             setUrlQuery
@@ -373,10 +387,11 @@ parameters = merge({}, parameters, {
             />
           </div>
           <div className="columns my-0">
-            <InputField
+            <SelectField
               className="column py-0 mb-3"
               {...parameters.freeFilters}
-              {...fieldProps}
+              {...selectProps}
+              isLoading={isAllSubsetsDataLoading}
             />
             <SelectField
               className="column py-0 mb-3"
@@ -701,7 +716,21 @@ const handleExampleClicked = (reset, setExample, setUrlQuery) => (example) => {
   setExample(example)
 }
 
+const handleQuerytypeClicked = (reset, setExample, setUrlQuery) => (example) => {
+  setUrlQuery({}, { replace: true })
+  setExample(example)
+}
+
 // Maps FilteringTerms hook to apiReply usable by DataFetchSelect
+function useAllSubsets(watchForm) {
+  const datasetIds = watchForm("datasetIds")
+  return useCollationsByType({
+    datasetIds,
+    method: "counts",
+    collationTypes: []
+  })
+}
+
 function useBioSubsets(watchForm) {
   const datasetIds = watchForm("datasetIds")
   return useCollationsByType({

@@ -133,20 +133,21 @@ export function makeFilters({
   sex,
   materialtype
 }) {
-  const parsedFreeFilters =
-    freeFilters
-      ?.split(",")
-      .map((ff) => ff.trim())
-      .filter((v) => v != null && v.length !== 0) ?? []
+  // const parsedFreeFilters =
+  //   freeFilters
+  //     ?.split(",")
+  //     .map((ff) => ff.trim())
+  //     .filter((v) => v != null && v.length !== 0) ?? []
 
   return [
+    ...(freeFilters ?? []),
     ...(bioontology ?? []),
     ...(clinicalClasses ?? []),
     ...(referenceid ?? []),
     ...(cohorts ? [cohorts] : []),
     ...(sex ? [sex] : []),
     ...(materialtype ? [materialtype] : []),
-    ...parsedFreeFilters
+    // ...parsedFreeFilters
   ]
 }
 

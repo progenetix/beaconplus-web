@@ -28,13 +28,15 @@
     variantMaxLength:
       isHidden: true
     bioontology:
-      placeholder: [NCIT:C3058]
+      isHidden: true
     clinicalClasses:
       isHidden: true
     materialtype:
       isHidden: true
-    freeFilters:
+    sex:
       isHidden: true
+    freeFilters:
+      placeholder: [NCIT:C3058]
     referenceid:
       isHidden: true
     cohorts:
@@ -46,7 +48,9 @@
     geodistanceKm:
       isHidden: true
     limit:
-      defaultValue: 100
+      isHidden: true
+    skip:
+      isHidden: true
 - label: "Range Query"
   note: "Query for variants with overlap to a genomic range"
   description: |
@@ -74,6 +78,10 @@
       isHidden: false
     clinicalClasses:
       isHidden: true
+    bioontology:
+      isHidden: true
+    sex:
+      isHidden: true
     accessid:
       isHidden: true
     filterLogic:
@@ -85,7 +93,114 @@
     geodistanceKm:
       isHidden: true
     freeFilters:
+      isHidden: false
+    materialtype:
       isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+    limit:
+      isHidden: true
+    skip:
+      isHidden: true
+  img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
+- label: "Allele Request"
+  note: 'This represents the inputs for a "classic" Beacon SNV query'
+  description: |
+    'This represents the inputs for a "classic" Beacon SNV query'
+  parameters:
+    datasetIds:
+      placeholder: ["examplez"]
+    referenceName:
+      isHidden: false
+    geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: true
+    aminoacidChange:
+      isHidden: true
+    start:
+      isHidden: false
+    end:
+      isHidden: true
+    variantType:
+      isHidden: false
+    alternateBases:
+      isHidden: false
+    referenceBases:
+      isHidden: false
+    clinicalClasses:
+      isHidden: true
+    bioontology:
+      isHidden: true
+    sex:
+      isHidden: true
+    accessid:
+      isHidden: true
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    geoCity:
+      isHidden: true
+    geodistanceKm:
+      isHidden: true
+    freeFilters:
+      isHidden: false
+    materialtype:
+      isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+    limit:
+      isHidden: true
+    skip:
+      isHidden: true
+  img: false
+- label: "Aminoacid Variant"
+  parameters:
+    datasetIds:
+      defaultValue: ["examplez"]
+    aminoacidChange:
+      isHidden: false
+    geneId:
+      isHidden: false
+    genomicAlleleShortForm:
+      isHidden: true
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantMinLength:
+      isHidden: true
+    variantMaxLength:
+      isHidden: true
+    variantType:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: true
+    clinicalClasses:
+      isHidden: true
+    accessid:
+      isHidden: true
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    geoCity:
+      isHidden: true
+    geodistanceKm:
+      isHidden: true
+    freeFilters:
+      isHidden: false
     sex:
       isHidden: true
     materialtype:
@@ -94,7 +209,68 @@
       isHidden: true
     cohorts:
       isHidden: true
-  img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
+    limit:
+      isHidden: true
+    skip:
+      isHidden: true
+
+
+- label: "Genomic HGVS"
+  parameters:
+    datasetIds:
+      defaultValue: ["examplez"]
+    aminoacidChange:
+      isHidden: true
+    geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: false
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantMinLength:
+      isHidden: true
+    variantMaxLength:
+      isHidden: true
+    variantType:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: true
+    clinicalClasses:
+      isHidden: true
+    accessid:
+      isHidden: true
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    geoCity:
+      isHidden: true
+    geodistanceKm:
+      isHidden: true
+    freeFilters:
+      isHidden: false
+    sex:
+      isHidden: true
+    materialtype:
+      isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+    limit:
+      isHidden: true
+    skip:
+      isHidden: true
+
+
 - label: "All Fields"
   parameters:
     datasetIds:
@@ -135,10 +311,6 @@
       isHidden: false
     geodistanceKm:
       isHidden: false
-    skip:
-      defaultValue: 0
-    limit:
-      defaultValue: 100
     freeFilters:
       isHidden: false
     sex:
@@ -149,5 +321,9 @@
       isHidden: false
     cohorts:
       isHidden: false
+    limit:
+      isHidden: true
+    skip:
+      isHidden: true
 
 

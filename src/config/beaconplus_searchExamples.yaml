@@ -34,13 +34,15 @@
     variantMaxLength:
       isHidden: true
     bioontology:
-      defaultValue: [NCIT:C3058]
+      isHidden: true
     clinicalClasses:
       isHidden: true
     materialtype:
       isHidden: true
-    freeFilters:
+    sex:
       isHidden: true
+    freeFilters:
+      defaultValue: [NCIT:C3058]
     referenceid:
       isHidden: true
     cohorts:
@@ -52,7 +54,9 @@
     geodistanceKm:
       isHidden: true
     limit:
-      defaultValue: 100
+      isHidden: true
+    skip:
+      isHidden: true
 - label: "SNV Example"
   note: "Example for specific EIF4A1 mutation"
   description: |
@@ -85,18 +89,21 @@
       isHidden: true
     clinicalClasses:
       isHidden: true
+    referenceid:
+      isHidden: true
+    sex:
+      isHidden: true
     filterLogic:
       isHidden: true
     includeDescendantTerms:
       isHidden: true
-    skip:
-      defaultValue: 0
-    limit:
-      defaultValue: 100
     freeFilters:
-      defaultValue: ""
-      isHidden: true
+      isHidden: false
     accessid:
+      isHidden: true
+    limit:
+      isHidden: true
+    skip:
       isHidden: true
 - label: "Range Example"
   note: "Example for EIF4A1 transcript region matches (precise variants)"
@@ -132,29 +139,25 @@
       defaultValue: ""
     clinicalClasses:
       isHidden: true
+    referenceid:
+      isHidden: true
     accessid:
       isHidden: true
     filterLogic:
       isHidden: true
     includeDescendantTerms:
       isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
-    skip:
-      defaultValue: 0
-    limit:
-      defaultValue: 100
     freeFilters:
-      isHidden: true
-    sex:
       isHidden: false
+    sex:
+      isHidden: true
     materialtype:
       isHidden: true
-    referenceid:
-      isHidden: true
     cohorts:
+      isHidden: true
+    limit:
+      isHidden: true
+    skip:
       isHidden: true
   img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
 - label: "Gene Match"
@@ -212,7 +215,7 @@
     limit:
       defaultValue: 100
     freeFilters:
-      isHidden: true
+      isHidden: false
     sex:
       isHidden: false
     materialtype:
@@ -264,16 +267,12 @@
       isHidden: true
     includeDescendantTerms:
       isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
     skip:
-      defaultValue: 0
-    limit:
-      defaultValue: 100
-    freeFilters:
       isHidden: true
+    limit:
+      isHidden: true
+    freeFilters:
+      isHidden: false
     sex:
       isHidden: true
     materialtype:
