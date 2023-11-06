@@ -24,13 +24,6 @@ export function BiosamplesResults({ response, isLoading, error, query }) {
 }
 
 function AlleleResponses({ biosampleResponseSets, query }) {
-  if (biosampleResponseSets?.[0].resultsCount < 1) {
-    return (
-      <div className="notification">
-        No results could be found for this query.
-      </div>
-    )
-  }
   return biosampleResponseSets.map((r, i) => (
     <DatasetResultBox key={i} data={r} query={query} />
   ))

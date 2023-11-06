@@ -142,6 +142,16 @@ export function DatasetResultBox({ data: responseSet, query }) {
     )
   }
 
+  if (resultsCount < 1) {
+    return (
+      <div className="box">
+        <h2 className="subtitle has-text-dark">{id}</h2>
+        <div className="notification">
+          No results could be found for this query in dataset {id}.
+        </div>
+      </div>
+    )} else {
+
   return (
     <div className="box">
       <h2 className="subtitle has-text-dark">{id}</h2>
@@ -233,7 +243,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
       {biosamplesHandover?.pages && (
         <div className="tabs">
           <div>
-            <b>Download Sample Data (JSON)</b>
+            <b>Download Sample Data (Beacon JSON)</b>
             <br/>
             <ul>
               {biosamplesHandover.pages.map((handover, i) => (
@@ -246,7 +256,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
       {variantsHandover?.pages && (
         <div className="tabs ">
           <div>
-            <b>Download Variants (Beacon VRS)</b>
+            <b>Download Variants (Beacon JSON)</b>
             <br/>
             <ul>
               {variantsHandover?.pages.map((handover, i) => (
@@ -297,6 +307,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
       )}
     </div>
   )
+  }
 }
 
 function ResultsTab({

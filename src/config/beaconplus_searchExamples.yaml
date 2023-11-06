@@ -9,6 +9,8 @@
     parameters or data source.
   img: https://docs.genomebeacons.org/img/BeaconBracketQuery-limited-match-graphics.png
   parameters:
+    datasetIds:
+      defaultValue: ["examplez"]
     aminoacidChange:
       isHidden: true
     geneId:
@@ -57,6 +59,8 @@
     This example shows a core Beacon query, against a specific
     mutation in the EIF4A1 gene, in the DIPG childhood brain tumor dataset.
   parameters:
+    datasetIds:
+      defaultValue: ["examplez", "progenetix"]
     aminoacidChange:
       isHidden: true
     geneId:
