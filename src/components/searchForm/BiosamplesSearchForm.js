@@ -1,4 +1,3 @@
-import cn from "classnames"
 import {
   checkIntegerRange,
   makeFilters,
@@ -10,7 +9,6 @@ import { markdownToReact } from "../../utils/md"
 import { useForm } from "react-hook-form"
 import {
   CytoBandsUtility,
-  FormUtilitiesButtons,
   GeneSpansUtility,
   useFormUtilities
 } from "./BiosamplesFormUtilities"
@@ -23,10 +21,12 @@ import { withUrlQuery } from "../../hooks/url-query"
 import { GeoCitySelector } from "./GeoCitySelector"
 import { GeneSymbolSelector } from "./GeneSymbolSelector"
 import ChromosomePreview from "./ChromosomePreview"
+import { FaCogs } from "react-icons/fa"
+import cn from "classnames"
 
 export const BiosamplesSearchForm = withUrlQuery(
   ({ urlQuery, setUrlQuery, ...props }) => (
-    <Form {...props} urlQuery={urlQuery} setUrlQuery={setUrlQuery} />
+    <BeaconSearchForm {...props} urlQuery={urlQuery} setUrlQuery={setUrlQuery} />
   )
 )
 export default BiosamplesSearchForm
@@ -35,6 +35,7 @@ BiosamplesSearchForm.propTypes = {
   cytoBands: PropTypes.object.isRequired,
   isQuerying: PropTypes.bool.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
+  queryTypes: PropTypes.object.isRequired,
   requestTypeExamples: PropTypes.object.isRequired,
   parametersConfig: PropTypes.object.isRequired
 }
@@ -69,10 +70,11 @@ function useIsFilterlogicWarningVisible(watch) {
   return filterLogic === "AND" && filters.length > 1
 }
 
-export function Form({
+export function BeaconSearchForm({
   cytoBands,
   isQuerying,
   setSearchQuery,
+  queryTypes,
   requestTypeExamples,
   parametersConfig,
   urlQuery,
@@ -181,35 +183,26 @@ parameters = merge({}, parameters, {
   return (
     <>
       <div>
+{/*
         <div className="buttons">
-          <ExamplesButtons
+          <QuerytypesButtons
             onExampleClicked={handleExampleClicked(
               reset,
               setExample,
               setUrlQuery
             )}
-            requestTypeExamples={requestTypeExamples}
-          />
-          <FormUtilitiesButtons
-            onCytoBandClick={onCytoBandClick}
-            cytoBandPanelOpen={cytoBandPanelOpen}
-            onGeneSpansClick={onGeneSpansClick}
-            geneSpansPanelOpen={geneSpansPanelOpen}
+            queryTypes={queryTypes}
           />
         </div>
-        <ExampleDescription example={example} />
-        {cytoBandPanelOpen && (
-          <CytoBandsUtility
-            onClose={onCytoBandCloseClick}
-            setFormValue={setValue}
-          />
-        )}
-        {geneSpansPanelOpen && (
-          <GeneSpansUtility
-            onClose={onGeneSpansCloseClick}
-            setFormValue={setValue}
-          />
-        )}
+*/}          
+        <QuerytypesTabs
+          onExampleClicked={handleExampleClicked(
+            reset,
+            setExample,
+            setUrlQuery
+          )}
+          queryTypes={queryTypes}
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           {errors?.global?.message && (
             <div className="notification is-warning">
@@ -407,6 +400,24 @@ parameters = merge({}, parameters, {
               }
             />
           </div>
+          <InputField {...parameters.accessid} {...fieldProps} />
+          {!parameters.geoCity.isHidden && (
+            <div className="columns my-0">
+              <GeoCitySelector
+                className={cn("column", "py-0 mb-3")}
+                {...parameters.geoCity}
+                {...selectProps}
+              />
+              <div
+                className={cn("column", "py-0 mb-3", {
+                  "is-invisible": !showGeoDistance,
+                  "animate__fadeIn animate__animated": showGeoDistance
+                })}
+              >
+                <InputField {...parameters.geodistanceKm} {...fieldProps} />
+              </div>
+            </div>
+          )}
           <div className="columns my-0">
             <InputField
               className={cn(
@@ -431,30 +442,12 @@ parameters = merge({}, parameters, {
               }}
             />
           </div>
-          <InputField {...parameters.accessid} {...fieldProps} />
-          {!parameters.geoCity.isHidden && (
-            <div className="columns my-0">
-              <GeoCitySelector
-                className={cn("column", "py-0 mb-3")}
-                {...parameters.geoCity}
-                {...selectProps}
-              />
-              <div
-                className={cn("column", "py-0 mb-3", {
-                  "is-invisible": !showGeoDistance,
-                  "animate__fadeIn animate__animated": showGeoDistance
-                })}
-              >
-                <InputField {...parameters.geodistanceKm} {...fieldProps} />
-              </div>
-            </div>
-          )}
           <ChromosomePreview watch={watch} cytoBands={cytoBands} />
           <div className="field mt-5">
             <div className="control">
               <button
                 type="submit"
-                className={cn("button", "is-primary", {
+                className={cn("button", "is-primary is-fullwidth", {
                   "is-loading": isQuerying
                 })}
               >
@@ -463,6 +456,40 @@ parameters = merge({}, parameters, {
             </div>
           </div>
         </form>
+      </div>
+      <div style={{ "padding-top": "20px" }}>
+        {geneSpansPanelOpen && (
+          <GeneSpansUtility
+            onClose={onGeneSpansCloseClick}
+            setFormValue={setValue}
+          />
+        )}
+        {cytoBandPanelOpen && (
+          <CytoBandsUtility
+            onClose={onCytoBandCloseClick}
+            setFormValue={setValue}
+          />
+        )}
+        <div className="buttons">
+          <FormUtilitiesButtons
+            onCytoBandClick={onCytoBandClick}
+            cytoBandPanelOpen={cytoBandPanelOpen}
+            onGeneSpansClick={onGeneSpansClick}
+            geneSpansPanelOpen={geneSpansPanelOpen}
+          />
+
+        </div>
+        <div className="buttons">
+          <ExamplesButtons
+            onExampleClicked={handleExampleClicked(
+              reset,
+              setExample,
+              setUrlQuery
+            )}
+            requestTypeExamples={requestTypeExamples}
+          />
+        </div>
+        <ExampleDescription example={example} />
       </div>
       {example?.img && (
           <div>
@@ -473,21 +500,112 @@ parameters = merge({}, parameters, {
   )
 }
 
-function ExamplesButtons({ requestTypeExamples, onExampleClicked }) {
+// function QuerytypesButtons({ queryTypes, onExampleClicked }) {
+//   return (
+//     <div className="column is-full" style={{ padding: "0px" }}>
+//       <div className="columns">
+//         <div className="column is-one-fifth label">
+//           Request Types
+//         </div>
+//         <div className="column is-full">
+//           {Object.entries(queryTypes || []).map(([id, value]) => (
+//           <button
+//             key={id}
+//             className="button is-info"
+//             onClick={() => onExampleClicked(value)}
+//           >
+//             {value.label}
+//           </button>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+function QuerytypesTabs({ queryTypes, onExampleClicked }) {
   return (
-    <div>
-      {Object.entries(requestTypeExamples || []).map(([id, value]) => (
-        <button
-          key={id}
-          className="button is-light"
-          onClick={() => onExampleClicked(value)}
-        >
-          {value.label}
-        </button>
-      ))}
+    <div className="tabs is-boxed">
+      <ul>
+        {Object.entries(queryTypes || []).map(([id, value]) => (
+          <li
+            // className={cn({
+            //   "is-active": selectedTab === id
+            // })}
+            className="label"
+            key={id}
+            onClick={() => onExampleClicked(value)}
+          >
+            <a>{value.label}</a>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
+
+// setSelectedTab(value.label)
+
+function ExamplesButtons({ requestTypeExamples, onExampleClicked }) {
+  return (
+    <div className="column is-full" style={{ padding: "0px" }}>
+      <div className="columns">
+        <div className="column is-one-fifth label">
+          Query Examples
+        </div>
+        <div className="column is-full">
+          {Object.entries(requestTypeExamples || []).map(([id, value]) => (
+            <button
+              key={id}
+              className="button is-link is-outlined"
+              onClick={() => onExampleClicked(value)}
+            >
+              {value.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function FormUtilitiesButtons({
+  onGeneSpansClick,
+  geneSpansPanelOpen,
+  onCytoBandClick,
+  cytoBandPanelOpen
+}) {
+  return (
+    <div className="column is-full" style={{ padding: "0px" }}>
+      <div className="columns">
+        <div className="column is-one-fifth label">
+          Form Utilities
+        </div>
+        <div className="column is-full">
+          <button
+            className={cn("button is-warning", [geneSpansPanelOpen && "is-link"])}
+            onClick={onGeneSpansClick}
+          >
+            <span className="icon">
+              <FaCogs />
+            </span>
+            <span>Gene Spans</span>
+          </button>
+          <button
+            className={cn("button is-warning", [cytoBandPanelOpen && "is-link"])}
+            onClick={onCytoBandClick}
+          >
+            <span className="icon">
+              <FaCogs />
+            </span>
+            <span>Cytoband(s)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
 function ExampleDescription({ example }) {
   return example?.description ? (

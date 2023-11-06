@@ -9,12 +9,14 @@ import PropTypes from "prop-types"
 
 BiosamplesSearchPanel.propTypes = {
   parametersConfig: PropTypes.object.isRequired,
+  queryTypes: PropTypes.object.isRequired,
   requestTypeExamples: PropTypes.object.isRequired,
   collapsed: false
 }
 
 export default function BiosamplesSearchPanel({
   parametersConfig,
+  queryTypes,
   requestTypeExamples,
   cytoBands,
   collapsed
@@ -50,9 +52,9 @@ export default function BiosamplesSearchPanel({
         heading={
             <div className="columns">
               {(searchCollapsed && (
-                <div className="column">
+                <div className="column is-full">
                   <button
-                    className="button is-info mb-5"
+                    className="button is-info is-fullwidth"
                     onClick={() => {
                       clearQuery()
                       setSearchCollapsed(false)
@@ -70,8 +72,9 @@ export default function BiosamplesSearchPanel({
       >
         <BiosamplesSearchForm
           cytoBands={cytoBands}
-          requestTypeExamples={requestTypeExamples}
           parametersConfig={parametersConfig}
+          queryTypes={queryTypes}
+          requestTypeExamples={requestTypeExamples}
           isQuerying={isLoading}
           setSearchQuery={onValidFormQuery}
         />

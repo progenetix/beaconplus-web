@@ -1,0 +1,153 @@
+---
+- label: "Bracket Query"
+  note: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
+  description: |
+    TBD
+  img: https://docs.genomebeacons.org/img/BeaconBracketQuery-limited-match-graphics.png
+  parameters:
+    aminoacidChange:
+      isHidden: true
+    geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: true
+    referenceName:
+      placeholder: "refseq:NC_000009.12"
+    start:
+      placeholder: "21000001-21975098"
+    end:
+      placeholder: "21967753-23000000"
+    variantType:
+      placeholder: "EFO:0030067 (DEL)"
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    variantMinLength:
+      isHidden: true
+    variantMaxLength:
+      isHidden: true
+    bioontology:
+      placeholder: [NCIT:C3058]
+    clinicalClasses:
+      isHidden: true
+    materialtype:
+      isHidden: true
+    freeFilters:
+      isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    geoCity:
+      isHidden: true
+    geodistanceKm:
+      isHidden: true
+    limit:
+      defaultValue: 100
+- label: "Range Query"
+  note: "Query for variants with overlap to a genomic range"
+  description: |
+    TBD
+  parameters:
+    datasetIds:
+      placeholder: ["examplez"]
+    referenceName:
+      isHidden: false
+    geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: true
+    aminoacidChange:
+      isHidden: true
+    start:
+      isHidden: false
+    end:
+      isHidden: false
+    variantType:
+      isHidden: false
+    alternateBases:
+      isHidden: false
+    referenceBases:
+      isHidden: false
+    clinicalClasses:
+      isHidden: true
+    accessid:
+      isHidden: true
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    geoCity:
+      isHidden: true
+    geodistanceKm:
+      isHidden: true
+    freeFilters:
+      isHidden: true
+    sex:
+      isHidden: true
+    materialtype:
+      isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+  img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
+- label: "All Fields"
+  parameters:
+    datasetIds:
+      defaultValue: ["examplez"]
+    aminoacidChange:
+      isHidden: false
+    geneId:
+      isHidden: false
+    genomicAlleleShortForm:
+      isHidden: false
+    referenceName:
+      isHidden: false
+    start:
+      isHidden: false
+    end:
+      isHidden: false
+    variantMinLength:
+      isHidden: false
+    variantMaxLength:
+      isHidden: false
+    variantType:
+      isHidden: false
+    alternateBases:
+      isHidden: false
+    referenceBases:
+      isHidden: false
+    bioontology:
+      isHidden: false
+    clinicalClasses:
+      isHidden: false
+    accessid:
+      isHidden: false
+    filterLogic:
+      isHidden: false
+    includeDescendantTerms:
+      isHidden: false
+    geoCity:
+      isHidden: false
+    geodistanceKm:
+      isHidden: false
+    skip:
+      defaultValue: 0
+    limit:
+      defaultValue: 100
+    freeFilters:
+      isHidden: false
+    sex:
+      isHidden: false
+    materialtype:
+      isHidden: false
+    referenceid:
+      isHidden: false
+    cohorts:
+      isHidden: false
+
+

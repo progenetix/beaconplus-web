@@ -4,17 +4,15 @@ import { useGeneSpanSelect } from "../formShared/GenespanUtilities.js"
 import CustomSelect from "../Select"
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import cn from "classnames"
-import { FaCogs } from "react-icons/fa"
 import { WithData } from "../Loader"
 import { Infodot } from "../Infodot"
 
-FormUtilitiesButtons.propTypes = {
-  onGeneSpansClick: PropTypes.func.isRequired,
-  geneSpansPanelOpen: PropTypes.bool.isRequired,
-  onCytoBandClick: PropTypes.func.isRequired,
-  cytoBandPanelOpen: PropTypes.bool.isRequired
-}
+// FormUtilitiesButtons.propTypes = {
+//   onGeneSpansClick: PropTypes.func.isRequired,
+//   geneSpansPanelOpen: PropTypes.bool.isRequired,
+//   onCytoBandClick: PropTypes.func.isRequired,
+//   cytoBandPanelOpen: PropTypes.bool.isRequired
+// }
 
 export function useFormUtilities() {
   const [cytoBandPanelOpen, setCytoBandPanelOpen] = useState(false)
@@ -38,37 +36,6 @@ export function useFormUtilities() {
     onGeneSpansClick,
     onGeneSpansCloseClick
   }
-}
-
-export function FormUtilitiesButtons({
-  onGeneSpansClick,
-  geneSpansPanelOpen,
-  onCytoBandClick,
-  cytoBandPanelOpen
-}) {
-  return (
-    <div>
-      <button
-        className={cn("button", [geneSpansPanelOpen && "is-link"])}
-        style={{ marginLeft: "8px" }}
-        onClick={onGeneSpansClick}
-      >
-        <span className="icon">
-          <FaCogs />
-        </span>
-        <span>Gene Spans</span>
-      </button>
-      <button
-        className={cn("button", [cytoBandPanelOpen && "is-link"])}
-        onClick={onCytoBandClick}
-      >
-        <span className="icon">
-          <FaCogs />
-        </span>
-        <span>Cytoband(s)</span>
-      </button>
-    </div>
-  )
 }
 
 export function GeneSpansUtility({ onClose, setFormValue }) {
