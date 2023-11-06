@@ -33,30 +33,13 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
-    bioontology:
-      isHidden: true
-    clinicalClasses:
-      isHidden: true
-    materialtype:
-      isHidden: true
-    sex:
-      isHidden: true
     freeFilters:
       defaultValue: [NCIT:C3058]
-    referenceid:
-      isHidden: true
-    cohorts:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
     limit:
       isHidden: true
     skip:
       isHidden: true
+
 - label: "SNV Example"
   note: "Example for specific EIF4A1 mutation"
   description: |
@@ -87,24 +70,11 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
-    clinicalClasses:
-      isHidden: true
-    referenceid:
-      isHidden: true
-    sex:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    freeFilters:
-      isHidden: false
-    accessid:
-      isHidden: true
     limit:
       isHidden: true
     skip:
       isHidden: true
+
 - label: "Range Example"
   note: "Example for EIF4A1 transcript region matches (precise variants)"
   description: |
@@ -137,29 +107,12 @@
       defaultValue: ""
     referenceBases:
       defaultValue: ""
-    clinicalClasses:
-      isHidden: true
-    referenceid:
-      isHidden: true
-    accessid:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    freeFilters:
-      isHidden: false
-    sex:
-      isHidden: true
-    materialtype:
-      isHidden: true
-    cohorts:
-      isHidden: true
     limit:
       isHidden: true
     skip:
       isHidden: true
   img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
+  
 - label: "Gene Match"
   note: |
     Where supported beacons can discover variants overlap with the region of a known gene.
@@ -175,7 +128,7 @@
     datasetIds:
       defaultValue: ["cellz"]
     aminoacidChange:
-      isHidden: false
+      isHidden: true
     geneId:
       isHidden: false
     genomicAlleleShortForm:
@@ -196,34 +149,11 @@
       isHidden: false
     referenceBases:
       isHidden: true
-    bioontology:
-      isHidden: true
-    clinicalClasses:
-      isHidden: true
-    accessid:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
     skip:
-      defaultValue: 0
-    limit:
-      defaultValue: 100
-    freeFilters:
-      isHidden: false
-    sex:
-      isHidden: false
-    materialtype:
-      isHidden: false
-    referenceid:
-      isHidden: false
-    cohorts:
       isHidden: true
+    limit:
+      isHidden: true
+
 - label: "Aminoacid Example"
   note: "Where supported beacons can discover variants by their aminoacid change."
   description: |
@@ -257,27 +187,7 @@
       isHidden: true
     referenceBases:
       isHidden: true
-    bioontology:
-      isHidden: true
-    clinicalClasses:
-      isHidden: true
-    accessid:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
     skip:
       isHidden: true
     limit:
-      isHidden: true
-    freeFilters:
-      isHidden: false
-    sex:
-      isHidden: true
-    materialtype:
-      isHidden: true
-    referenceid:
-      isHidden: true
-    cohorts:
       isHidden: true

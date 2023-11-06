@@ -27,26 +27,8 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
-    bioontology:
-      isHidden: true
-    clinicalClasses:
-      isHidden: true
-    materialtype:
-      isHidden: true
-    sex:
-      isHidden: true
     freeFilters:
       placeholder: [NCIT:C3058]
-    referenceid:
-      isHidden: true
-    cohorts:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
     limit:
       isHidden: true
     skip:
@@ -76,30 +58,6 @@
       isHidden: false
     referenceBases:
       isHidden: false
-    clinicalClasses:
-      isHidden: true
-    bioontology:
-      isHidden: true
-    sex:
-      isHidden: true
-    accessid:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
-    freeFilters:
-      isHidden: false
-    materialtype:
-      isHidden: true
-    referenceid:
-      isHidden: true
-    cohorts:
-      isHidden: true
     limit:
       isHidden: true
     skip:
@@ -125,34 +83,14 @@
     end:
       isHidden: true
     variantType:
-      isHidden: false
+      defaultValue: "SO:0001059"
     alternateBases:
       isHidden: false
     referenceBases:
       isHidden: false
-    clinicalClasses:
+    variantMinLength:
       isHidden: true
-    bioontology:
-      isHidden: true
-    sex:
-      isHidden: true
-    accessid:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
-    freeFilters:
-      isHidden: false
-    materialtype:
-      isHidden: true
-    referenceid:
-      isHidden: true
-    cohorts:
+    variantMaxLength:
       isHidden: true
     limit:
       isHidden: true
@@ -185,35 +123,10 @@
       isHidden: true
     referenceBases:
       isHidden: true
-    bioontology:
-      isHidden: true
-    clinicalClasses:
-      isHidden: true
-    accessid:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
-    freeFilters:
-      isHidden: false
-    sex:
-      isHidden: true
-    materialtype:
-      isHidden: true
-    referenceid:
-      isHidden: true
-    cohorts:
-      isHidden: true
     limit:
       isHidden: true
     skip:
       isHidden: true
-
 
 - label: "Genomic HGVS"
   parameters:
@@ -240,30 +153,6 @@
     alternateBases:
       isHidden: true
     referenceBases:
-      isHidden: true
-    bioontology:
-      isHidden: true
-    clinicalClasses:
-      isHidden: true
-    accessid:
-      isHidden: true
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    geodistanceKm:
-      isHidden: true
-    freeFilters:
-      isHidden: false
-    sex:
-      isHidden: true
-    materialtype:
-      isHidden: true
-    referenceid:
-      isHidden: true
-    cohorts:
       isHidden: true
     limit:
       isHidden: true
@@ -310,8 +199,6 @@
     geoCity:
       isHidden: false
     geodistanceKm:
-      isHidden: false
-    freeFilters:
       isHidden: false
     sex:
       isHidden: false
