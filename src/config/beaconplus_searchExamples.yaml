@@ -112,7 +112,7 @@
     skip:
       isHidden: true
   img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
-  
+
 - label: "Gene Match"
   note: |
     Where supported beacons can discover variants overlap with the region of a known gene.
@@ -168,7 +168,10 @@
       defaultValue: V600E
     geneId:
       isHidden: false
-      defaultValue: [BRAF]
+      defaultValue:
+        data:
+          symbol: BRAF
+        label: BRAF
     genomicAlleleShortForm:
       isHidden: true
     referenceName:

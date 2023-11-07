@@ -152,6 +152,7 @@ export function makeFilters({
 }
 
 export function buildQueryParameters(queryData) {
+  console.log("...queryData in buildQueryParameters", queryData)
   const {
     start,
     end,
@@ -186,6 +187,7 @@ export function buildQueryParameters(queryData) {
     ends.push(end0)
     end1 && ends.push(end1)
   }
+  console.log("...buildQueryParameters before filters")
   const filters = makeFilters({
     freeFilters,
     clinicalClasses,
@@ -197,7 +199,7 @@ export function buildQueryParameters(queryData) {
   })
   console.log("...geneId in buildQueryParameters", geneId)
   const geneParams = mkGeneParams(geneId) ?? {}
-  console.log("...queryData in buildQueryParameters", queryData)
+  console.log("...geneParams in buildQueryParameters", geneParams)
   const geoParams = mkGeoParams(geoCity, geodistanceKm) ?? {}
   console.log("...otherParams in buildQueryParameters", ...Object.entries({ ...otherParams }))  
   return new URLSearchParams(
