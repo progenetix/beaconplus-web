@@ -35,7 +35,7 @@ BiosamplesSearchForm.propTypes = {
   cytoBands: PropTypes.object.isRequired,
   isQuerying: PropTypes.bool.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
-  queryTypes: PropTypes.object.isRequired,
+  beaconQueryTypes: PropTypes.object.isRequired,
   requestTypeExamples: PropTypes.object.isRequired,
   parametersConfig: PropTypes.object.isRequired
 }
@@ -74,7 +74,7 @@ export function BeaconSearchForm({
   cytoBands,
   isQuerying,
   setSearchQuery,
-  queryTypes,
+  beaconQueryTypes,
   requestTypeExamples,
   parametersConfig,
   urlQuery,
@@ -205,7 +205,7 @@ parameters = merge({}, parameters, {
               setExample,
               setUrlQuery
             )}
-            queryTypes={queryTypes}
+            beaconQueryTypes={beaconQueryTypes}
           />
         </div>
 */}          
@@ -215,7 +215,7 @@ parameters = merge({}, parameters, {
             setExample,
             setUrlQuery
           )}
-          queryTypes={queryTypes}
+          beaconQueryTypes={beaconQueryTypes}
         />
         <form onSubmit={handleSubmit(onSubmit)}>
           {errors?.global?.message && (
@@ -515,7 +515,7 @@ parameters = merge({}, parameters, {
   )
 }
 
-// function QuerytypesButtons({ queryTypes, onExampleClicked }) {
+// function QuerytypesButtons({ beaconQueryTypes, onExampleClicked }) {
 //   return (
 //     <div className="column is-full" style={{ padding: "0px" }}>
 //       <div className="columns">
@@ -523,7 +523,7 @@ parameters = merge({}, parameters, {
 //           Request Types
 //         </div>
 //         <div className="column is-full">
-//           {Object.entries(queryTypes || []).map(([id, value]) => (
+//           {Object.entries(beaconQueryTypes || []).map(([id, value]) => (
 //           <button
 //             key={id}
 //             className="button is-info"
@@ -538,11 +538,11 @@ parameters = merge({}, parameters, {
 //   )
 // }
 
-function QuerytypesTabs({ queryTypes, onExampleClicked }) {
+function QuerytypesTabs({ beaconQueryTypes, onExampleClicked }) {
   return (
     <div className="tabs is-boxed">
       <ul>
-        {Object.entries(queryTypes || []).map(([id, value]) => (
+        {Object.entries(beaconQueryTypes || []).map(([id, value]) => (
           <li
             // className={cn({
             //   "is-active": selectedTab === id

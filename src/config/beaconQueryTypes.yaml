@@ -1,8 +1,13 @@
 ---
-- label: "Bracket Query"
+- label: "CNV Query"
   note: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
   description: |
-    TBD
+    Typically CNV Queries are performed as **Beacon Bracket Queries**. These allow
+    the specification of sequence _ranges_ for both `start` and `end` positions of a
+    genomic variation since one usually wants to query for _similar_ structural
+    variants affecting a genomic region but potentially differing in their exact
+    size.
+    See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-bracket-queries) for more information.
   img: https://docs.genomebeacons.org/img/BeaconBracketQuery-limited-match-graphics.png
   parameters:
     aminoacidChange:
@@ -36,7 +41,11 @@
 - label: "Range Query"
   note: "Query for variants with overlap to a genomic range"
   description: |
-    TBD
+    **Beacon Range Queries** are supposed to return matches of any variant with
+    at least partial overlap of the _sequence range_ specified by `reference_name`,
+    `start` and `end` parameters. Additionally results might be restricted to
+    variants matching a given size range, variant type or base composition. 
+    See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-range-queries) for more information.
   parameters:
     datasetIds:
       placeholder: ["examplez"]
@@ -63,10 +72,15 @@
     skip:
       isHidden: true
   img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
-- label: "Allele Request"
+
+- label: "Sequence Query"
   note: 'This represents the inputs for a "classic" Beacon SNV query'
   description: |
-    'This represents the inputs for a "classic" Beacon SNV query'
+    **Sequence Queries** explore the existence of a specified sequence at a given
+    genomic position. Such queries correspond to the original Beacon queries
+    ("Allele Requests") and are used to match short, precisely defined genomic
+    variants such as SNVs and INDELs.
+    See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-sequence-queries) for more information.
   parameters:
     datasetIds:
       placeholder: ["examplez"]

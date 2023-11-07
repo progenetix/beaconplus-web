@@ -118,12 +118,11 @@
     Where supported beacons can discover variants overlap with the region of a known gene.
   description: |
     Beacons in v2 can support the discovery of variants with overlap with the
-    genomic location of a gene, indicated by its symbol (e.g. `BRAF`). Additional
+    genomic location of a gene, indicated by its symbol (e.g. `CDK2`). Additional
     parameters can _optionally_ be used to make matches more specific:
     - `variantMinLength` and `variantMaxLength` to limit matched CNV sizes
     - `genomicAlleleShortForm` (e.g. `V600E` with `BRAF`)
     - `variantType` and `alternateBases` to specify variants
-    Here we also show the fields for some commonly used metadata elements.
   parameters:
     datasetIds:
       defaultValue: ["cellz"]
@@ -131,6 +130,10 @@
       isHidden: true
     geneId:
       isHidden: false
+      defaultValue:
+        data:
+          symbol: CDK2
+        label: "CDK2 (12:55966830-55972789)"
     genomicAlleleShortForm:
       isHidden: true
     referenceName:
@@ -171,7 +174,7 @@
       defaultValue:
         data:
           symbol: BRAF
-        label: BRAF
+        label: "BRAF (7:140713328-140924929)"
     genomicAlleleShortForm:
       isHidden: true
     referenceName:
