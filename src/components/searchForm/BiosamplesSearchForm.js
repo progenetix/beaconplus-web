@@ -70,6 +70,8 @@ function useIsFilterlogicWarningVisible(watch) {
   return filterLogic === "AND" && filters.length > 1
 }
 
+
+
 export function BeaconSearchForm({
   cytoBands,
   isQuerying,
@@ -82,6 +84,9 @@ export function BeaconSearchForm({
 }) {
   // const autoExecuteSearch = urlQuery.executeSearch === "true"
   const [example, setExample] = useState(null)
+
+  console.log(beaconQueryTypes[0].label)
+
   let parameters = useMemo(
     () =>
       makeParameters(parametersConfig, example),
@@ -210,7 +215,7 @@ parameters = merge({}, parameters, {
         </div>
 */}          
         <QuerytypesTabs
-          onExampleClicked={handleQuerytypeClicked(
+          onQuerytypeClicked={handleQuerytypeClicked(
             reset,
             setExample,
             setUrlQuery
@@ -538,19 +543,20 @@ parameters = merge({}, parameters, {
 //   )
 // }
 
-function QuerytypesTabs({ beaconQueryTypes, onExampleClicked }) {
+function QuerytypesTabs({ beaconQueryTypes, onQuerytypeClicked }) {
+  const [selectedTab, setSelectedTab] = useState(beaconQueryTypes[0])
   return (
     <div className="tabs is-boxed">
       <ul>
         {Object.entries(beaconQueryTypes || []).map(([id, value]) => (
           <li
-            // className={cn({
-            //   "is-active": selectedTab === id
-            // })}
-            className="label"
+            className={cn({
+              "is-active": selectedTab.label === value.label
+            })}
             key={id}
-            onClick={() => onExampleClicked(value)}
+            onClick={() => {onQuerytypeClicked(value), setSelectedTab(value)}}
           >
+            {console.log(selectedTab)}
             <a>{value.label}</a>
           </li>
         ))}
