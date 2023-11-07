@@ -13,8 +13,10 @@ const itemColl = "callsets"
 const exampleId = "pgxcs-kftvlijb"
 
 const CallsetDetailsPage = withUrlQuery(({ urlQuery }) => {
-  var { id } = urlQuery
-  var datasetIds = SITE_DEFAULTS.DATASETID
+  var { id, datasetIds } = urlQuery
+  if (! datasetIds) {
+    datasetIds = SITE_DEFAULTS.DATASETID
+  }
   const hasAllParams = id && datasetIds
   return (
     <EntityLayout title="Callset Details" headline="Callset Details">

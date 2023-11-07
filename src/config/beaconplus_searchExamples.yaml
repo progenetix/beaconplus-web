@@ -10,35 +10,27 @@
   img: https://docs.genomebeacons.org/img/BeaconBracketQuery-limited-match-graphics.png
   parameters:
     datasetIds:
+      isHidden: false
       defaultValue: ["examplez"]
-    aminoacidChange:
-      isHidden: true
-    geneId:
-      isHidden: true
-    genomicAlleleShortForm:
-      isHidden: true
     referenceName:
+      isHidden: false
       defaultValue: "9" #"refseq:NC_000009.12"
     start:
+      isHidden: false
       defaultValue: "21000001-21975098"
     end:
+      isHidden: false
       defaultValue: "21967753-23000000"
     variantType:
+      isHidden: false
       defaultValue: "EFO:0030067"
     alternateBases:
       isHidden: true
     referenceBases:
       isHidden: true
-    variantMinLength:
-      isHidden: true
-    variantMaxLength:
-      isHidden: true
     freeFilters:
+      isHidden: false
       defaultValue: [NCIT:C3058]
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
 
 - label: "SNV Example"
   note: "Example for specific EIF4A1 mutation"
@@ -47,33 +39,23 @@
     mutation in the EIF4A1 gene, in the DIPG childhood brain tumor dataset.
   parameters:
     datasetIds:
+      isHidden: false
       defaultValue: ["examplez", "progenetix"]
-    aminoacidChange:
-      isHidden: true
-    geneId:
-      isHidden: true
-    genomicAlleleShortForm:
-      isHidden: true
     referenceName:
+      isHidden: false
       defaultValue: "17" #"refseq:NC_000017.11"
     start:
+      isHidden: false
       defaultValue: 7577121
-    end:
-      isHidden: true
     variantType:
+      isHidden: false
       defaultValue: "SO:0001059"
     alternateBases:
+      isHidden: false
       defaultValue: "A"
     referenceBases:
+      isHidden: false
       defaultValue: "G"
-    variantMinLength:
-      isHidden: true
-    variantMaxLength:
-      isHidden: true
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
 
 - label: "Range Example"
   note: "Example for EIF4A1 transcript region matches (precise variants)"
@@ -88,29 +70,26 @@
     handover [H—>O] link.
   parameters:
     datasetIds:
+      isHidden: false
       defaultValue: ["examplez"]
     referenceName:
+      isHidden: false
       defaultValue: "17" # "refseq:NC_000017.11"
-    geneId:
-      isHidden: true
-    genomicAlleleShortForm:
-      isHidden: true
-    aminoacidChange:
-      isHidden: true
     start:
+      isHidden: false
       defaultValue: 7572826
     end:
+      isHidden: false
       defaultValue: 7579005
     variantType:
+      isHidden: false
       defaultValue: "SO:0001059"
     alternateBases:
+      isHidden: false
       defaultValue: ""
     referenceBases:
+      isHidden: false
       defaultValue: ""
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
   img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
 
 - label: "Gene Match"
@@ -125,17 +104,14 @@
     - `variantType` and `alternateBases` to specify variants
   parameters:
     datasetIds:
+      isHidden: false
       defaultValue: ["cellz"]
-    aminoacidChange:
-      isHidden: true
     geneId:
       isHidden: false
       defaultValue:
         data:
           symbol: CDK2
         label: "CDK2 (12:55966830-55972789)"
-    genomicAlleleShortForm:
-      isHidden: true
     referenceName:
       isHidden: true
     start:
@@ -151,10 +127,6 @@
     alternateBases:
       isHidden: false
     referenceBases:
-      isHidden: true
-    skip:
-      isHidden: true
-    limit:
       isHidden: true
 
 - label: "Aminoacid Example"
@@ -165,35 +137,26 @@
     parameter can be combined with the gene symbol (e.g. "BRAF").
   parameters:
     datasetIds:
+      isHidden: false
       defaultValue: ["cellz"]
     aminoacidChange:
       isHidden: false
-      defaultValue: V600E
+      defaultValue: K132N
     geneId:
       isHidden: false
       defaultValue:
         data:
-          symbol: BRAF
-        label: "BRAF (7:140713328-140924929)"
-    genomicAlleleShortForm:
-      isHidden: true
+          symbol: TP53
+        label: "TP53 (17:7668421-7687490)"
     referenceName:
       isHidden: true
     start:
       isHidden: true
     end:
       isHidden: true
-    variantMinLength:
-      isHidden: true
-    variantMaxLength:
-      isHidden: true
     variantType:
       isHidden: true
     alternateBases:
       isHidden: true
     referenceBases:
-      isHidden: true
-    skip:
-      isHidden: true
-    limit:
       isHidden: true

@@ -23,14 +23,17 @@ parameters:
     label: Gene Symbol
     placeholder: MYCN
     infoText: The gene symbol (HUGO), e.g. "TP53".
+    isHidden: true
   aminoacidChange:
     label: Aminoacid alteration
     placeholder: V600E
     infoText: Aminoacid alteration in 1 letter format (e.g. "V600E").
+    isHidden: true
   genomicAlleleShortForm:
     label: Genomic HGVS ID 
     placeholder: NC_000017.11:g.7674232C>G
     infoText: Genomic HGVSId descriptor.
+    isHidden: true
   referenceName:
     label: Chromosome
     infoText: The chromosome (transmitted as refseq id).
@@ -142,14 +145,21 @@ parameters:
       single value, or in case of fuzzy requests for e.g. copy number variants
       the end provided as a range for the possible occurrence of
       the CNV end (e.g. "21967753-22500000").
+    isHidden: true
   variantMinLength:
     label: Min Variant Length
     type: number
-    infoText: The minimal length, in bases, of a genomic variant. This parameter can be applied to e.g. CNV queries.
+    infoText: |
+      The minimal length, in bases, of a genomic variant. This parameter can be
+      applied to e.g. CNV queries.
+    isHidden: true
   variantMaxLength:
     label: Max Variant Length
     type: number
-    infoText: The maximal length, in bases, of a genomic variant. This parameter can be applied to e.g. CNV queries.
+    infoText: |
+      The maximal length, in bases, of a genomic variant. This parameter can be
+      applied to e.g. CNV queries.
+    isHidden: true
   referenceBases:
     placeholder: "N"
     label: Reference Base(s)
@@ -297,8 +307,10 @@ parameters:
     infoText: >
       The number of result pages to skip when retrieving data.
     defaultValue: 0
+    isHidden: true
   limit:
     label: Response Limit / Page Size
     infoText: >
       The maximum number of biosamples to retrieve per page and also the size of response pages.
     defaultValue: 100
+    isHidden: true
