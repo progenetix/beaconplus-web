@@ -168,13 +168,13 @@
       defaultValue: ["cellz"]
     aminoacidChange:
       isHidden: false
-      defaultValue: V600E
+      defaultValue: K132N
     geneId:
       isHidden: false
       defaultValue:
         data:
-          symbol: BRAF
-        label: "BRAF (7:140713328-140924929)"
+          symbol: TP53
+        label: "TP53 (17:7668421-7687490)"
     genomicAlleleShortForm:
       isHidden: true
     referenceName:

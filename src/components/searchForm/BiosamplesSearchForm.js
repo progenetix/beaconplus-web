@@ -544,7 +544,9 @@ parameters = merge({}, parameters, {
 // }
 
 function QuerytypesTabs({ beaconQueryTypes, onQuerytypeClicked }) {
-  const [selectedTab, setSelectedTab] = useState(beaconQueryTypes[0])
+  const startType = beaconQueryTypes[0]
+  const [selectedTab, setSelectedTab] = useState(startType)
+  onQuerytypeClicked(selectedTab)
   return (
     <div className="tabs is-boxed">
       <ul>

@@ -1,4 +1,43 @@
 ---
+- label: "Sequence / Allele"
+  note: 'This represents the inputs for a "classic" Beacon SNV query'
+  description: |
+    **Sequence Queries** explore the existence of a specified sequence at a given
+    genomic position. Such queries correspond to the original Beacon queries
+    ("Allele Requests") and are used to match short, precisely defined genomic
+    variants such as SNVs and INDELs.
+    See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-sequence-queries) for more information.
+  parameters:
+    datasetIds:
+      placeholder: ["examplez"]
+    referenceName:
+      isHidden: false
+    geneId:
+      isHidden: true
+    genomicAlleleShortForm:
+      isHidden: true
+    aminoacidChange:
+      isHidden: true
+    start:
+      isHidden: false
+    end:
+      isHidden: true
+    variantType:
+      defaultValue: "SO:0001059"
+    alternateBases:
+      isHidden: false
+    referenceBases:
+      isHidden: false
+    variantMinLength:
+      isHidden: true
+    variantMaxLength:
+      isHidden: true
+    limit:
+      isHidden: true
+    skip:
+      isHidden: true
+  img: false
+
 - label: "CNV Query"
   note: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
   description: |
@@ -73,45 +112,6 @@
     skip:
       isHidden: true
   img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
-
-- label: "Sequence"
-  note: 'This represents the inputs for a "classic" Beacon SNV query'
-  description: |
-    **Sequence Queries** explore the existence of a specified sequence at a given
-    genomic position. Such queries correspond to the original Beacon queries
-    ("Allele Requests") and are used to match short, precisely defined genomic
-    variants such as SNVs and INDELs.
-    See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-sequence-queries) for more information.
-  parameters:
-    datasetIds:
-      placeholder: ["examplez"]
-    referenceName:
-      isHidden: false
-    geneId:
-      isHidden: true
-    genomicAlleleShortForm:
-      isHidden: true
-    aminoacidChange:
-      isHidden: true
-    start:
-      isHidden: false
-    end:
-      isHidden: true
-    variantType:
-      defaultValue: "SO:0001059"
-    alternateBases:
-      isHidden: false
-    referenceBases:
-      isHidden: false
-    variantMinLength:
-      isHidden: true
-    variantMaxLength:
-      isHidden: true
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
-  img: false
 
 - label: "Aminoacid Variant"
   description: |

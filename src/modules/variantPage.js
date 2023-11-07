@@ -14,10 +14,12 @@ import React from "react"
 
 const entity = "variants"
 const exampleId = "pgxvar-5bab576a727983b2e00b8d32"
-const datasetIds = SITE_DEFAULTS.DATASETID
 
 const VariantDetailsPage = withUrlQuery(({ urlQuery }) => {
-  var { id } = urlQuery
+  var { id, datasetIds } = urlQuery
+  if (! datasetIds) {
+    datasetIds = SITE_DEFAULTS.DATASETID
+  }
   const hasAllParams = id && datasetIds
 
   return (
@@ -44,21 +46,28 @@ function VariantLoader({ id, datasetIds }) {
           <VariantResponse
             response={response}
             id={id}
+            datasetIds={datasetIds}
           />
       )}
     />
   )
 }
 
-function VariantResponse({ response, id }) {
+function VariantResponse({ response, id, datasetIds }) {
   if (!response.response.resultSets[0].results[0]) {
     return NoResultsHelp(exampleId, entity)
   }
-  return <Variant variant={response.response.resultSets[0].results[0]} id={id} />
+  return (
+    <Variant
+      variant={response.response.resultSets[0].results[0]}
+      id={id}
+      datasetIds={datasetIds}
+    />
+  )
 }
 
 
-function Variant({ variant, id }) {
+function Variant({ variant, id, datasetIds }) {
 
   var marker = variant.variantInternalId
   var mParts = marker.split(':')
