@@ -12,6 +12,13 @@ export default function BeaconPlusPage({cytoBands}) {
       <BeaconPlusNav />
       <div className="section">
         <div className="BeaconPlus__container">
+          <BiosamplesSearchPanel
+            cytoBands={cytoBands}
+            parametersConfig={parametersConfig}
+            beaconQueryTypes={beaconQueryTypes}
+            requestTypeExamples={requestTypeExamples}
+            collapsed={false}
+          />
           <Panel className="content">
             <div>
                 This forward looking Beacon interface proposes additional,
@@ -22,13 +29,6 @@ export default function BeaconPlusPage({cytoBands}) {
                 the <a href="http://beacon-project.io/">ELIXIR Beacon website</a>.
             </div>
           </Panel>  
-          <BiosamplesSearchPanel
-            cytoBands={cytoBands}
-            parametersConfig={parametersConfig}
-            beaconQueryTypes={beaconQueryTypes}
-            requestTypeExamples={requestTypeExamples}
-            collapsed={false}
-          />
         </div>
       </div>
     </>
