@@ -38,7 +38,7 @@
       isHidden: true
   img: false
 
-- label: "CNV Query"
+- label: "CNV (Bracket)"
   note: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
   description: |
     Typically CNV Queries are performed as **Beacon Bracket Queries**. These allow
@@ -78,7 +78,7 @@
     skip:
       isHidden: true
 
-- label: "Range Query"
+- label: "Genomic Range"
   note: "Query for variants with overlap to a genomic range"
   description: |
     **Beacon Range Queries** are supposed to return matches of any variant with
@@ -113,7 +113,7 @@
       isHidden: true
   img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
 
-- label: "Aminoacid Variant"
+- label: "Aminoacid"
   description: |
     Annotated variants can potentially queried using the single amino acid
     replacement format. The `aminoacidChange` parameter ~~may~~ **should** be
@@ -186,7 +186,7 @@
     skip:
       isHidden: true
 
-- label: "Genomic HGVS"
+- label: "HGVS"
   description: |
     Variants can be identified through their genomic HGVS short form (for the
     supported reference genome). You may find more information in the [HGVS documentation](https://varnomen.hgvs.org/bg-material/simple/).
@@ -220,7 +220,7 @@
     skip:
       isHidden: true
 
-- label: "Sample Query"
+- label: "Sample Data"
   description: |
     This template provides a variety of fields _excluding genomic variant parameters_
     for the purpose to identify samples matchinng a single or several phenotypic
@@ -264,7 +264,7 @@
     cohorts:
       isHidden: true
 
-- label: "All Fields"
+- label: "Show All"
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
