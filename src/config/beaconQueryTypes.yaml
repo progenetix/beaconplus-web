@@ -32,13 +32,10 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
+  examples: []
   img: false
 
-- label: "CNV Query"
+- label: "CNV (Bracket)"
   note: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
   description: |
     Typically CNV Queries are performed as **Beacon Bracket Queries**. These allow
@@ -73,12 +70,9 @@
       isHidden: true
     freeFilters:
       placeholder: [NCIT:C3058]
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
+  examples: []
 
-- label: "Range Query"
+- label: "Genomic Range"
   note: "Query for variants with overlap to a genomic range"
   description: |
     **Beacon Range Queries** are supposed to return matches of any variant with
@@ -86,6 +80,7 @@
     `start` and `end` parameters. Additionally results might be restricted to
     variants matching a given size range, variant type or base composition. 
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-range-queries) for more information.
+  img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
   parameters:
     datasetIds:
       placeholder: ["examplez"]
@@ -107,17 +102,14 @@
       isHidden: false
     referenceBases:
       isHidden: false
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
-  img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
+  examples: []
 
-- label: "Aminoacid Variant"
+- label: "Aminoacid"
   description: |
     Annotated variants can potentially queried using the single amino acid
     replacement format. The `aminoacidChange` parameter ~~may~~ **should** be
     combined with e.g. a `geneId` to increase specificity.
+  img: false
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
@@ -143,10 +135,16 @@
       isHidden: true
     referenceBases:
       isHidden: true
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
+  examples:
+    - label: BRAF V600E
+      parameters:
+        aminoacidChange:
+          defaultValue: V600E
+        geneId:
+          defaultValue:
+            data:
+              symbol: BRAF
+            label: "BRAF"
 
 - label: "Gene ID"
   description: |
@@ -156,6 +154,7 @@
     positional translation is being applied (and to which parameters - e.g. extend
     of coding region ...).
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-geneid-queries) for more information.    
+  img: false
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
@@ -181,15 +180,13 @@
       isHidden: false
     referenceBases:
       isHidden: false
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
+  examples: []
 
-- label: "Genomic HGVS"
+- label: "HGVS"
   description: |
     Variants can be identified through their genomic HGVS short form (for the
     supported reference genome). You may find more information in the [HGVS documentation](https://varnomen.hgvs.org/bg-material/simple/).
+  img: false
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
@@ -215,12 +212,9 @@
       isHidden: true
     referenceBases:
       isHidden: true
-    limit:
-      isHidden: true
-    skip:
-      isHidden: true
+  examples: []
 
-- label: "Sample Query"
+- label: "Sample Data"
   description: |
     This template provides a variety of fields _excluding genomic variant parameters_
     for the purpose to identify samples matchinng a single or several phenotypic
@@ -228,6 +222,7 @@
     to facilitate complex queries, in the end all values are combined as a list of Beacon `filters`
     attributes (_i.e._ one can just add all of them to teh "Filters" field).
     See also the [Beacon `filters` documentation](https://docs.genomebeacons.org/filters/#using-filters-in-queries) for more information.        
+  img: false
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
@@ -263,8 +258,10 @@
       isHidden: false
     cohorts:
       isHidden: true
+  examples: []
 
-- label: "All Fields"
+- label: "Show All"
+  img: false
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
@@ -318,3 +315,4 @@
       isHidden: false
     skip:
       isHidden: false
+  examples: []

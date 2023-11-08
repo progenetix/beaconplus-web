@@ -499,6 +499,7 @@ parameters = merge({}, parameters, {
           />
 
         </div>
+
         <div className="buttons">
           <ExamplesButtons
             onExampleClicked={handleExampleClicked(
@@ -510,6 +511,7 @@ parameters = merge({}, parameters, {
           />
         </div>
         <ExampleDescription example={example} />
+        
       </div>
       {example?.img && (
           <div>
@@ -558,7 +560,6 @@ function QuerytypesTabs({ beaconQueryTypes, onQuerytypeClicked }) {
             key={id}
             onClick={() => {onQuerytypeClicked(value), setSelectedTab(value)}}
           >
-            {console.log(selectedTab)}
             <a>{value.label}</a>
           </li>
         ))}
