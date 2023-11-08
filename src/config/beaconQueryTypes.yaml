@@ -147,6 +147,13 @@
       isHidden: true
     skip:
       isHidden: true
+  examples:
+    BRAF V600E:
+      aminoacidChange: V600E
+      geneId:
+        data:
+          symbol: BRAF
+        label: "BRAF"
 
 - label: "Gene ID"
   description: |
