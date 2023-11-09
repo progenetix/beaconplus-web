@@ -23,9 +23,6 @@ const HANDOVER_IDS = {
   histoplot: "histoplot", //  "pgx:HO.histoplot",
   biosamples: "biosamples", //  "pgx:HO.biosamples",
   biosamplestable: "biosamplestable", //  "pgx:HO.biosamplestable",
-  // biosamplevariants: "biosamplevariants", //  "pgx:HO.biosamplevariants",
-  // biosamplepgxsegvariants: "biosamplepgxsegvariants", //  "pgx:HO.biosamples-pgxseg",
-  // biosamplevcfvariants: "biosamplevcfvariants", //  "pgx:HO.biosamples-vcf",
   phenopackets: "phenopackets", //  "pgx:HO.phenopackets",
   UCSClink: "UCSClink", //  "pgx:HO.bedfile2ucsc"
   variants: "variants",
@@ -38,7 +35,6 @@ const TABS = {
   samples: "Biosamples",
   variants: "Variants"
 }
-  // samplesMap: "Biosamples Map",
 
 export function DatasetResultBox({ data: responseSet, query }) {
   const {
@@ -117,25 +113,6 @@ export function DatasetResultBox({ data: responseSet, query }) {
     tabComponent = (
       <BiosamplesDataTable apiReply={biosamplesReply} datasetId={id} />
     )
-  // } else if (selectedTab === TABS.samplesMap) {
-  //   tabComponent = (
-  //     <div>
-  //       <h2 className="subtitle has-text-dark">Sample Origins</h2>
-  //       <p>
-  //         The map represents the origins of the matched samples, as derived from
-  //         the original publication or resource repository. In the majority of
-  //         cases this will correspond to the proxy information of the
-  //         corresponding author&apos;s institution. Additional information can be
-  //         found in the{" "}
-  //         <ExternalLink
-  //           href={`${SITE_DEFAULTS.MASTERDOCLINK}/geolocations.html`}
-  //           label="Geographic Coordinates documentation"
-  //         />
-  //         {"."}
-  //       </p>
-  //       <BiosamplesMap apiReply={biosamplesReply} datasetId={id} />
-  //     </div>
-  //   )
   } else if (selectedTab === TABS.variants) {
     tabComponent = (
       <VariantsDataTable apiReply={variantsReply} datasetId={id} />
@@ -384,7 +361,3 @@ function PagedLink({ handover }) {
     </li>
   )
 }
-
-// const BiosamplesMap = dynamic(() => import("./BioSamplesMap"), {
-//   ssr: false
-// })

@@ -86,22 +86,20 @@ function BiosampleResponse({ biosId, response, individual, datasetIds }) {
 
 function Biosample({ biosId, biosample, individual, datasetIds }) {
 
-  // console.log(individual);
 
   return (
-
 <section className="content">
-
   <h2 className="mb-6">
     Sample Details for <i>{biosId}</i>
   </h2>
-
   {biosample?.notes && (
     <>
       <h5>Description</h5>
       <p>{biosample.notes}</p>
     </>
   )}
+
+  {/*------------------------------------------------------------------------*/}
 
   <h5>Diagnostic Classifications </h5>
   <ul>
@@ -116,6 +114,8 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     )
   ))}      
   </ul>
+
+  {/*------------------------------------------------------------------------*/}
 
   {biosample?.celllineInfo && (
     <>
@@ -135,18 +135,18 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
   )}
 
   {/*------------------------------------------------------------------------*/}
+  {/*------------------------------------------------------------------------*/}
+  {/*------------------------------------------------------------------------*/}
 
   <h5>Donor Details</h5>
 
   <ul>
-
- {individual?.description && (
+  {individual?.description && (
     <li>
       <b>Description</b>{": "}
       {individual.description}
     </li>
   )}
-
   {individual?.indexDisease?.diseaseCode && (
     <li>
       <b>Diagnosis</b>{": "}
@@ -155,29 +155,27 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </li>
       
   )}
-
   {individual?.description && (
     <li>
       <b>Description</b>{": "}
       {individual.description}
     </li>
   )}
-
   {individual?.sex && (
     <li>
       <b>Genotypic Sex</b>{": "}
       {individual?.sex?.label} ({individual.sex.id})
     </li>
   )}
-
   {individual?.indexDisease?.onset && (
       <li>
         <b>Age at Collection</b>{": "}
         {individual.indexDisease.onset.age}
       </li>
   )}
-
   </ul>
+
+  {/*------------------------------------------------------------------------*/}
 
   {individual?.genomeAncestry && individual?.genomeAncestry?.length > 0 && (
     <>
@@ -186,6 +184,8 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </>
   )}
 
+  {/*------------------------------------------------------------------------*/}
+  {/*------------------------------------------------------------------------*/}
   {/*------------------------------------------------------------------------*/}
 
   {biosample?.provenance && (
@@ -207,6 +207,8 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </ul>
     </>
   )}
+
+  {/*------------------------------------------------------------------------*/}
 
   {biosample?.externalReferences && (
     <>
@@ -234,8 +236,12 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </>
   )}
 
+  {/*------------------------------------------------------------------------*/}
+
   <h5>CNV Data</h5>
   <BiosamplePlot biosid={biosId} datasetIds={datasetIds} />
+
+  {/*------------------------------------------------------------------------*/}
 
   <h5>Download</h5>
   <ul>
@@ -286,6 +292,8 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
       />
     </li>
   </ul>
+
+  {/*------------------------------------------------------------------------*/}
 
   <ShowJSON data={biosample} />
 
