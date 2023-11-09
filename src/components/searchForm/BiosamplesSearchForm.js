@@ -73,20 +73,19 @@ function useIsFilterlogicWarningVisible(watch) {
 
 
 export function BeaconSearchForm({
-  cytoBands,
-  isQuerying,
-  setSearchQuery,
-  beaconQueryTypes,
-  requestTypeExamples,
-  parametersConfig,
-  urlQuery,
-  setUrlQuery
-}) {
+    cytoBands,
+    isQuerying,
+    setSearchQuery,
+    beaconQueryTypes,
+    requestTypeExamples,
+    parametersConfig,
+    urlQuery,
+    setUrlQuery
+  }) {
+
   // const autoExecuteSearch = urlQuery.executeSearch === "true"
+
   const [example, setExample] = useState(null)
-
-  console.log(beaconQueryTypes[0].label)
-
   let parameters = useMemo(
     () =>
       makeParameters(parametersConfig, example),
@@ -117,61 +116,55 @@ export function BeaconSearchForm({
   // reset form when default values changes
   useDeepCompareEffect(() => reset(initialValues), [initialValues])
   
-  // all subsets lookup
+  // all subsets lookup ----------------------------------------------------- //
   const { data: allsubsetsResponse, isLoading: isAllSubsetsDataLoading } = useAllSubsets(
     watch
   )
-
   const allsubsetsOptions = allsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
   }))
-  
   parameters = merge({}, parameters, {
     freeFilters: { options: allsubsetsOptions }
   })
 
-  // biosubsets lookup
+  // biosubsets lookup ------------------------------------------------------ //
   const { data: biosubsetsResponse, isLoading: isBioSubsetsDataLoading } = useBioSubsets(
     watch
   )
-  
   const biosubsetsOptions = biosubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
   }))
-  
   parameters = merge({}, parameters, {
     bioontology: { options: biosubsetsOptions }
   })
   
-  // referenceid lookup
+  // referenceid lookup ----------------------------------------------------- //
   const { data: refsubsetsResponse, isLoading: isRefSubsetsDataLoading } = useReferencesSubsets(
     watch
-  )
-  
+  ) 
   const refsubsetsOptions = refsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
-  }))
-    
+  }))   
   parameters = merge({}, parameters, {
     referenceid: { options: refsubsetsOptions }
   })
   
-// clinical lookup
-const { data: clinicalResponse, isLoading: isClinicalDataLoading } = useClinicalSubsets(
-  watch
-)
+  // clinical lookup -------------------------------------------------------- //
+  const { data: clinicalResponse, isLoading: isClinicalDataLoading } = useClinicalSubsets(
+    watch
+  )
+  const clinicalOptions = clinicalResponse?.response?.filteringTerms?.map((value) => ({
+    value: value.id,
+    label: `${value.id}: ${value.label} (${value.count})`
+  }))
+  parameters = merge({}, parameters, {
+    clinicalClasses: { options: clinicalOptions }
+  })
 
-const clinicalOptions = clinicalResponse?.response?.filteringTerms?.map((value) => ({
-  value: value.id,
-  label: `${value.id}: ${value.label} (${value.count})`
-}))
-  
-parameters = merge({}, parameters, {
-  clinicalClasses: { options: clinicalOptions }
-})
+  // ======================================================================== //
 
   const {
     cytoBandPanelOpen,
@@ -522,29 +515,6 @@ parameters = merge({}, parameters, {
   )
 }
 
-// function QuerytypesButtons({ beaconQueryTypes, onExampleClicked }) {
-//   return (
-//     <div className="column is-full" style={{ padding: "0px" }}>
-//       <div className="columns">
-//         <div className="column is-one-fifth label">
-//           Request Types
-//         </div>
-//         <div className="column is-full">
-//           {Object.entries(beaconQueryTypes || []).map(([id, value]) => (
-//           <button
-//             key={id}
-//             className="button is-info"
-//             onClick={() => onExampleClicked(value)}
-//           >
-//             {value.label}
-//           </button>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
 function QuerytypesTabs({ beaconQueryTypes, onQuerytypeClicked }) {
   const startType = beaconQueryTypes[0]
   const [selectedTab, setSelectedTab] = useState(startType)
@@ -567,8 +537,6 @@ function QuerytypesTabs({ beaconQueryTypes, onQuerytypeClicked }) {
     </div>
   )
 }
-
-// setSelectedTab(value.label)
 
 function ExamplesButtons({ requestTypeExamples, onExampleClicked }) {
   return (
