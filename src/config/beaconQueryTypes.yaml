@@ -44,7 +44,7 @@
     variants affecting a genomic region but potentially differing in their exact
     size.
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-bracket-queries) for more information.
-  img: https://docs.genomebeacons.org/img/BeaconBracketQuery-limited-match-graphics.png
+  img: /img/BeaconBracketQuery-limited-match-graphics.png
   parameters:
     aminoacidChange:
       isHidden: true
@@ -80,7 +80,7 @@
     `start` and `end` parameters. Additionally results might be restricted to
     variants matching a given size range, variant type or base composition. 
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-range-queries) for more information.
-  img: https://docs.genomebeacons.org/img/BeaconRangeQuery-graphics.png
+  img: /img/BeaconRangeQuery-graphics.png
   parameters:
     datasetIds:
       placeholder: ["examplez"]
@@ -154,7 +154,7 @@
     positional translation is being applied (and to which parameters - e.g. extend
     of coding region ...).
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-geneid-queries) for more information.    
-  img: false
+  img: /img/BeaconGeneQuery-graphics.png
   parameters:
     datasetIds:
       defaultValue: ["examplez"]
