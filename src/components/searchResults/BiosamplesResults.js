@@ -31,6 +31,8 @@ function AlleleResponses({ biosampleResponseSets, query }) {
 
 function QuerySummary({ query }) {
   const filters = makeFilters(query)
+  console.log("QuerySummary query", query)
+  console.log("QuerySummary query", filters)
   return (
     <ul className="BeaconPlus__query-summary">
       {query.assemblyId && (
@@ -39,22 +41,22 @@ function QuerySummary({ query }) {
           {query.assemblyId}
         </li>
       )}
-      {query.geneId && (
+      {query.geneId?.data?.symbol && (
         <li>
           <small>Gene: </small>
-          {query.geneId.value}
+          {query.geneId.data.symbol}
         </li>
       )}
       {query.aminoacidChange && (
         <li>
           <small>Aminoacid Change: </small>
-          {query.aminoacidChange.value}
+          {query.aminoacidChange  }
         </li>
       )}
       {query.genomicAlleleShortForm && (
         <li>
           <small>HGVS: </small>
-          {query.genomicAlleleShortForm.value}
+          {query.genomicAlleleShortForm}
         </li>
       )}
       {query.referenceName && (
@@ -111,12 +113,13 @@ function QuerySummary({ query }) {
           {filters.join(", ")}
         </li>
       )}
-      {filters.length > 1 && (
+{/*      {filters.length > 1 && (
         <li>
           <small>Filter Logic: </small>
           {query.filterLogic}
         </li>
       )}
+*/}    
     </ul>
   )
 }

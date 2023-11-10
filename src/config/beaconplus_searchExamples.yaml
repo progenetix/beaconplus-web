@@ -161,3 +161,31 @@
       isHidden: true
     referenceBases:
       isHidden: true
+
+- label: "Identifier - HeLa"
+  note: "Samples can be identified through identifiers."
+  description: |
+    This example retrieves _HeLa_ instances - including cell lines derived from
+    _HeLa_ - by _HeLa's_ _cellosaurus_ identifier `cellosaurus:CVCL_0030`.
+  parameters:
+    datasetIds:
+      isHidden: false
+      defaultValue: ["cellz"]
+    aminoacidChange:
+      isHidden: true
+    geneId:
+      isHidden: true
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantType:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    freeFilters:
+      defaultValue: [cellosaurus:CVCL_0030]

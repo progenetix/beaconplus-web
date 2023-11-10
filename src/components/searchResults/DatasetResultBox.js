@@ -31,9 +31,9 @@ const HANDOVER_IDS = {
 }
 
 const TABS = {
-  results: "Results",
   samples: "Biosamples",
-  variants: "Variants"
+  variants: "Variants",
+  results: "Result Statistics"
 }
 
 export function DatasetResultBox({ data: responseSet, query }) {
@@ -49,11 +49,11 @@ export function DatasetResultBox({ data: responseSet, query }) {
     resultsHandovers.find(({ info: { contentId } }) => contentId === givenId)
 
   const biosamplesHandover = handoverById(HANDOVER_IDS.biosamples)
-  const biosamplesTableHandover = handoverById(HANDOVER_IDS.biosamplestable)
+  // const biosamplesTableHandover = handoverById(HANDOVER_IDS.biosamplestable)
   const phenopacketsHandover = handoverById(HANDOVER_IDS.phenopackets)
   const variantsHandover = handoverById(HANDOVER_IDS.variants)
-  const vcfHandover = handoverById(HANDOVER_IDS.vcf)
-  const pgxsegHandover = handoverById(HANDOVER_IDS.pgxseg)
+  // const vcfHandover = handoverById(HANDOVER_IDS.vcf)
+  // const pgxsegHandover = handoverById(HANDOVER_IDS.pgxseg)
   const UCSCbedHandoverURL = handoverById(HANDOVER_IDS.UCSClink) === undefined ? false : handoverById(HANDOVER_IDS.UCSClink).url
 
   const biosamplesReply = useProgenetixApi(
@@ -87,16 +87,13 @@ export function DatasetResultBox({ data: responseSet, query }) {
 
   // main / samples / variants
   const tabNames = []
-  tabNames.push(TABS.results)
 
   biosamplesHandover && tabNames.push(TABS.samples)
-  // biosamplesReply?.data?.response?.resultSets[0].results?.some(
-  //   (biosample) => !!biosample.provenance?.geoLocation
-  // ) && tabNames.push(TABS.samplesMap)
 
   if (handoverById(HANDOVER_IDS.variants)) tabNames.push(TABS.variants)
 
   const [selectedTab, setSelectedTab] = useState(tabNames[0])
+  tabNames.push(TABS.results)
 
   let tabComponent
   if (selectedTab === TABS.results) {
@@ -137,10 +134,6 @@ export function DatasetResultBox({ data: responseSet, query }) {
           <div>
             <b>Matched Samples: </b>
             {resultsCount}
-          </div>
-          <div>
-            <b>Retrieved Samples: </b>
-            {paginatedResultsCount}
           </div>
           {info.counts.variantCount > 0 ? (
             <div>
@@ -204,7 +197,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
       {tabComponent ? <div>{tabComponent}</div> : null}
       <hr/>
 
-      {biosamplesTableHandover?.pages && (
+{/*      {biosamplesTableHandover?.pages && (
         <div className="tabs">
           <div>
             <b>Download Sample Data (TSV)</b>
@@ -217,6 +210,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </div>
         </div>
       )}
+*/}
       {biosamplesHandover?.pages && (
         <div className="tabs">
           <div>
@@ -230,6 +224,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </div>
         </div>
       )}
+
       {variantsHandover?.pages && (
         <div className="tabs ">
           <div>
@@ -243,6 +238,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </div>
         </div>
       )}
+{/*
       {vcfHandover?.pages && (
         <div className="tabs ">
           <div>
@@ -256,6 +252,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </div>
         </div>
       )}
+
       {pgxsegHandover?.pages && (
         <div className="tabs ">
           <div>
@@ -269,6 +266,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </div>
         </div>
       )}
+*/}      
       {phenopacketsHandover?.pages && (
         <div className="tabs">
           <div>

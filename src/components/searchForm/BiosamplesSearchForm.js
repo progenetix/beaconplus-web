@@ -545,7 +545,7 @@ function ExamplesButtons({ requestTypeExamples, onExampleClicked }) {
         <div className="column is-one-fifth label">
           Query Examples
         </div>
-        <div className="column is-full">
+        <div className="column">
           {Object.entries(requestTypeExamples || []).map(([id, value]) => (
             <button
               key={id}
