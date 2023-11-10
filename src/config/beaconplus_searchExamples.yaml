@@ -28,7 +28,7 @@
       isHidden: true
     referenceBases:
       isHidden: true
-    freeFilters:
+    allTermsFilters:
       isHidden: false
       defaultValue: [NCIT:C3058]
 
@@ -187,5 +187,8 @@
       isHidden: true
     referenceBases:
       isHidden: true
+    allTermsFilters:
+      isHidden: true
     freeFilters:
-      defaultValue: [cellosaurus:CVCL_0030]
+      isHidden: false
+      defaultValue: cellosaurus:CVCL_0030

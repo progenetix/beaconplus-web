@@ -233,18 +233,28 @@ parameters:
         label: Female genotypic Sex
       - value: PATO:0020001
         label: Male genotypic Sex
-  freeFilters:
-    label: Filters
+  allTermsFilters:
+    label: Select Filters
     isMulti: true
     infoLink: "https://info.progenetix.org/doc/filters-documentation.html"
     infoText: |
       Add any **filters** to the search. These will usually
       correspond to CURIE values supported by the resource (e.g.
-      "cellosaurus:CVCL_0004"; "NCIT:C3222"; "PMID:18559507"). Please see the 
-      Documentation for details.
+      "cellosaurus:CVCL_0004"; "NCIT:C3222"; "PMID:18559507"). In contrast to
+      the "Free Filters" this field relies on the existence of the term in the
+      Beacon `filteringTermsResponse`.
     options:
       - value: ""
         label: "(no selection)"
+  freeFilters:
+    label: Free Filters
+    infoLink: "https://info.progenetix.org/doc/filters-documentation.html"
+    infoText: |
+      Add any **filter** to the search. These will usually
+      correspond to CURIE values supported by the resource (e.g.
+      "cellosaurus:CVCL_0004"; "NCIT:C3222"; "PMID:18559507"). Please see the 
+      Documentation for details.
+    isHidden: true
   accessid:
     label: Accession Prefilter
     isHidden: true

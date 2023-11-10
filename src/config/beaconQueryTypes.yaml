@@ -68,7 +68,7 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
-    freeFilters:
+    allTermsFilters:
       placeholder: [NCIT:C3058]
   examples: []
 
@@ -244,7 +244,7 @@
       isHidden: false
     accessid:
       isHidden: true
-    freeFilters:
+    allTermsFilters:
       isHidden: false
     filterLogic:
       isHidden: true
@@ -294,6 +294,8 @@
     accessid:
       isHidden: false
     freeFilters:
+      isHidden: false
+    allTermsFilters:
       isHidden: false
     filterLogic:
       isHidden: true
