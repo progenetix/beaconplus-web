@@ -125,6 +125,7 @@ export function mkGeneParams(gene) {
 }
 
 export function makeFilters({
+  allTermsFilters,
   freeFilters,
   clinicalClasses,
   bioontology,
@@ -133,21 +134,21 @@ export function makeFilters({
   sex,
   materialtype
 }) {
-  // const parsedFreeFilters =
-  //   freeFilters
-  //     ?.split(",")
-  //     .map((ff) => ff.trim())
-  //     .filter((v) => v != null && v.length !== 0) ?? []
+  const parsedFreeFilters =
+    freeFilters
+      ?.split(",")
+      .map((ff) => ff.trim())
+      .filter((v) => v != null && v.length !== 0) ?? []
 
   return [
-    ...(freeFilters ?? []),
+    ...(allTermsFilters ?? []),
     ...(bioontology ?? []),
     ...(clinicalClasses ?? []),
     ...(referenceid ?? []),
     ...(cohorts ? [cohorts] : []),
     ...(sex ? [sex] : []),
     ...(materialtype ? [materialtype] : []),
-    // ...parsedFreeFilters
+    ...parsedFreeFilters
   ]
 }
 
@@ -161,6 +162,7 @@ export function buildQueryParameters(queryData) {
     cohorts,
     sex,
     materialtype,
+    allTermsFilters,
     freeFilters,
     clinicalClasses,
     geneId,
@@ -189,6 +191,7 @@ export function buildQueryParameters(queryData) {
   }
   console.log("...buildQueryParameters before filters")
   const filters = makeFilters({
+    allTermsFilters,
     freeFilters,
     clinicalClasses,
     bioontology,

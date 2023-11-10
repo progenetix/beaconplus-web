@@ -55,10 +55,12 @@ function useIsFilterlogicWarningVisible(watch) {
   const referenceid = watch("referenceid")
   const clinicalClasses = watch("clinicalClasses")
   const cohorts = watch("cohorts")
-  const freeFilters = watch("freeFilters")
+  const allTermsFilters = watch("allTermsFilters")
   const sex = watch("sex")
+  const freeFilters = watch("freeFilters")
   const materialtype = watch("materialtype")
   const filters = makeFilters({
+    allTermsFilters,
     freeFilters,
     bioontology,
     referenceid,
@@ -125,7 +127,7 @@ export function BeaconSearchForm({
     label: `${value.id}: ${value.label} (${value.count})`
   }))
   parameters = merge({}, parameters, {
-    freeFilters: { options: allsubsetsOptions }
+    allTermsFilters: { options: allsubsetsOptions }
   })
 
   // biosubsets lookup ------------------------------------------------------ //
@@ -384,10 +386,11 @@ export function BeaconSearchForm({
               {...selectProps}
             />
           </div>
+          <InputField {...parameters.freeFilters} {...fieldProps} />
           <div className="columns my-0">
             <SelectField
               className="column py-0 mb-3"
-              {...parameters.freeFilters}
+              {...parameters.allTermsFilters}
               {...selectProps}
               isLoading={isAllSubsetsDataLoading}
             />
@@ -654,14 +657,15 @@ function validateForm(formValues) {
     clinicalClasses,
     referenceid,
     cohorts,
-    freeFilters
+    freeFilters,
+    allTermsFilters
   } = formValues
 
   const errors = []
   const setMissing = (name) =>
     errors.push([name, { type: "manual", message: "Parameter is missing" }])
 
-  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !variantType && !geneId && !aminoacidChange && !genomicAlleleShortForm && !bioontology && !referenceid && !freeFilters && !clinicalClasses && !cohorts) {
+  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !variantType && !geneId && !aminoacidChange && !genomicAlleleShortForm && !bioontology && !referenceid && !allTermsFilters && !freeFilters && !clinicalClasses && !cohorts) {
     !referenceName && setMissing("referenceName")
     !referenceBases && setMissing("referenceBases")
     !alternateBases && setMissing("alternateBases")
@@ -673,7 +677,8 @@ function validateForm(formValues) {
     !clinicalClasses && setMissing("clinicalClasses")
     !referenceid && setMissing("referenceid")
     !freeFilters && setMissing("freeFilters")
-    !cohorts && setMissing("freeFilters")
+    !allTermsFilters && setMissing("allTermsFilters")
+    !cohorts && setMissing("allTermsFilters")
   }
 
   const queryError = validateBeaconQuery(formValues)
