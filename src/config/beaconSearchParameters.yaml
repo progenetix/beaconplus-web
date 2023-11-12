@@ -161,6 +161,9 @@ parameters:
       applied to e.g. CNV queries.
     isHidden: true
   referenceBases:
+    infoText: |
+      The minimal length, in bases, of a genomic variant. This parameter can be
+      applied to e.g. CNV queries.
     placeholder: "N"
     label: Reference Base(s)
   alternateBases:

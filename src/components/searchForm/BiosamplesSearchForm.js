@@ -23,6 +23,7 @@ import { GeneSymbolSelector } from "./GeneSymbolSelector"
 import ChromosomePreview from "./ChromosomePreview"
 import { FaCogs } from "react-icons/fa"
 import cn from "classnames"
+// import Tippy from "@tippyjs/react"
 
 export const BiosamplesSearchForm = withUrlQuery(
   ({ urlQuery, setUrlQuery, ...props }) => (
@@ -72,7 +73,9 @@ function useIsFilterlogicWarningVisible(watch) {
   return filterLogic === "AND" && filters.length > 1
 }
 
-
+/*############################################################################*/
+/*############################################################################*/
+/*############################################################################*/
 
 export function BeaconSearchForm({
     cytoBands,
@@ -119,9 +122,11 @@ export function BeaconSearchForm({
   useDeepCompareEffect(() => reset(initialValues), [initialValues])
   
   // all subsets lookup ----------------------------------------------------- //
-  const { data: allsubsetsResponse, isLoading: isAllSubsetsDataLoading } = useAllSubsets(
-    watch
-  )
+  var ct = ""
+  const {
+    data: allsubsetsResponse,
+    isLoading: isAllSubsetsDataLoading 
+  } = useFiteringTerms( watch, ct )
   const allsubsetsOptions = allsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -131,9 +136,12 @@ export function BeaconSearchForm({
   })
 
   // biosubsets lookup ------------------------------------------------------ //
-  const { data: biosubsetsResponse, isLoading: isBioSubsetsDataLoading } = useBioSubsets(
-    watch
-  )
+  ct = "NCIT,pgx:icdom,pgx:icdot,UBERON"
+  const {
+    data: biosubsetsResponse,
+    isLoading: isBioSubsetsDataLoading
+  } = useFiteringTerms( watch, ct )
+
   const biosubsetsOptions = biosubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -143,9 +151,11 @@ export function BeaconSearchForm({
   })
   
   // referenceid lookup ----------------------------------------------------- //
-  const { data: refsubsetsResponse, isLoading: isRefSubsetsDataLoading } = useReferencesSubsets(
-    watch
-  ) 
+  ct = "PMID,GEOseries,GEOplatform,cellosaurus"
+  const {
+    data: refsubsetsResponse,
+    isLoading: isRefSubsetsDataLoading
+  } = useFiteringTerms( watch, ct )
   const refsubsetsOptions = refsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -155,9 +165,11 @@ export function BeaconSearchForm({
   })
   
   // clinical lookup -------------------------------------------------------- //
-  const { data: clinicalResponse, isLoading: isClinicalDataLoading } = useClinicalSubsets(
-    watch
-  )
+  ct = "TNM,NCITgrade,NCITstage,EFOfus"
+  const {
+    data: clinicalResponse,
+    isLoading: isClinicalDataLoading
+  } = useFiteringTerms( watch, ct )
   const clinicalOptions = clinicalResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -197,18 +209,6 @@ export function BeaconSearchForm({
   return (
     <>
       <div>
-{/*
-        <div className="buttons">
-          <QuerytypesButtons
-            onExampleClicked={handleExampleClicked(
-              reset,
-              setExample,
-              setUrlQuery
-            )}
-            beaconQueryTypes={beaconQueryTypes}
-          />
-        </div>
-*/}          
         <QuerytypesTabs
           onQuerytypeClicked={handleQuerytypeClicked(
             reset,
@@ -541,6 +541,14 @@ function QuerytypesTabs({ beaconQueryTypes, onQuerytypeClicked }) {
   )
 }
 
+export function InfodotTab(short, full) {
+  return (
+    <span>
+      <a alt={full}>{short}</a>
+    </span>
+  )
+}
+
 function ExamplesButtons({ requestTypeExamples, onExampleClicked }) {
   return (
     <div className="column is-full" style={{ padding: "0px" }}>
@@ -600,7 +608,6 @@ function FormUtilitiesButtons({
     </div>
   )
 }
-
 
 function ExampleDescription({ example }) {
   return example?.description ? (
@@ -689,7 +696,6 @@ function validateForm(formValues) {
     }
     errors.push(["global", error])
   }
-
   return errors
 }
 
@@ -704,39 +710,12 @@ const handleQuerytypeClicked = (reset, setExample, setUrlQuery) => (example) => 
 }
 
 // Maps FilteringTerms hook to apiReply usable by DataFetchSelect
-function useAllSubsets(watchForm) {
+function useFiteringTerms(watchForm, ct) {
   const datasetIds = watchForm("datasetIds")
   return useCollationsByType({
     datasetIds,
     method: "counts",
-    collationTypes: []
-  })
-}
-
-function useBioSubsets(watchForm) {
-  const datasetIds = watchForm("datasetIds")
-  return useCollationsByType({
-    datasetIds,
-    method: "counts",
-    collationTypes: "NCIT,pgx:icdom,pgx:icdot,UBERON"
-  })
-}
-
-function useReferencesSubsets(watchForm) {
-  const datasetIds = watchForm("datasetIds")
-  return useCollationsByType({
-    datasetIds,
-    method: "counts",
-    collationTypes: "PMID,GEOseries,GEOplatform,cellosaurus"
-  })
-}
-
-function useClinicalSubsets(watchForm) {
-  const datasetIds = watchForm("datasetIds")
-  return useCollationsByType({
-    datasetIds,
-    method: "counts",
-    collationTypes: "TNM,NCITgrade,NCITstage,EFOfus"
+    collationTypes: ct
   })
 }
 

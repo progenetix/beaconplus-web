@@ -1,6 +1,6 @@
 ---
 - label: "Sequence / Allele"
-  note: 'This represents the inputs for a "classic" Beacon SNV query'
+  infoText: 'This represents the inputs for a "classic" Beacon SNV query'
   description: |
     **Sequence Queries** explore the existence of a specified sequence at a given
     genomic position. Such queries correspond to the original Beacon queries
@@ -36,7 +36,7 @@
   img: false
 
 - label: "CNV (Bracket)"
-  note: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
+  infoText: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
   description: |
     Typically CNV Queries are performed as **Beacon Bracket Queries**. These allow
     the specification of sequence _ranges_ for both `start` and `end` positions of a
@@ -73,7 +73,7 @@
   examples: []
 
 - label: "Genomic Range"
-  note: "Query for variants with overlap to a genomic range"
+  infoText: "Query for variants with overlap to a genomic range"
   description: |
     **Beacon Range Queries** are supposed to return matches of any variant with
     at least partial overlap of the _sequence range_ specified by `reference_name`,
@@ -105,6 +105,7 @@
   examples: []
 
 - label: "Aminoacid"
+  infoText: ""
   description: |
     Annotated variants can potentially queried using the single amino acid
     replacement format. The `aminoacidChange` parameter ~~may~~ **should** be
@@ -147,6 +148,7 @@
             label: "BRAF"
 
 - label: "Gene ID"
+  infoText: ""
   description: |
     **Gene Queries** are in essence a variation of Range Queries in which the
     coordinates are replaced by the HGNC gene symbol. It is left to the implementation
@@ -183,6 +185,7 @@
   examples: []
 
 - label: "HGVS"
+  infoText: ""
   description: |
     Variants can be identified through their genomic HGVS short form (for the
     supported reference genome). You may find more information in the [HGVS documentation](https://varnomen.hgvs.org/bg-material/simple/).
@@ -215,6 +218,7 @@
   examples: []
 
 - label: "Sample Data"
+  infoText: ""
   description: |
     This template provides a variety of fields _excluding genomic variant parameters_
     for the purpose to identify samples matchinng a single or several phenotypic
@@ -261,6 +265,7 @@
   examples: []
 
 - label: "Show All"
+  infoText: "Display all form fields"
   img: false
   parameters:
     datasetIds:
