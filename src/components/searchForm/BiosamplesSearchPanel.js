@@ -65,7 +65,7 @@ export default function BiosamplesSearchPanel({
                 </div>
               ))
                ||
-              <div className="column">Search Samples</div>
+              <div className="column">Beacon Query Types</div>
             }
             </div>
         }

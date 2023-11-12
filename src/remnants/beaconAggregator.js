@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import parametersConfig from "../config/searchParameters.yaml"
+import parametersConfig from "../config/beaconSearchParameters.yaml"
 import AggregatorSearchPanel from "../components/searchForm/AggregatorSearchPanel"
 import ActiveLink from "../components/ActiveLink"
 import Panel from "../components/Panel"
