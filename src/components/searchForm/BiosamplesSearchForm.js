@@ -23,7 +23,6 @@ import { GeneSymbolSelector } from "./GeneSymbolSelector"
 import ChromosomePreview from "./ChromosomePreview"
 import { FaCogs } from "react-icons/fa"
 import cn from "classnames"
-// import Tippy from "@tippyjs/react"
 
 export const BiosamplesSearchForm = withUrlQuery(
   ({ urlQuery, setUrlQuery, ...props }) => (
