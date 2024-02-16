@@ -118,9 +118,7 @@ export function mkGeoParams(geoCity, geodistanceKm) {
 
 export function mkGeneParams(gene) {
   if (!gene) return null
-  console.log("...gene", gene)
   const geneId = gene.data.symbol ?? []
-  console.log("...geneId", geneId)
   return { geneId }
 }
 
@@ -200,11 +198,8 @@ export function buildQueryParameters(queryData) {
     sex,
     materialtype
   })
-  console.log("...geneId in buildQueryParameters", geneId)
   const geneParams = mkGeneParams(geneId) ?? {}
-  console.log("...geneParams in buildQueryParameters", geneParams)
   const geoParams = mkGeoParams(geoCity, geodistanceKm) ?? {}
-  console.log("...otherParams in buildQueryParameters", ...Object.entries({ ...otherParams }))  
   return new URLSearchParams(
     flattenParams([
       ...Object.entries({ ...otherParams, ...geneParams, ...geoParams }),

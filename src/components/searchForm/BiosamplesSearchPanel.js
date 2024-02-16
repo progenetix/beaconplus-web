@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useBeaconQuery } from "../../hooks/api"
 import Panel from "../Panel"
-// import { FaSlidersH } from "react-icons/fa"
 import { BiosamplesSearchForm } from "./BiosamplesSearchForm"
 import { BiosamplesResults } from "../searchResults/BiosamplesResults"
 import PropTypes from "prop-types"
@@ -41,9 +40,6 @@ export default function BiosamplesSearchPanel({
     clearQuery()
     setQuery(formValues)
   }
-
-  // button className="button ml-3"
-  //    className="icon has-text-info"
 
   return  (
     <>

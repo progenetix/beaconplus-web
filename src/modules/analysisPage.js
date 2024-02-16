@@ -9,29 +9,29 @@ import { Loader } from "../components/Loader"
 import { withUrlQuery } from "../hooks/url-query"
 import { EntityLayout } from "../components/EntityLayout"
 
-const itemColl = "callsets"
+const itemColl = "analyses"
 const exampleId = "pgxcs-kftvlijb"
 
-const CallsetDetailsPage = withUrlQuery(({ urlQuery }) => {
+const AnalysisDetailsPage = withUrlQuery(({ urlQuery }) => {
   var { id, datasetIds } = urlQuery
   if (! datasetIds) {
     datasetIds = SITE_DEFAULTS.DATASETID
   }
   const hasAllParams = id && datasetIds
   return (
-    <EntityLayout title="Callset Details" headline="Callset Details">
+    <EntityLayout title="Analysis Details" headline="Analysis Details">
       {!hasAllParams ? (
         NoResultsHelp(exampleId, itemColl)
       ) : (
-        <CallsetLoader csId={id} datasetIds={datasetIds} />
+        <AnalysisLoader csId={id} datasetIds={datasetIds} />
       )}
     </EntityLayout>
   )
 })
 
-export default CallsetDetailsPage
+export default AnalysisDetailsPage
 
-function CallsetLoader({ csId, datasetIds }) {
+function AnalysisLoader({ csId, datasetIds }) {
   const { data, error, isLoading } = useDataItemDelivery(
     csId,
     itemColl,
@@ -40,20 +40,20 @@ function CallsetLoader({ csId, datasetIds }) {
   return (
     <Loader isLoading={isLoading} hasError={error} background>
       {data && (
-        <CallsetResponse response={data} csId={csId} datasetIds={datasetIds} />
+        <AnalysisResponse response={data} csId={csId} datasetIds={datasetIds} />
       )}
     </Loader>
   )
 }
 
-function CallsetResponse({ response, csId, datasetIds }) {
+function AnalysisResponse({ response, csId, datasetIds }) {
   if (!response.response.resultSets[0].results) {
     return NoResultsHelp(exampleId, itemColl)
   }
-  return <Callset callset={response.response.resultSets[0].results[0]} csId={csId} datasetIds={datasetIds} />
+  return <Analysis analysis={response.response.resultSets[0].results[0]} csId={csId} datasetIds={datasetIds} />
 }
 
-function Callset({ callset, csId, datasetIds }) {
+function Analysis({ analysis, csId, datasetIds }) {
   return (
 
 <section className="content">
@@ -61,20 +61,20 @@ function Callset({ callset, csId, datasetIds }) {
     {csId}
   </h3>
 
-  {callset.description && (
+  {analysis.description && (
     <>
       <h5>Description</h5>
-      <p>{callset.description}</p>
+      <p>{analysis.description}</p>
     </>
   )}
 
-  {callset.biosampleId && (
+  {analysis.biosampleId && (
     <>
       <h5>Biosample</h5>
       <p>
         <InternalLink
-          href={`/biosample?id=${callset.biosampleId}&datasetIds=${datasetIds}`}
-          label={callset.biosampleId}
+          href={`/biosample?id=${analysis.biosampleId}&datasetIds=${datasetIds}`}
+          label={analysis.biosampleId}
         />
       </p>
     </>
@@ -82,7 +82,7 @@ function Callset({ callset, csId, datasetIds }) {
 
   <h5>Download</h5>
   <ul>
-    <li>Callset data as{" "}
+    <li>Analysis data as{" "}
       <BeaconRESTLink
         entryType="analyses"
         idValue={csId}
@@ -99,7 +99,7 @@ function Callset({ callset, csId, datasetIds }) {
         label="Beacon biosample JSON"
       />
     </li>
-    <li>Callset variants as{" "}
+    <li>Analysis variants as{" "}
       <BeaconRESTLink
         entryType="analyses"
         idValue={csId}
@@ -108,7 +108,7 @@ function Callset({ callset, csId, datasetIds }) {
         label="Beacon JSON"
       />
     </li>
-    <li>Callset variants as{" "}
+    <li>Analysis variants as{" "}
       <BeaconRESTLink
         entryType="analyses"
         idValue={csId}
@@ -118,7 +118,7 @@ function Callset({ callset, csId, datasetIds }) {
         label="Progenetix .pgxseg file"
       />
     </li>
-    <li>Callset variants as{" "}
+    <li>Analysis variants as{" "}
       <BeaconRESTLink
         entryType="analyses"
         idValue={csId}
