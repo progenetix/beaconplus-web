@@ -1,7 +1,7 @@
 import { withUrlQuery } from "../hooks/url-query"
 import { EntityLayout } from "../components/EntityLayout"
 import React, { useRef, useState } from "react"
-import { GeneLabelOptions } from "../components/formShared/GenespanUtilities"
+// import { GeneLabelOptions } from "../components/formShared/GenespanUtilities"
 import { useForm } from "react-hook-form"
 import SelectField from "../components/formShared/SelectField"
 import InputField from "../components/formShared/InputField"
@@ -9,7 +9,7 @@ import cn from "classnames"
 import { useDataVisualization, useExtendedSWR } from "../hooks/api"
 import { WithData } from "../components/Loader"
 import { useContainerDimensions } from "../hooks/containerDimensions"
-import { useAsyncSelect } from "../hooks/asyncSelect"
+// import { useAsyncSelect } from "../hooks/asyncSelect"
 
 import SVGloader from "../components/SVGloaders"
 import { svgFetcher } from "../hooks/fetcher"
@@ -75,22 +75,18 @@ function NoResultsHelp() {
 
 function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, sampleCount, width }) {
   const [formValues, setFormValues] = useState({})
-
-  var randNo = null
-  if (sampleCount > sampleMaxNo) {
-    randNo = sampleMaxNo
-  }
-
+  // var randNo = null
+  // if (sampleCount > sampleMaxNo) {
+  //   randNo = sampleMaxNo
+  // }
   const dataResult = useDataVisualization({
     "datasetIds": datasetIds,
     "accessid": accessid,
     "fileId": fileId,
     "skip": skip,
     "limit": limit,
-    "randno": randNo,
-    "plotWidth": width,
+    "requestedGranularity": "count",
     "includeHandovers": "true",
-    "onlyHandovers": "true",
     ...formValues
   })
   const onSubmit = (values) => {
@@ -111,23 +107,28 @@ function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, sam
       <WithData
         background
         apiReply={dataResult}
-        render={(data) => <ResultPanel response={data} />}
+        render={(data) =>
+          <ResultPanel
+            formValues={formValues}
+            response={data}
+            width={width}
+            datasetIds={datasetIds}
+          />}
       />
     </div>
   )
 }
 
-function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
-  var randNo = null
-  if (sampleCount > sampleMaxNo) {
-    randNo = sampleMaxNo
-  }
+function DataVisualizationForm({ isQuerying, onSubmit }) {
+  // var randNo = null
+  // if (sampleCount > sampleMaxNo) {
+  //   randNo = sampleMaxNo
+  // }
 
   const defaultValues = {
     "group_by": "",
     "plotRegionLabels": null,
-    "plotGeneSymbols": null,
-    "randno": randNo
+    "plotGeneSymbols": null
   }
   const { register, handleSubmit, errors, control } = useForm({ defaultValues })
   return (
@@ -244,11 +245,13 @@ function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
       </div>
       <div className="columns">
         <div className="column">
-          <GeneSpanSelector
+          <InputField
+            name="plotGeneSymbols"
+            label="Gene Symbols"
             errors={errors}
             register={register}
-            control={control}
-            infoText="Select one or more genes to be highlighted on the plots."
+            infoText="Label gene positions by their symbols (e.g. MYC, TP53)"
+            defaultValue=""
           />
         </div>
         <div className="column">
@@ -278,19 +281,24 @@ function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
   )
 }
 
-function ResultPanel({ response }) {
-
+function ResultPanel({ formValues, response, width, datasetIds }) {
   const resultsHandovers = response.response.resultSets[0].resultsHandovers
   const handoverById = (givenId) =>
     resultsHandovers.find(({ handoverType: { id } }) => id === givenId)
 
-  const histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url
-  const samplesplotUrl = handoverById(HANDOVER_IDS.samplesplot).url
+  const mapped = [`plot_width=${width}`];
+  Object.entries(formValues).forEach(([k, v]) => {
+    if (v != null && v != "") {
+      mapped.push(`${k}=${v}`);
+    }
+  });
+
+  const histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url + "&plotPars=" + mapped.join('::') + "&datasetIds=" + datasetIds
+  const samplesplotUrl = handoverById(HANDOVER_IDS.samplesplot).url + "&plotPars=" + mapped.join('::') + "&datasetIds=" + datasetIds
 
   return (
     <div>
       <div>
-
         <SVGloader apiReply={ useExtendedSWR(histoplotUrl, svgFetcher) } />
         {/*<img src={replaceWithProxy(histoplotUrl)} />*/}
         <a href={histoplotUrl} target="_blank" rel="noreferrer">
@@ -299,7 +307,6 @@ function ResultPanel({ response }) {
       </div>
       <div>
         <SVGloader apiReply={ useExtendedSWR(samplesplotUrl, svgFetcher) } />
-
         {/*<img src={replaceWithProxy(samplesplotUrl)} />*/}
         <a href={samplesplotUrl} target="_blank" rel="noreferrer">
           Open Sample Plot
@@ -335,20 +342,20 @@ const groupByOptions = [
   }
 ]
 
-function GeneSpanSelector({ control, errors, register }) {
-  const { inputValue, onInputChange } = useAsyncSelect()
-  const { options, isLoading } = GeneLabelOptions(inputValue)
-  return (
-    <SelectField
-      name="plotGeneSymbols"
-      label="Select Gene Label"
-      isLoading={isLoading && !!inputValue}
-      options={options}
-      onInputChange={onInputChange}
-      control={control}
-      errors={errors}
-      register={register}
-      isMulti
-    />
-  )
-}
+// function GeneSpanSelector({ control, errors, register }) {
+//   const { inputValue, onInputChange } = useAsyncSelect()
+//   const { options, isLoading } = GeneLabelOptions(inputValue)
+//   return (
+//     <SelectField
+//       name="plotGeneSymbols"
+//       label="Select Gene Label"
+//       isLoading={isLoading && !!inputValue}
+//       options={options}
+//       onInputChange={onInputChange}
+//       control={control}
+//       errors={errors}
+//       register={register}
+//       isMulti
+//     />
+//   )
+// }
