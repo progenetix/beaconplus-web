@@ -11,6 +11,7 @@ import { EntityLayout } from "../components/EntityLayout"
 import { ShowJSON } from "../components/RawData"
 import { BiosamplePlot } from "../components/SVGloaders"
 import React from "react"
+import { refseq2chro } from "../components/Chromosome"
 
 const entity = "variants"
 const exampleId = "pgxvar-5bab576a727983b2e00b8d32"
@@ -21,7 +22,6 @@ const VariantDetailsPage = withUrlQuery(({ urlQuery }) => {
     datasetIds = SITE_DEFAULTS.DATASETID
   }
   const hasAllParams = id && datasetIds
-
   return (
     <EntityLayout title="Variant Details" headline="Variant Details">
       {!hasAllParams ? (
@@ -68,10 +68,9 @@ function VariantResponse({ response, id, datasetIds }) {
 
 
 function Variant({ variant, id, datasetIds }) {
-
   var marker = variant.variantInternalId
   var mParts = marker.split(':')
-  const chro = mParts[0]
+  const chro = refseq2chro(mParts[0])
   marker = marker + " (" + mParts[1] + ")"
 
   return (
@@ -219,7 +218,12 @@ function Variant({ variant, id, datasetIds }) {
       {variant.caseLevelData[0]?.biosampleId && marker && chro && (
         <>
           <h5>Plot</h5>
-          <BiosamplePlot biosid={variant.caseLevelData[0].biosampleId} datasetIds={datasetIds} plotRegionLabels={marker} plotChros={chro} />
+          <BiosamplePlot
+            biosid={variant.caseLevelData[0].biosampleId}
+            datasetIds={datasetIds}
+            plotRegionLabels={marker}
+            plotChros={chro}
+          />
         </>
       )}
 
