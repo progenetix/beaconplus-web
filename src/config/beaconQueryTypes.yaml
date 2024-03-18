@@ -23,7 +23,7 @@
     end:
       isHidden: true
     variantType:
-      defaultValue: "SO:0001059"
+      isHidden: false
     alternateBases:
       isHidden: false
     referenceBases:
@@ -54,10 +54,15 @@
       isHidden: true
     referenceName:
       placeholder: "refseq:NC_000009.12"
+      isHidden: false
     start:
+      label: Start Bracket
       placeholder: "21000001-21975098"
+      isHidden: false
     end:
+      label: End Bracket
       placeholder: "21967753-23000000"
+      isHidden: false
     variantType:
       placeholder: "EFO:0030067 (DEL)"
     alternateBases:
@@ -65,9 +70,9 @@
     referenceBases:
       isHidden: true
     variantMinLength:
-      isHidden: true
+      isHidden: false
     variantMaxLength:
-      isHidden: true
+      isHidden: false
     allTermsFilters:
       placeholder: [NCIT:C3058]
   examples: []
@@ -86,6 +91,7 @@
       placeholder: ["examplez"]
     referenceName:
       isHidden: false
+      placeholder: "refseq:NC_000009.12"
     geneId:
       isHidden: true
     genomicAlleleShortForm:
@@ -93,14 +99,22 @@
     aminoacidChange:
       isHidden: true
     start:
+      label: Range Start
       isHidden: false
+      placeholder: "21967753"
     end:
+      label: Range End
       isHidden: false
+      placeholder: "21975098"
     variantType:
       isHidden: false
     alternateBases:
       isHidden: false
     referenceBases:
+      isHidden: false
+    variantMinLength:
+      isHidden: false
+    variantMaxLength:
       isHidden: false
   examples: []
 
