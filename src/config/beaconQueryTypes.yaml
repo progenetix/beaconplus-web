@@ -54,10 +54,15 @@
       isHidden: true
     referenceName:
       placeholder: "refseq:NC_000009.12"
+      isHidden: false
     start:
+      label: Start Bracket
       placeholder: "21000001-21975098"
+      isHidden: false
     end:
+      label: End Bracket
       placeholder: "21967753-23000000"
+      isHidden: false
     variantType:
       placeholder: "EFO:0030067 (DEL)"
     alternateBases:
@@ -93,8 +98,10 @@
     aminoacidChange:
       isHidden: true
     start:
+      label: Range Start
       isHidden: false
     end:
+      label: Range End
       isHidden: false
     variantType:
       isHidden: false
