@@ -42,76 +42,52 @@ parameters:
         value: ""
       - label: "1 (NC_000001.11)"
         value: "refseq:NC_000001.11"
-        # value: "1"
       - label: "2 (NC_000002.12)"
         value: "refseq:NC_000002.12"
-        # value: "2"
       - label: "3 (NC_000003.12)"
         value: "refseq:NC_000003.12"
-        # value: "3"
       - label: "4 (NC_000004.12)"
         value: "refseq:NC_000004.12"
-        # value: "4"
       - label: "5 (NC_000005.10)"
         value: "refseq:NC_000005.10"
-        # value: "5"
       - label: "6 (NC_000006.12)"
         value: "refseq:NC_000006.12"
-        # value: "6"
       - label: "7 (NC_000007.14)"
         value: "refseq:NC_000007.14"
-        # value: "7"
       - label: "8 (NC_000008.11)"
         value: "refseq:NC_000008.11"
-        # value: "8"
       - label: "9 (NC_000009.12)"
         value: "refseq:NC_000009.12"
-        # value: "9"
       - label: "10 (NC_000010.11)"
         value: "refseq:NC_000010.11"
-        # value: "10"
       - label: "11 (NC_000011.10)"
         value: "refseq:NC_000011.10"
-        # value: "11"
       - label: "12 (NC_000012.12)"
         value: "refseq:NC_000012.12"
-        # value: "12"
       - label: "13 (NC_000013.11)"
         value: "refseq:NC_000013.11"
-        # value: "13"
       - label: "14 (NC_000014.9)"
         value: "refseq:NC_000014.9"
-        # value: "14"
       - label: "15 (NC_000015.10)"
         value: "refseq:NC_000015.10"
-        # value: "15"
       - label: "16 (NC_000016.10)"
         value: "refseq:NC_000016.10"
-        # value: "16"
       - label: "17 (NC_000017.11)"
         value: "refseq:NC_000017.11"
-        # value: "17"
       - label: "18 (NC_000018.10)"
         value: "refseq:NC_000018.10"
-        # value: "18"
       - label: "19 (NC_000019.10)"
         value: "refseq:NC_000019.10"
-        # value: "19"
       - label: "20 (NC_000020.11)"
         value: "refseq:NC_000020.11"
-        # value: "20"
       - label: "21 (NC_000021.9)"
         value: "refseq:NC_000021.9"
-        # value: "21"
       - label: "22 (NC_000022.11)"
         value: "refseq:NC_000022.11"
-        # value: "22"
       - label: "X (NC_000023.11)"
         value: "refseq:NC_000023.11"
-        # value: "23"
       - label: "Y (NC_000024.10)"
         value: "refseq:NC_000024.10"
-        # value: "24"
   variantType:
     label: "Variant Type"
     infoText: >-
@@ -129,22 +105,21 @@ parameters:
       - value: "SO:0001059"
         label: "SO:0001059 (any sequence alteration - SNV, INDEL...)"
   start:
-    label: Start or Position
+    label: Start
     placeholder: "19000001-21975098"
     infoText: |
       The 1-based genomic position of the variant, or the start of a range query,
-      specified through a single value.
-      However, in case of fuzzy requests for e.g. copy number variants, the start
-      position will usually be provided as a range for the possible occurrence of
-      the CNV start (e.g. "21500001-21975098").
+      specified through a single value. In case of Bracket Queries e.g. for sized
+      copy number variants, the start position will be provided as a range for the
+      possible occurrence of the variants start (e.g. "21500001-21975098").
   end:
-    label: End (Range or Structural Var.)
+    label: End
     placeholder: "21967753-24000000"
     infoText: |
-      The 1-based genomic end position of a range query, specified through a
-      single value, or in case of fuzzy requests for e.g. copy number variants
-      the end provided as a range for the possible occurrence of
-      the CNV end (e.g. "21967753-22500000").
+      The 1-based genomic end of the variant in a range query,
+      specified through a single value. In case of Bracket Queries e.g. for sized
+      copy number variants the end position will be provided as a range for the
+      possible occurrence of the variants end (e.g. "21967753-24000000").
     isHidden: true
   variantMinLength:
     label: Min Variant Length

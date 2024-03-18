@@ -16,9 +16,11 @@
       isHidden: false
       defaultValue: "refseq:NC_000009.12"
     start:
+      label: Start Bracket
       isHidden: false
       defaultValue: "21000001-21975098"
     end:
+      label: End Bracket
       isHidden: false
       defaultValue: "21967753-23000000"
     variantType:
@@ -76,9 +78,11 @@
       isHidden: false
       defaultValue: "refseq:NC_000017.11"
     start:
+      label: Range Start
       isHidden: false
       defaultValue: 7572826
     end:
+      label: Range End
       isHidden: false
       defaultValue: 7579005
     variantType:
