@@ -23,7 +23,7 @@
     end:
       isHidden: true
     variantType:
-      defaultValue: "SO:0001059"
+      isHidden: false
     alternateBases:
       isHidden: false
     referenceBases:
@@ -65,9 +65,9 @@
     referenceBases:
       isHidden: true
     variantMinLength:
-      isHidden: true
+      isHidden: false
     variantMaxLength:
-      isHidden: true
+      isHidden: false
     allTermsFilters:
       placeholder: [NCIT:C3058]
   examples: []
@@ -101,6 +101,10 @@
     alternateBases:
       isHidden: false
     referenceBases:
+      isHidden: false
+    variantMinLength:
+      isHidden: false
+    variantMaxLength:
       isHidden: false
   examples: []
 
