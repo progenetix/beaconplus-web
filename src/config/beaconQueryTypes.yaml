@@ -91,6 +91,7 @@
       placeholder: ["examplez"]
     referenceName:
       isHidden: false
+      placeholder: "refseq:NC_000009.12"
     geneId:
       isHidden: true
     genomicAlleleShortForm:
@@ -100,9 +101,11 @@
     start:
       label: Range Start
       isHidden: false
+      placeholder: "21967753"
     end:
       label: Range End
       isHidden: false
+      placeholder: "21975098"
     variantType:
       isHidden: false
     alternateBases:
