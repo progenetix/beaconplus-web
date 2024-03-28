@@ -196,3 +196,36 @@
     freeFilters:
       isHidden: false
       defaultValue: cellosaurus:CVCL_0030
+
+- label: "Cytoband Example"
+  note: "This is an experimental example for cytoband support."
+  description: |
+    This example shows a query for CNV gain variants in the cytoband 8q24.1, 
+    the location of the MYC proto-oncogene, limited to ductal breast carcinomas.
+  parameters:
+    datasetIds:
+      isHidden: false
+      defaultValue: ["examplez"]
+    cytoBands:
+      isHidden: false
+      defaultValue: 8q24.1
+    variantType:
+      isHidden: false
+      defaultValue: "EFO:0030070"
+    allTermsFilters:
+      isHidden: false
+      defaultValue: [NCIT:C4017]
+    aminoacidChange:
+      isHidden: true
+    geneId:
+      isHidden: true
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true

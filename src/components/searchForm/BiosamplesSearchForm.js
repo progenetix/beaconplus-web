@@ -328,6 +328,7 @@ export function BeaconSearchForm({
               {...parameters.alternateBases}
             />
           </div>
+          <InputField {...parameters.cytoBands} {...fieldProps} />
           <div className="columns my-0">
             <SelectField
               className={cn(
@@ -656,6 +657,7 @@ function validateForm(formValues) {
     alternateBases,
     start,
     end,
+    cytoBands,
     geneId,
     aminoacidChange,
     genomicAlleleShortForm,
@@ -671,12 +673,13 @@ function validateForm(formValues) {
   const setMissing = (name) =>
     errors.push([name, { type: "manual", message: "Parameter is missing" }])
 
-  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !variantType && !geneId && !aminoacidChange && !genomicAlleleShortForm && !bioontology && !referenceid && !allTermsFilters && !freeFilters && !clinicalClasses && !cohorts) {
+  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !cytoBands && !variantType && !geneId && !aminoacidChange && !genomicAlleleShortForm && !bioontology && !referenceid && !allTermsFilters && !freeFilters && !clinicalClasses && !cohorts) {
     !referenceName && setMissing("referenceName")
     !referenceBases && setMissing("referenceBases")
     !alternateBases && setMissing("alternateBases")
     !start && setMissing("start")
     !end && setMissing("end")
+    !cytoBands && setMissing("cytoBands")
     !variantType && setMissing("variantType")
     !geneId && setMissing("geneId")
     !bioontology && setMissing("bioontology")
