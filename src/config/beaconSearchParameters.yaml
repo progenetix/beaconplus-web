@@ -121,6 +121,19 @@ parameters:
       copy number variants the end position will be provided as a range for the
       possible occurrence of the variants end (e.g. "21967753-24000000").
     isHidden: true
+  cytoBands:
+    label: Cytoband Annotation
+    type: string
+    placeholder: 8q24.12
+    infoText: |
+      The field for cytoband annotation style requests currently supports
+      single cytogenetic regions (resulting in a range request for the whole region).
+      Additionally, providing exactly 2, comma separated regions can be used to
+      create bracket requests or (experimentally) fusion requests (where the 2nd
+      region denotes the "mateName" chromosome of the fusion partner).
+      Example here would be the use of "8q24,14q32" to search for fusion events
+      involving MYC and IGH (_i.e._ the typical "Burkitt lymphoma fusion").
+    isHidden: true
   variantMinLength:
     label: Min Variant Length
     type: number

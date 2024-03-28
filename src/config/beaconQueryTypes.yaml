@@ -278,6 +278,56 @@
       isHidden: true
   examples: []
 
+- label: "Cytogenetic Location"
+  infoText: ""
+  description: |
+    Cytoband annotation style requests currently support
+    single cytogenetic regions (resulting in a range request for the whole region).
+    Additionally, providing exactly 2, comma separated regions can be used to
+    create bracket requests or (experimentally) fusion requests (where the 2nd
+    region denotes the "mateName" chromosome of the fusion partner).
+    Example here would be the use of "8q24,14q32" to search for fusion events
+    involving MYC and IGH (_i.e._ the typical "Burkitt lymphoma fusion").
+  img: false
+  parameters:
+    datasetIds:
+      defaultValue: ["examplez"]
+    cytoBands:
+      isHidden: false      
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantType:
+      isHidden: false
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: true
+    clinicalClasses:
+      isHidden: true
+    accessid:
+      isHidden: true
+    allTermsFilters:
+      isHidden: false
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: true
+    sex:
+      isHidden: true
+    materialtype:
+      isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+  examples: []
+
 - label: "Show All"
   infoText: "Display all form fields"
   img: false
@@ -337,3 +387,4 @@
     skip:
       isHidden: false
   examples: []
+

@@ -70,13 +70,13 @@ export default function BiosamplesDataTable({ apiReply, datasetId }) {
             </div>
           ))
       },
-      {
-        Header: TooltipHeader(
-          "CNV Fraction",
-          "Fraction of the sample's genome covered by CNV events (genomic gain or deletion)"
-        ),
-        accessor: "info.cnvstatistics.cnvfraction"
-      }
+      // {
+      //   Header: TooltipHeader(
+      //     "CNV Fraction",
+      //     "Fraction of the sample's genome covered by CNV events (genomic gain or deletion)"
+      //   ),
+      //   accessor: "info.cnvstatistics.cnvfraction"
+      // }
     ],
     [datasetId]
   )
