@@ -134,6 +134,17 @@ parameters:
       Example here would be the use of "8q24,14q32" to search for fusion events
       involving MYC and IGH (_i.e._ the typical "Burkitt lymphoma fusion").
     isHidden: true
+  variantQueryDigests:
+    label: Variation Shorthand(s)
+    type: string
+    placeholder: "9:21000001-21975098--21967753-24000000:DEL"
+    infoText: |
+      This experimental parameter allows to
+      * define a variant request in a concatenated `referenceName:start--end:variantType`
+        or `referenceName:start:referenceBases>alternateBases` format
+      * optionally comma-concatenate 2 or more of such strings, to identify samples
+        carrying matches for all of these variations
+    isHidden: true
   variantMinLength:
     label: Min Variant Length
     type: number
