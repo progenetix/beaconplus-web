@@ -27,7 +27,7 @@ const VariantDetailsPage = withUrlQuery(({ urlQuery }) => {
       {!hasAllParams ? (
         NoResultsHelp(exampleId, entity)
       ) : (
-        <VariantLoader id={id} />
+        <VariantLoader id={id} datasetIds={datasetIds} />
       )}
     </EntityLayout>
   )
