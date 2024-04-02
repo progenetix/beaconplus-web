@@ -41,6 +41,12 @@ function QuerySummary({ query }) {
           {query.assemblyId}
         </li>
       )}
+      {query.cytoBands && (
+        <li>
+          <small>Cytobands: </small>
+          {query.cytoBands}
+        </li>
+      )}
       {query.geneId?.data?.symbol && (
         <li>
           <small>Gene: </small>
