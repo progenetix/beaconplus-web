@@ -47,6 +47,12 @@ function QuerySummary({ query }) {
           {query.cytoBands}
         </li>
       )}
+      {query.variantQueryDigests && (
+        <li>
+          <small>Short Form: </small>
+          {query.variantQueryDigests}
+        </li>
+      )}
       {query.geneId?.data?.symbol && (
         <li>
           <small>Gene: </small>
