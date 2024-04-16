@@ -35,6 +35,7 @@ export function GeneSymbolSelector({
       className={className}
       useOptionsAsValue
       isClearable
+      isMulti
     />
   )
 }
