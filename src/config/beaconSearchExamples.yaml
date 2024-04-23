@@ -113,10 +113,7 @@
       defaultValue: ["cellz"]
     geneId:
       isHidden: false
-      defaultValue:
-        data:
-          symbol: CDK2
-        label: "CDK2 (12:55966830-55972789)"
+      defaultValue: CDK2
     referenceName:
       isHidden: true
     start:
@@ -125,10 +122,13 @@
       isHidden: true
     variantMinLength:
       isHidden: false
+      defaultValue: 10000
     variantMaxLength:
       isHidden: false
+      defaultValue: 5000000
     variantType:
       isHidden: false
+      defaultValue: "EFO:0030070"
     alternateBases:
       isHidden: false
     referenceBases:

@@ -19,7 +19,7 @@ import InputField from "../formShared/InputField"
 import useDeepCompareEffect from "use-deep-compare-effect"
 import { withUrlQuery } from "../../hooks/url-query"
 import { GeoCitySelector } from "./GeoCitySelector"
-import { GeneSymbolSelector } from "./GeneSymbolSelector"
+// import { GeneSymbolSelector } from "./GeneSymbolSelector"
 import ChromosomePreview from "./ChromosomePreview"
 import { FaCogs } from "react-icons/fa"
 import cn from "classnames"
@@ -244,12 +244,14 @@ export function BeaconSearchForm({
               {...parameters.aminoacidChange} {...fieldProps}
             />
           </div>
-          {!parameters.geneId.isHidden && (
-            <GeneSymbolSelector
-              {...parameters.geneId} {...selectProps}
-            />
-          )}
           <div className="columns my-0">
+            <InputField
+              className={cn(
+                !parameters.geneId && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.geneId} {...fieldProps}
+            />
             <SelectField
               className={cn(
                 !parameters.referenceName.isHidden && "column",
