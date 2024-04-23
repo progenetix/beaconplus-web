@@ -73,7 +73,7 @@
   parameters:
     datasetIds:
       isHidden: false
-      defaultValue: ["examplez"]
+      defaultValue: ["cellz"]
     referenceName:
       isHidden: false
       defaultValue: "refseq:NC_000017.11"
