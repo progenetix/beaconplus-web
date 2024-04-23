@@ -163,7 +163,6 @@ export function buildQueryParameters(queryData) {
     allTermsFilters,
     freeFilters,
     clinicalClasses,
-    geneId,
     geoCity,
     geodistanceKm,
     ...otherParams
