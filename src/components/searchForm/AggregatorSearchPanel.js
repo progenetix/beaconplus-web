@@ -8,13 +8,15 @@ import PropTypes from "prop-types"
 // import cn from "classnames"
 
 AggregatorSearchPanel.propTypes = {
+  requestTypeConfig: PropTypes.object.isRequired,
   parametersConfig: PropTypes.object.isRequired,
   collapsed: false
 }
 
 export default function AggregatorSearchPanel({
   parametersConfig,
-  cytoBands,
+  requestTypeConfig,
+  requestTypeExamples,
   collapsed
 }) {
   const [query, setQuery] = useState(null) // actual valid query
@@ -67,7 +69,8 @@ export default function AggregatorSearchPanel({
         }
       >
         <BiosamplesSearchForm
-          cytoBands={cytoBands}
+          requestTypeConfig={requestTypeConfig}
+          requestTypeExamples={requestTypeExamples}
           parametersConfig={parametersConfig}
           isQuerying={isLoading}
           setSearchQuery={onValidFormQuery}

@@ -16,18 +16,18 @@ export const SITE_DEFAULTS = {
   SITE: process.env.NEXT_PUBLIC_SITE_URL,
   API_PATH: process.env.NEXT_PUBLIC_API_PATH,
   PREFETCH_PATH: process.env.NEXT_PUBLIC_PREFETCH_API_PATH,
-  DATASETID: "examplez",
-  DATASETLABEL: "Examplez",
-  PROJECTROOTLINK: "http://beaconplus.org",
+  DATASETID: "progenetix",
+  DATASETLABEL: "Progenetix",
+  PROJECTROOTLINK: "http://progenetix.org",
   PROJECTDOCLINK: "https://docs.progenetix.org",
   MASTERROOTLINK: "https://progenetix.org",
   MASTERDOCLINK: "https://docs.progenetix.org",
   NEWSLINK: "https://docs.progenetix.org/news",
   ORGSITELINK: "https://info.baudisgroup.org"
 }
-export const MAX_HISTO_SAMPLES = 1000
+// export const MAX_HISTO_SAMPLES = 1000
 export const THISYEAR = new Date().getFullYear()
-export const BIOKEYS = ["histologicalDiagnosis", "icdoMorphology", "icdoTopography", "sampleOriginDetail"]
+export const BIOKEYS = ["icdoMorphology", "icdoTopography", "histologicalDiagnosis"]
 
 export function useProgenetixApi(...args) {
   const { data, error, ...other } = useExtendedSWR(...args)
@@ -75,20 +75,27 @@ export async function tryFetch(url, fallBack = "N/A") {
     }
   }
 }
-
 /**
  * When param is null no query will be triggered.
  */
 
-// This Beacon query only retrieves the counts & handovers using a custom `output=handoversonly`
+// This Beacon query only retrieves the counts & handovers using a custom `includeHandovers=true`
 // parameter, to avoid "double-loading" of the results.
-// TODO: refactor using requestedGranularity ...
 export function useBeaconQuery(queryData) {
   return useProgenetixApi(
     queryData
-      ? `${SITE_DEFAULTS.API_PATH}beacon/biosamples/?includeHandovers=true&requestedGranularity=record&onlyHandovers=true&${buildQueryParameters(queryData)}`
+      ? `${SITE_DEFAULTS.API_PATH}beacon/biosamples/?includeHandovers=true&requestedGranularity=count&${buildQueryParameters(queryData)}`
       : null
   )
+}
+
+export function urlRetrieveIds(urlQuery) {
+  var { id, datasetIds } = urlQuery
+  if (!datasetIds) {
+    datasetIds = SITE_DEFAULTS.DATASETID
+  }
+  const hasAllParams = id && datasetIds
+  return {id, datasetIds, hasAllParams}
 }
 
 export function useAggregatorQuery(queryData) {
@@ -124,50 +131,44 @@ export function mkGeoParams(geoCity, geodistanceKm) {
 
 export function makeFilters({
   allTermsFilters,
-  freeFilters,
   clinicalClasses,
   bioontology,
   referenceid,
+  analysisOperation,
   cohorts,
   sex,
   materialtype
 }) {
-  const parsedFreeFilters =
-    freeFilters
-      ?.split(",")
-      .map((ff) => ff.trim())
-      .filter((v) => v != null && v.length !== 0) ?? []
-
   return [
     ...(allTermsFilters ?? []),
     ...(bioontology ?? []),
     ...(clinicalClasses ?? []),
     ...(referenceid ?? []),
     ...(cohorts ? [cohorts] : []),
+    ...(analysisOperation ? [analysisOperation] : []),
     ...(sex ? [sex] : []),
-    ...(materialtype ? [materialtype] : []),
-    ...parsedFreeFilters
+    ...(materialtype ? [materialtype] : [])
   ]
 }
 
 export function buildQueryParameters(queryData) {
-  console.log("...queryData in buildQueryParameters", queryData)
   const {
     start,
     end,
     bioontology,
     referenceid,
     cohorts,
+    analysisOperation,
     sex,
     materialtype,
     allTermsFilters,
-    freeFilters,
     clinicalClasses,
     geoCity,
     geodistanceKm,
     ...otherParams
   } = queryData
   // positions from the form have to be -1 adjusted (only first value if interval)
+
   const starts = []
   if (start) {
     const match = INTEGER_RANGE_REGEX.exec(start)
@@ -186,25 +187,23 @@ export function buildQueryParameters(queryData) {
     ends.push(end0)
     end1 && ends.push(end1)
   }
-  console.log("...buildQueryParameters before filters")
   const filters = makeFilters({
     allTermsFilters,
-    freeFilters,
     clinicalClasses,
     bioontology,
     referenceid,
     cohorts,
+    analysisOperation,
     sex,
     materialtype
   })
-  // const geneParams = mkGeneParams(geneId) ?? {}
   const geoParams = mkGeoParams(geoCity, geodistanceKm) ?? {}
   return new URLSearchParams(
     flattenParams([
       ...Object.entries({ ...otherParams, ...geoParams }),
       ["start", starts],
       ["end", ends],
-      ["filters", filters],
+      ["filters", filters]
     ]).filter(([, v]) => !!v)
   ).toString()
 }
@@ -212,7 +211,7 @@ export function buildQueryParameters(queryData) {
 export function useDataVisualization(queryData) {
   var q_path = "beacon/biosamples"
   if (queryData.fileId && queryData.fileId != "null") {
-    q_path = "services/samplesPlotter"
+    q_path = "services/sampleplots"
   }
   return useProgenetixApi(
     queryData
@@ -223,6 +222,11 @@ export function useDataVisualization(queryData) {
   )
 }
 
+export function getVisualizationLink(datasetIds, accessId, fileId, skip, limit, count) {
+  return `/service-collection/dataVisualization?datasetIds=${datasetIds}&accessid=${accessId}&fileId=${fileId}&sampleCount=${count}&skip=${skip}&limit=${limit}`
+}
+
+
 export function buildDataVisualizationParameters(queryData) {
   return new URLSearchParams(
     flattenParams([...Object.entries(queryData)]).filter(([, v]) => !!v)
@@ -230,7 +234,71 @@ export function buildDataVisualizationParameters(queryData) {
 }
 
 export function publicationDataUrl(id) {
-  return `${SITE_DEFAULTS.API_PATH}services/publications?filters=${id}&method=details`
+  return `${SITE_DEFAULTS.API_PATH}services/publications?filters=${id}`
+}
+
+export function usePublication(id) {
+  return useProgenetixApi(publicationDataUrl(id))
+}
+
+export function usePublicationList({ geoCity, geodistanceKm }) {
+  const qParams = new URLSearchParams({
+    ...mkGeoParams(geoCity, geodistanceKm),
+    filters: "PMID,genomes:>0",
+    method: "details"
+  }).toString()
+  const url = `${SITE_DEFAULTS.API_PATH}services/publications?${qParams}`
+  return useProgenetixApi(url)
+}
+
+// ZHAW fetch
+
+export function useLiteratureSearchResults(t1s,t2s)
+{
+  return useProgenetixApi(`${SITE_DEFAULTS.API_PATH}cgi-bin/literatureSearch/literatureSearch.py?func=search&mode=exact&t1s=${t1s.join(",")}&t2s=${t2s.join(",")}`);
+}
+
+export function useLiteratureCellLineMatches(cln)
+{
+  return useProgenetixApi(`${SITE_DEFAULTS.API_PATH}cgi-bin/literatureSearch/literatureSearch.py?func=relations&t1=${cln}`);
+}
+
+// \ ZHAW
+
+export function usePublicationWithDataList({ geoCity, geodistanceKm }) {
+  const qParams = new URLSearchParams({
+    ...mkGeoParams(geoCity, geodistanceKm),
+    filters: "PMID,progenetix:>0",
+    method: "details"
+  }).toString()
+  const url = `${SITE_DEFAULTS.API_PATH}services/publications?${qParams}`
+  return useProgenetixApi(url)
+}
+
+// ,genomes:>0
+
+export function useProgenetixRefPublicationList({ geoCity, geodistanceKm }) {
+  const qParams = new URLSearchParams({
+    ...mkGeoParams(geoCity, geodistanceKm),
+    filters: "PMID,pgxuse:yes",
+    method: "details"
+  }).toString()
+  const url = `${SITE_DEFAULTS.API_PATH}services/publications?${qParams}`
+  return useProgenetixApi(url)
+}
+
+export const ontologymapsBaseUrl = `${SITE_DEFAULTS.API_PATH}services/ontologymaps?`
+
+export function ontologymapsUrl({ filters, filterPrecision }) {
+  let params = new URLSearchParams({ filters: filters })
+  if (filterPrecision) {
+    params.append("filterPrecision", filterPrecision)
+  }
+  return `${ontologymapsBaseUrl}${params.toString()}`
+}
+
+export function ontologymapsPrefUrl({ prefixes, filters }) {
+  return `${ontologymapsBaseUrl}filters=${prefixes},${filters}&filterPrecision=start`
 }
 
 export function useDataItemDelivery(id, entity, datasetIds) {
@@ -241,11 +309,19 @@ export function getDataItemUrl(id, entity, datasetIds) {
   return `${SITE_DEFAULTS.API_PATH}beacon/${entity}/${id}/?datasetIds=${datasetIds}`
 }
 
-export function NoResultsHelp(id, entity) {
+export function useServiceItemDelivery(id, entity, datasetIds) {
+  return useProgenetixApi(getServiceItemUrl(id, entity, datasetIds))
+}
+
+export function getServiceItemUrl(id, collection, datasetIds) {
+  return `${SITE_DEFAULTS.API_PATH}services/${collection}?id=${id}&datasetIds=${datasetIds}`
+}
+
+export function NoResultsHelp(entity) {
   return (
     <div className="notification is-size-5">
-      This page will only show content if called with an existing {entity} ID;{" "}
-      is not valid.
+      This page will only show content if called with an existing {entity}{" "}
+      &quot;id&quot; value.
     </div>
   )
 }
@@ -258,29 +334,39 @@ export function useCytomapper(querytext) {
   return useProgenetixApi(url)
 }
 
-export function useSubsethistogram({ datasetIds, id, filter, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, size, plotChros }) {
+export function useSubsethistogram({
+  datasetIds,
+  id,
+  fileId,
+  plotRegionLabels,
+  plotGeneSymbols,
+  plotCytoregionLabels,
+  size,
+  plotChros
+}) {
   const svgbaseurl = subsetHistoBaseLink(id, datasetIds)
   const params = []
-  filter && params.push(["filter", filter])
-  plotRegionLabels && params.push(["plotRegionLabels", plotRegionLabels])
-  plotGeneSymbols && params.push(["plotGeneSymbols", plotGeneSymbols])
-  plotCytoregionLabels && params.push(["plotCytoregionLabels", plotCytoregionLabels])
-  size && params.push(["plotWidth", size])
-  plotChros && params.push(["plotChros", plotChros])
+  const plotParsVals = []
+  fileId && params.push(["fileId", fileId])
+  size && plotParsVals.push("plot_width="+size)
+  plotRegionLabels && plotParsVals.push("plot_region_labels="+plotRegionLabels.join(","))
+  plotGeneSymbols && plotParsVals.push("plot_gene_symbols="+plotGeneSymbols.join(","))
+  plotCytoregionLabels && plotParsVals.push("plot_cytoregion_labels="+plotCytoregionLabels.join(","))
+  plotChros && plotParsVals.push("plot_chros="+plotChros.join(","))
+  plotParsVals.length > 0 && params.push(["plotPars", plotParsVals.join("::")])
   const searchQuery = new URLSearchParams(params).toString()
   return useExtendedSWR(size > 0 && `${svgbaseurl}&${searchQuery}`, svgFetcher)
 }
 
-// method is "counts" / "child_terms" for smaller payloads
 export function useCollationsById({ datasetIds }) {
   const { data, ...other } = useCollations({
     filters: "",
-    method: "counts",
+    deliveryKeys: "id,label,count",
     datasetIds
   })
 
   if (data) {
-    const mappedResults = keyBy(data.response.results, "id")
+    const mappedResults = keyBy(data.response.filteringTerms, "id")
     return {
       data: {
         ...data,
@@ -292,14 +378,28 @@ export function useCollationsById({ datasetIds }) {
   return { data, ...other }
 }
 
-export function useCollations({ datasetIds, method, filters }) {
-  const url = `${SITE_DEFAULTS.API_PATH}beacon/filtering_terms/?datasetIds=${datasetIds}&method=${method}&filters=${filters}`
+export function useCollations({ datasetIds, deliveryKeys, filters }) {
+  const url = `${SITE_DEFAULTS.API_PATH}beacon/filtering_terms/?datasetIds=${datasetIds}&deliveryKeys=${deliveryKeys}&filters=${filters}`
   return useProgenetixApi(url)
 }
 
-export function useCollationsByType({ datasetIds, method, collationTypes }) {
-  const url = `${SITE_DEFAULTS.API_PATH}beacon/filtering_terms/?datasetIds=${datasetIds}&method=${method}&collationTypes=${collationTypes}`
+export function useFiltersByType({ datasetIds, deliveryKeys, mode, collationTypes }) {
+  // TODO: construct URL w/o optional parameters if empty
+  const url = `${SITE_DEFAULTS.API_PATH}beacon/filtering_terms/?datasetIds=${datasetIds}&deliveryKeys=${deliveryKeys}&mode=${mode}&collationTypes=${collationTypes}`
   return useProgenetixApi(url)
+}
+
+export function useCollationsByType({ datasetIds, deliveryKeys, collationTypes }) {
+  const url = `${SITE_DEFAULTS.API_PATH}services/collations/?datasetIds=${datasetIds}&deliveryKeys=${deliveryKeys}&collationTypes=${collationTypes}`
+  return useProgenetixApi(url)
+}
+
+export function sampleSearchPageFiltersLink({
+  datasetIds,
+  sampleFilterScope,
+  filters
+}) {
+  return `/search/?${sampleFilterScope}=${filters}&datasetIds=${datasetIds}`
 }
 
 export function useGeoCity({ city }) {
@@ -308,7 +408,7 @@ export function useGeoCity({ city }) {
 }
 
 export function useGeneSymbol({ geneId }) {
-  const url = geneId ? `${SITE_DEFAULTS.API_PATH}services/genespans/?geneId=${geneId}&filterPrecision=start&method=genespan` : null
+  const url = geneId ? `${SITE_DEFAULTS.API_PATH}services/genespans/?geneId=${geneId}&filterPrecision=start&deliveryKeys=symbol,referenceName,start,end` : null
   return useProgenetixApi(url)
 }
 

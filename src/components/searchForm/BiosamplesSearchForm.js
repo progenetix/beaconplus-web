@@ -1,11 +1,10 @@
 import {
   checkIntegerRange,
   makeFilters,
-  useCollationsByType,
+  useFiltersByType,
   validateBeaconQuery
 } from "../../hooks/api"
 import React, { useMemo, useState } from "react" //useEffect, 
-import { markdownToReact } from "../../utils/md"
 import { useForm } from "react-hook-form"
 import {
   CytoBandsUtility,
@@ -16,10 +15,10 @@ import PropTypes from "prop-types"
 import { merge, transform } from "lodash"
 import SelectField from "../formShared/SelectField"
 import InputField from "../formShared/InputField"
+import {MarkdownParser} from "../MarkdownParser"
 import useDeepCompareEffect from "use-deep-compare-effect"
 import { withUrlQuery } from "../../hooks/url-query"
 import { GeoCitySelector } from "./GeoCitySelector"
-// import { GeneSymbolSelector } from "./GeneSymbolSelector"
 import ChromosomePreview from "./ChromosomePreview"
 import { FaCogs } from "react-icons/fa"
 import cn from "classnames"
@@ -32,7 +31,6 @@ export const BiosamplesSearchForm = withUrlQuery(
 export default BiosamplesSearchForm
 
 BiosamplesSearchForm.propTypes = {
-  cytoBands: PropTypes.object.isRequired,
   isQuerying: PropTypes.bool.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
   beaconQueryTypes: PropTypes.object.isRequired,
@@ -57,11 +55,9 @@ function useIsFilterlogicWarningVisible(watch) {
   const cohorts = watch("cohorts")
   const allTermsFilters = watch("allTermsFilters")
   const sex = watch("sex")
-  const freeFilters = watch("freeFilters")
   const materialtype = watch("materialtype")
   const filters = makeFilters({
     allTermsFilters,
-    freeFilters,
     bioontology,
     referenceid,
     clinicalClasses,
@@ -72,12 +68,7 @@ function useIsFilterlogicWarningVisible(watch) {
   return filterLogic === "AND" && filters.length > 1
 }
 
-/*############################################################################*/
-/*############################################################################*/
-/*############################################################################*/
-
 export function BeaconSearchForm({
-    cytoBands,
     isQuerying,
     setSearchQuery,
     beaconQueryTypes,
@@ -86,7 +77,6 @@ export function BeaconSearchForm({
     urlQuery,
     setUrlQuery
   }) {
-
   // const autoExecuteSearch = urlQuery.executeSearch === "true"
 
   const [example, setExample] = useState(null)
@@ -119,13 +109,15 @@ export function BeaconSearchForm({
 
   // reset form when default values changes
   useDeepCompareEffect(() => reset(initialValues), [initialValues])
+
+  const mode = ""
   
   // all subsets lookup ----------------------------------------------------- //
   var ct = ""
   const {
     data: allsubsetsResponse,
     isLoading: isAllSubsetsDataLoading 
-  } = useFiteringTerms( watch, ct )
+  } = useFilteringTerms( watch, ct, "withpubmed" )
   const allsubsetsOptions = allsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -139,8 +131,7 @@ export function BeaconSearchForm({
   const {
     data: biosubsetsResponse,
     isLoading: isBioSubsetsDataLoading
-  } = useFiteringTerms( watch, ct )
-
+  } = useFilteringTerms( watch, ct, mode ) 
   const biosubsetsOptions = biosubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -150,11 +141,11 @@ export function BeaconSearchForm({
   })
   
   // referenceid lookup ----------------------------------------------------- //
-  ct = "PMID,GEOseries,GEOplatform,cellosaurus"
+  ct = "pubmed,GEOseries,AEseries,GEOplatform,cellosaurus"
   const {
     data: refsubsetsResponse,
     isLoading: isRefSubsetsDataLoading
-  } = useFiteringTerms( watch, ct )
+  } = useFilteringTerms( watch, ct, mode )
   const refsubsetsOptions = refsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -168,7 +159,7 @@ export function BeaconSearchForm({
   const {
     data: clinicalResponse,
     isLoading: isClinicalDataLoading
-  } = useFiteringTerms( watch, ct )
+  } = useFilteringTerms( watch, ct, mode )
   const clinicalOptions = clinicalResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -231,6 +222,13 @@ export function BeaconSearchForm({
           <div className="columns my-0">
             <InputField
               className={cn(
+                !parameters.geneId.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.geneId} {...fieldProps}
+            />
+            <InputField
+              className={cn(
                 !parameters.genomicAlleleShortForm.isHidden && "column",
                 "py-0 mb-3"
               )}
@@ -245,19 +243,12 @@ export function BeaconSearchForm({
             />
           </div>
           <div className="columns my-0">
-            <InputField
-              className={cn(
-                !parameters.geneId && "column",
-                "py-0 mb-3"
-              )}
-              {...parameters.geneId} {...fieldProps}
-            />
             <SelectField
               className={cn(
-                !parameters.referenceName.isHidden && "column",
+                !parameters.analysisOperation.isHidden && "column",
                 "py-0 mb-3"
               )}
-              {...parameters.referenceName}
+              {...parameters.analysisOperation}
               {...selectProps}
             />
             <SelectField
@@ -270,6 +261,14 @@ export function BeaconSearchForm({
             />
           </div>
           <div className="columns my-0">
+            <SelectField
+              className={cn(
+                !parameters.referenceName.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.referenceName}
+              {...selectProps}
+            />
             <InputField
               className={cn(
                 !parameters.start.isHidden && "column",
@@ -285,6 +284,35 @@ export function BeaconSearchForm({
               className={cn(!parameters.end.isHidden && "column", "py-0 mb-3")}
               {...fieldProps}
               {...parameters.end}
+              rules={{
+                validate: checkIntegerRange
+              }}
+            />
+          </div>
+          <div className="columns my-0">
+            <SelectField
+              className={cn(
+                !parameters.mateName.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.mateName}
+              {...selectProps}
+            />
+            <InputField
+              className={cn(
+                !parameters.mateStart.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...fieldProps}
+              {...parameters.mateStart}
+              rules={{
+                validate: checkIntegerRange
+              }}
+            />
+            <InputField
+              className={cn(!parameters.mateEnd.isHidden && "column", "py-0 mb-3")}
+              {...fieldProps}
+              {...parameters.mateEnd}
               rules={{
                 validate: checkIntegerRange
               }}
@@ -389,7 +417,6 @@ export function BeaconSearchForm({
               {...selectProps}
             />
           </div>
-          <InputField {...parameters.freeFilters} {...fieldProps} />
           <div className="columns my-0">
             <SelectField
               className="column py-0 mb-3"
@@ -469,7 +496,7 @@ export function BeaconSearchForm({
               {...parameters.includeResultsetResponses}
             />
           </div>
-          <ChromosomePreview watch={watch} cytoBands={cytoBands} />
+          <ChromosomePreview watch={watch} />
           <div className="field mt-5">
             <div className="control">
               <button
@@ -506,7 +533,6 @@ export function BeaconSearchForm({
           />
 
         </div>
-
         <div className="buttons">
           <ExamplesButtons
             onExampleClicked={handleExampleClicked(
@@ -517,8 +543,7 @@ export function BeaconSearchForm({
             requestTypeExamples={requestTypeExamples}
           />
         </div>
-        <ExampleDescription example={example} />
-        
+        <ExampleDescription example={example} />   
       </div>
       {example?.img && (
           <div>
@@ -530,6 +555,7 @@ export function BeaconSearchForm({
 }
 
 function QuerytypesTabs({ beaconQueryTypes, onQuerytypeClicked }) {
+  // console.log(beaconQueryTypes)
   const startType = beaconQueryTypes[0]
   const [selectedTab, setSelectedTab] = useState(startType)
   // onQuerytypeClicked(selectedTab)
@@ -624,7 +650,7 @@ function ExampleDescription({ example }) {
   return example?.description ? (
     <article className="message is-info">
       <div className="message-body">
-        <div className="content">{markdownToReact(example?.description)}</div>
+        <div className="content">{MarkdownParser(example?.description)}</div>
       </div>
     </article>
   ) : null
@@ -664,10 +690,13 @@ function validateForm(formValues) {
   const {
     variantType,
     referenceName,
+    mateName,
     referenceBases,
     alternateBases,
     start,
     end,
+    mateStart,
+    mateEnd,
     cytoBands,
     variantQueryDigests,
     geneId,
@@ -691,6 +720,9 @@ function validateForm(formValues) {
     !alternateBases && setMissing("alternateBases")
     !start && setMissing("start")
     !end && setMissing("end")
+    !mateName && setMissing("mateName")
+    !mateStart && setMissing("mateStart")
+    !mateEnd && setMissing("mateEnd")
     !cytoBands && setMissing("cytoBands")
     !variantQueryDigests && setMissing("variantQueryDigests")
     !variantType && setMissing("variantType")
@@ -725,11 +757,12 @@ const handleQuerytypeClicked = (reset, setExample, setUrlQuery) => (example) => 
 }
 
 // Maps FilteringTerms hook to apiReply usable by DataFetchSelect
-function useFiteringTerms(watchForm, ct) {
+function useFilteringTerms(watchForm, ct, mode) {
   const datasetIds = watchForm("datasetIds")
-  return useCollationsByType({
+  return useFiltersByType({
     datasetIds,
-    method: "counts",
+    deliveryKeys: "id,label,count",
+    mode: mode,
     collationTypes: ct
   })
 }

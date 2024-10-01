@@ -1,22 +1,20 @@
 import React, { useState } from "react"
-import { useBeaconQuery } from "../../hooks/api"
+import { useAggregatorQuery } from "../../hooks/api"
 import Panel from "../Panel"
+// import { FaSlidersH } from "react-icons/fa"
 import { BiosamplesSearchForm } from "./BiosamplesSearchForm"
-import { BiosamplesResults } from "../searchResults/BiosamplesResults"
+import { AggregatorResults } from "../searchResults/AggregatorResults"
 import PropTypes from "prop-types"
 // import cn from "classnames"
 
-BiosamplesSearchPanel.propTypes = {
+AggregatorSearchPanel.propTypes = {
   parametersConfig: PropTypes.object.isRequired,
-  beaconQueryTypes: PropTypes.object.isRequired,
-  requestTypeExamples: PropTypes.object.isRequired,
   collapsed: false
 }
 
-export default function BiosamplesSearchPanel({
+export default function AggregatorSearchPanel({
   parametersConfig,
-  beaconQueryTypes,
-  requestTypeExamples,
+  cytoBands,
   collapsed
 }) {
   const [query, setQuery] = useState(null) // actual valid query
@@ -27,7 +25,7 @@ export default function BiosamplesSearchPanel({
     error: queryError,
     mutate: mutateQuery,
     isLoading: isQueryLoading
-  } = useBeaconQuery(query)
+  } = useAggregatorQuery(query)
 
   const clearQuery = () => {
     setQuery(null)
@@ -39,6 +37,9 @@ export default function BiosamplesSearchPanel({
     clearQuery()
     setQuery(formValues)
   }
+
+  // button className="button ml-3"
+  //    className="icon has-text-info"
 
   return  (
     <>
@@ -60,21 +61,20 @@ export default function BiosamplesSearchPanel({
                 </div>
               ))
                ||
-              <div className="column">Search Samples</div>
+              <div className="column">Search Variants</div>
             }
             </div>
         }
       >
         <BiosamplesSearchForm
+          cytoBands={cytoBands}
           parametersConfig={parametersConfig}
-          beaconQueryTypes={beaconQueryTypes}
-          requestTypeExamples={requestTypeExamples}
           isQuerying={isLoading}
           setSearchQuery={onValidFormQuery}
         />
       </Panel>
       {query && (
-        <BiosamplesResults
+        <AggregatorResults
           isLoading={isLoading}
           response={queryResponse}
           error={queryError}

@@ -25,7 +25,17 @@ export default function SVGloader({ apiReply }) {
   )
 }
 
-export function SubsetHistogram({ id, filter, datasetIds, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, title, description, size: givenSize }) {
+export function SubsetHistogram({
+  id,
+  datasetIds,
+  fileId,
+  plotRegionLabels,
+  plotGeneSymbols,
+  plotCytoregionLabels,
+  title,
+  description,
+  size: givenSize 
+}) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
   const size = givenSize || width
@@ -35,7 +45,7 @@ export function SubsetHistogram({ id, filter, datasetIds, plotRegionLabels, plot
         apiReply={useSubsethistogram({
           datasetIds,
           id,
-          filter,
+          fileId,
           plotRegionLabels,
           plotGeneSymbols,
           plotCytoregionLabels,
@@ -74,7 +84,7 @@ export function SubsetHistogram({ id, filter, datasetIds, plotRegionLabels, plot
 export function AnalysisHistogram({ csid, datasetIds }) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
-  const url = `${SITE_DEFAULTS.API_PATH}services/sampleplots/?analysisIds=${csid}&datasetIds=${datasetIds}&plotType=samplesplot&plotPars=plot_width=${width}`
+  const url = `${SITE_DEFAULTS.API_PATH}services/sampleplots?plotType=samplesplot&analysisIds=${csid}&datasetIds=${datasetIds}&plot_width=${width}`
   // width > 0 to make sure the component is mounted and avoid double fetch
   const dataEffect = useExtendedSWR(width > 0 && url, svgFetcher)
   return (

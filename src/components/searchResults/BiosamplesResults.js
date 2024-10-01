@@ -14,6 +14,7 @@ export function BiosamplesResults({ response, isLoading, error, query }) {
           <>
             <AlleleResponses
               biosampleResponseSets={response.response.resultSets}
+              responseMeta={response.meta}
               query={query}
             />
           </>
@@ -23,24 +24,30 @@ export function BiosamplesResults({ response, isLoading, error, query }) {
   )
 }
 
-function AlleleResponses({ biosampleResponseSets, query }) {
+function AlleleResponses({ biosampleResponseSets, responseMeta, query }) {
+  if (biosampleResponseSets?.[0].resultsCount < 1) {
+    return (
+      <div className="notification">
+        No results could be found for this query.
+      </div>
+    )
+  }
   return biosampleResponseSets.map((r, i) => (
-    <DatasetResultBox key={i} data={r} query={query} />
+    <DatasetResultBox key={i} data={r} responseMeta={responseMeta} query={query} />
   ))
 }
 
 function QuerySummary({ query }) {
   const filters = makeFilters(query)
-  console.log("QuerySummary query", query)
-  console.log("QuerySummary query", filters)
   return (
     <ul className="BeaconPlus__query-summary">
-      {query.assemblyId && (
+{/*      {query.assemblyId && (
         <li>
           <small>Assembly: </small>
           {query.assemblyId}
         </li>
       )}
+*/}     
       {query.cytoBands && (
         <li>
           <small>Cytobands: </small>
@@ -53,22 +60,10 @@ function QuerySummary({ query }) {
           {query.variantQueryDigests}
         </li>
       )}
-      {query.geneId?.data?.symbol && (
+      {query.geneId && (
         <li>
           <small>Gene: </small>
-          {query.geneId.data.symbol}
-        </li>
-      )}
-      {query.aminoacidChange && (
-        <li>
-          <small>Aminoacid Change: </small>
-          {query.aminoacidChange  }
-        </li>
-      )}
-      {query.genomicAlleleShortForm && (
-        <li>
-          <small>HGVS: </small>
-          {query.genomicAlleleShortForm}
+          {query.geneId}
         </li>
       )}
       {query.referenceName && (
@@ -87,6 +82,24 @@ function QuerySummary({ query }) {
         <li>
           <small>End: </small>
           {query.end}
+        </li>
+      )}
+      {query.mateName && (
+        <li>
+          <small>Adjacent Chro: </small>
+          {query.mateName}
+        </li>
+      )}
+      {query.mateStart && (
+        <li>
+          <small>Adj. Start: </small>
+          {query.mateStart}
+        </li>
+      )}
+      {query.mateEnd && (
+        <li>
+          <small>Adj. End: </small>
+          {query.mateEnd}
         </li>
       )}
       {query.variantType && (
@@ -125,13 +138,12 @@ function QuerySummary({ query }) {
           {filters.join(", ")}
         </li>
       )}
-{/*      {filters.length > 1 && (
+      {filters.length > 1 && (
         <li>
           <small>Filter Logic: </small>
           {query.filterLogic}
         </li>
       )}
-*/}    
     </ul>
   )
 }

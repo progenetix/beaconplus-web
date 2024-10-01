@@ -4,7 +4,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { WithData } from "../Loader"
 import Table, { TooltipHeader } from "../Table"
-// import DownloadButton from "../DownloadButton"
 import Link from "next/link"
 
 export default function BiosamplesDataTable({ apiReply, datasetId }) {
@@ -31,21 +30,19 @@ export default function BiosamplesDataTable({ apiReply, datasetId }) {
           "Dx Classifications",
           "Terms for biological classifications associated with the sample (e.g. diagnosis, histology, organ site)"
         ),
-        accessor: "histologicalDiagnosis.id",
+        accessor: "icdoMorphology.id",
         // eslint-disable-next-line react/display-name
         Cell: (cell) => (
           <div>
             {BIOKEYS.map(bioc => (
-              cell.row.original[bioc]?.id && (
-                <div key={bioc}>
-                  <Link
-                  href={`/subset/?id=${cell.row.original[bioc].id}&datasetIds=${datasetId}`}
-                  >
-                    <a>{cell.row.original[bioc].id}</a>
-                  </Link>{" "}
-                  {cell.row.original[bioc].label}
-                </div>
-              )
+              <div key={bioc}>
+                <Link
+                href={`/subset/?id=${cell.row.original[bioc].id}&datasetIds=${datasetId}`}
+                >
+                  <a>{cell.row.original[bioc].id}</a>
+                </Link>{" "}
+                {cell.row.original[bioc].label}
+              </div>
             ))}
           </div>
         )
@@ -69,32 +66,15 @@ export default function BiosamplesDataTable({ apiReply, datasetId }) {
               {externalReference.description}
             </div>
           ))
-      },
-      // {
-      //   Header: TooltipHeader(
-      //     "CNV Fraction",
-      //     "Fraction of the sample's genome covered by CNV events (genomic gain or deletion)"
-      //   ),
-      //   accessor: "info.cnvstatistics.cnvfraction"
-      // }
+      }
     ],
     [datasetId]
   )
-
   return (
     <WithData
       apiReply={apiReply}
       render={(response) => (
         <div>
-{/*
-          <div className="mb-4">
-            <DownloadButton
-              label="Download Biosamples"
-              json={response.response.resultSets[0].results}
-              fileName="biosamples"
-            />
-          </div>
-*/}
           <Table columns={columns} data={response.response.resultSets[0].results} />
         </div>
       )}

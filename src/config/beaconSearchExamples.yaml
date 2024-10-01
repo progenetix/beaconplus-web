@@ -9,18 +9,13 @@
     parameters or data source.
   img: /img/BeaconBracketQuery-limited-match-graphics.png
   parameters:
-    datasetIds:
-      isHidden: false
-      defaultValue: ["examplez"]
     referenceName:
       isHidden: false
       defaultValue: "refseq:NC_000009.12"
     start:
-      label: Start Bracket
       isHidden: false
       defaultValue: "21000001-21975098"
     end:
-      label: End Bracket
       isHidden: false
       defaultValue: "21967753-23000000"
     variantType:
@@ -32,7 +27,11 @@
       isHidden: true
     allTermsFilters:
       isHidden: false
-      defaultValue: [NCIT:C3058]
+      defaultValue: ["NCIT:C3058"]
+    analysisOperation:
+      isHidden: true
+    sex:
+      isHidden: false
 
 - label: "SNV Example"
   note: "Example for specific EIF4A1 mutation"
@@ -40,9 +39,6 @@
     This example shows a core Beacon query, against a specific
     mutation in the EIF4A1 gene, in the DIPG childhood brain tumor dataset.
   parameters:
-    datasetIds:
-      isHidden: false
-      defaultValue: ["examplez", "progenetix"]
     referenceName:
       isHidden: false
       defaultValue: "refseq:NC_000017.11"
@@ -73,16 +69,14 @@
   parameters:
     datasetIds:
       isHidden: false
-      defaultValue: ["cellz"]
+      defaultValue: ["examplez"]
     referenceName:
       isHidden: false
       defaultValue: "refseq:NC_000017.11"
     start:
-      label: Range Start
       isHidden: false
       defaultValue: 7572826
     end:
-      label: Range End
       isHidden: false
       defaultValue: 7579005
     variantType:
@@ -134,47 +128,12 @@
     referenceBases:
       isHidden: true
 
-- label: "Aminoacid Example"
-  note: "Where supported beacons can discover variants by their aminoacid change."
-  description: |
-    Beacons in v2 can support the discovery of variants by their amino acid change
-    in the single AA alteration form (e.g. "V600E"). For more specificity this
-    parameter can be combined with the gene symbol (e.g. "BRAF").
-  parameters:
-    datasetIds:
-      isHidden: false
-      defaultValue: ["cellz"]
-    aminoacidChange:
-      isHidden: false
-      defaultValue: K132N
-    geneId:
-      isHidden: false
-      defaultValue:
-        data:
-          symbol: TP53
-        label: "TP53 (17:7668421-7687490)"
-    referenceName:
-      isHidden: true
-    start:
-      isHidden: true
-    end:
-      isHidden: true
-    variantType:
-      isHidden: true
-    alternateBases:
-      isHidden: true
-    referenceBases:
-      isHidden: true
-
 - label: "Identifier - HeLa"
   note: "Samples can be identified through identifiers."
   description: |
     This example retrieves _HeLa_ instances - including cell lines derived from
     _HeLa_ - by _HeLa's_ _cellosaurus_ identifier `cellosaurus:CVCL_0030`.
   parameters:
-    datasetIds:
-      isHidden: false
-      defaultValue: ["cellz"]
     aminoacidChange:
       isHidden: true
     geneId:
@@ -192,43 +151,8 @@
     referenceBases:
       isHidden: true
     allTermsFilters:
-      isHidden: true
-    freeFilters:
       isHidden: false
-      defaultValue: cellosaurus:CVCL_0030
-
-- label: "Cytoband Example"
-  note: "This is an experimental example for cytoband support."
-  description: |
-    This example shows a query for CNV gain variants in the cytoband 8q24.1, 
-    the location of the MYC proto-oncogene, limited to ductal breast carcinomas.
-  parameters:
-    datasetIds:
-      isHidden: false
-      defaultValue: ["examplez"]
-    cytoBands:
-      isHidden: false
-      defaultValue: 8q24.1
-    variantType:
-      isHidden: false
-      defaultValue: "EFO:0030070"
-    allTermsFilters:
-      isHidden: false
-      defaultValue: [NCIT:C4017]
-    aminoacidChange:
-      isHidden: true
-    geneId:
-      isHidden: true
-    referenceName:
-      isHidden: true
-    start:
-      isHidden: true
-    end:
-      isHidden: true
-    alternateBases:
-      isHidden: true
-    referenceBases:
-      isHidden: true
+      defaultValue: ["cellosaurus:CVCL_0030"]
 
 - label: "Variant Short Form Example"
   note: "This is an experimental example for short form vbariant(s) support."
@@ -262,3 +186,38 @@
       isHidden: true
     referenceBases:
       isHidden: true
+
+- label: "Fusion Example"
+  note: |
+    This is an experimental example for a fusion query (by positions).
+    http://progenetix.org/beacon/g_variants/?referenceName=8&mateName=12&start=45100000&end=47300000&mateStart=26200000&mateEnd=35600000&variantType=SO:0000806
+  description: |
+    This is an experimental example for a fusion query (by positions).
+  img: /img/BeaconFusionQuery-graphics.png
+  parameters:
+    datasetIds:
+      isHidden: false
+      defaultValue: ["examplez"]
+    variantType:
+      isHidden: false
+      defaultValue: SO:0000806
+    allTermsFilters:
+      isHidden: false
+    referenceName:
+      isHidden: false
+      defaultValue: refseq:NC_000008.11
+    mateName:
+      isHidden: false
+      defaultValue: refseq:NC_000012.12
+    start:
+      isHidden: false
+      defaultValue: 45100000
+    end:
+      isHidden: false
+      defaultValue: 47300000
+    mateStart:
+      isHidden: false
+      defaultValue: 26200000
+    mateEnd:
+      isHidden: false
+      defaultValue: 35600000
