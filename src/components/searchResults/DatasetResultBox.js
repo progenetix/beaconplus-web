@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import {
-  getVisualizationLink,
+  // getVisualizationLink,
   replaceWithProxy,
   useProgenetixApi,
   useExtendedSWR
@@ -96,13 +96,13 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
 
   // the histogram is only rendered but correct handover is needed, obviously
   let histoplotUrl
-  let visualizationLink
+  // let visualizationLink
   if (handoverById(HANDOVER_IDS.histoplot)) {
     histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url + "&limit=" + limit
-    let visualizationAccessId = new URLSearchParams(
-      new URL(histoplotUrl).search
-    ).get("accessid")
-    visualizationLink = getVisualizationLink(id, visualizationAccessId, "", 0, limit, resultsCount)
+    // let visualizationAccessId = new URLSearchParams(
+    //   new URL(histoplotUrl).search
+    // ).get("accessid")
+    // visualizationLink = getVisualizationLink(id, visualizationAccessId, "", 0, limit, resultsCount)
   }
 
   // main / samples / variants
@@ -126,25 +126,6 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
     tabComponent = (
       <BiosamplesDataTable apiReply={biosamplesReply} datasetId={id} />
     )
-  // } else if (selectedTab === TABS.samplesMap) {
-  //   tabComponent = (
-  //     <div>
-  //       <h2 className="subtitle has-text-dark">Sample Origins</h2>
-  //       <p>
-  //         The map represents the origins of the matched samples, as derived from
-  //         the original publication or resource repository. In the majority of
-  //         cases this will correspond to the proxy information of the
-  //         corresponding author&apos;s institution. Additional information can be
-  //         found in the{" "}
-  //         <ExternalLink
-  //           href={`${SITE_DEFAULTS.MASTERDOCLINK}/geolocations.html`}
-  //           label="Geographic Coordinates documentation"
-  //         />
-  //         {"."}
-  //       </p>
-  //       {/*<BiosamplesMap apiReply={biosamplesReply} datasetId={id} />*/}
-  //     </div>
-  //   )
   } else if (selectedTab === TABS.variants) {
     tabComponent = (
       <VariantsDataTable apiReply={variantsReply} datasetId={id} />
@@ -206,6 +187,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
             />
           </div>
         </div>
+{/* 
         {visualizationLink && (
           <div className="column is-one-third">
             <a className="button is-info mb-5" href={visualizationLink}>
@@ -213,6 +195,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
             </a>
           </div>
         )}
+*/}
       </div>
       {tabNames?.length > 0 ? (
         <div className="tabs is-boxed ">

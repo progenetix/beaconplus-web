@@ -208,99 +208,6 @@ export function buildQueryParameters(queryData) {
   ).toString()
 }
 
-export function useDataVisualization(queryData) {
-  var q_path = "beacon/biosamples"
-  if (queryData.fileId && queryData.fileId != "null") {
-    q_path = "services/sampleplots"
-  }
-  return useProgenetixApi(
-    queryData
-      ? `${SITE_DEFAULTS.API_PATH}${q_path}/?${buildDataVisualizationParameters(
-          queryData
-        )}`
-      : null
-  )
-}
-
-export function getVisualizationLink(datasetIds, accessId, fileId, skip, limit, count) {
-  return `/service-collection/dataVisualization?datasetIds=${datasetIds}&accessid=${accessId}&fileId=${fileId}&sampleCount=${count}&skip=${skip}&limit=${limit}`
-}
-
-
-export function buildDataVisualizationParameters(queryData) {
-  return new URLSearchParams(
-    flattenParams([...Object.entries(queryData)]).filter(([, v]) => !!v)
-  ).toString()
-}
-
-export function publicationDataUrl(id) {
-  return `${SITE_DEFAULTS.API_PATH}services/publications?filters=${id}`
-}
-
-export function usePublication(id) {
-  return useProgenetixApi(publicationDataUrl(id))
-}
-
-export function usePublicationList({ geoCity, geodistanceKm }) {
-  const qParams = new URLSearchParams({
-    ...mkGeoParams(geoCity, geodistanceKm),
-    filters: "PMID,genomes:>0",
-    method: "details"
-  }).toString()
-  const url = `${SITE_DEFAULTS.API_PATH}services/publications?${qParams}`
-  return useProgenetixApi(url)
-}
-
-// ZHAW fetch
-
-export function useLiteratureSearchResults(t1s,t2s)
-{
-  return useProgenetixApi(`${SITE_DEFAULTS.API_PATH}cgi-bin/literatureSearch/literatureSearch.py?func=search&mode=exact&t1s=${t1s.join(",")}&t2s=${t2s.join(",")}`);
-}
-
-export function useLiteratureCellLineMatches(cln)
-{
-  return useProgenetixApi(`${SITE_DEFAULTS.API_PATH}cgi-bin/literatureSearch/literatureSearch.py?func=relations&t1=${cln}`);
-}
-
-// \ ZHAW
-
-export function usePublicationWithDataList({ geoCity, geodistanceKm }) {
-  const qParams = new URLSearchParams({
-    ...mkGeoParams(geoCity, geodistanceKm),
-    filters: "PMID,progenetix:>0",
-    method: "details"
-  }).toString()
-  const url = `${SITE_DEFAULTS.API_PATH}services/publications?${qParams}`
-  return useProgenetixApi(url)
-}
-
-// ,genomes:>0
-
-export function useProgenetixRefPublicationList({ geoCity, geodistanceKm }) {
-  const qParams = new URLSearchParams({
-    ...mkGeoParams(geoCity, geodistanceKm),
-    filters: "PMID,pgxuse:yes",
-    method: "details"
-  }).toString()
-  const url = `${SITE_DEFAULTS.API_PATH}services/publications?${qParams}`
-  return useProgenetixApi(url)
-}
-
-export const ontologymapsBaseUrl = `${SITE_DEFAULTS.API_PATH}services/ontologymaps?`
-
-export function ontologymapsUrl({ filters, filterPrecision }) {
-  let params = new URLSearchParams({ filters: filters })
-  if (filterPrecision) {
-    params.append("filterPrecision", filterPrecision)
-  }
-  return `${ontologymapsBaseUrl}${params.toString()}`
-}
-
-export function ontologymapsPrefUrl({ prefixes, filters }) {
-  return `${ontologymapsBaseUrl}filters=${prefixes},${filters}&filterPrecision=start`
-}
-
 export function useDataItemDelivery(id, entity, datasetIds) {
   return useProgenetixApi(getDataItemUrl(id, entity, datasetIds))
 }
@@ -309,12 +216,12 @@ export function getDataItemUrl(id, entity, datasetIds) {
   return `${SITE_DEFAULTS.API_PATH}beacon/${entity}/${id}/?datasetIds=${datasetIds}`
 }
 
-export function useServiceItemDelivery(id, entity, datasetIds) {
-  return useProgenetixApi(getServiceItemUrl(id, entity, datasetIds))
+export function useServiceItemDelivery(id, service, datasetIds) {
+  return useProgenetixApi(getServiceItemUrl(id, service, datasetIds))
 }
 
-export function getServiceItemUrl(id, collection, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}services/${collection}?id=${id}&datasetIds=${datasetIds}`
+export function getServiceItemUrl(id, service, datasetIds) {
+  return `${SITE_DEFAULTS.API_PATH}services/${service}/${id}?datasetIds=${datasetIds}`
 }
 
 export function NoResultsHelp(entity) {
