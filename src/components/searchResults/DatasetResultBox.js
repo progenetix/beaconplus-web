@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import {
-  // getVisualizationLink,
+  getVisualizationLink,
   replaceWithProxy,
   useProgenetixApi,
   useExtendedSWR
@@ -14,6 +14,7 @@ import { ExternalLink } from "../helpersShared/linkHelpers"
 import { svgFetcher } from "../../hooks/fetcher"
 import BiosamplesStatsDataTable from "./BiosamplesStatsDataTable"
 import { WithData } from "../Loader"
+import { refseq2chro } from "../Chromosome"
 
 const HANDOVER_IDS = {
   histoplot: "histoplot",
@@ -40,10 +41,10 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
     resultsHandovers,
     info,
     resultsCount
-    // paginatedResultsCount
   } = responseSet
 
-  const limit = responseMeta.receivedRequestSummary?.pagination?.limit ? responseMeta.receivedRequestSummary?.pagination?.limit : 121
+  // TODO: This is ugly; something like := ?
+  const limit = responseMeta.receivedRequestSummary?.pagination?.limit ? responseMeta.receivedRequestSummary?.pagination?.limit : 200
 
   const handoverById = (givenId) =>
     resultsHandovers.find(({ info: { contentId } }) => contentId === givenId)
@@ -56,12 +57,14 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
   biosamplesTableHandover.pages = []
   var cntr = 0
   var skpr = 0
-  while (cntr < biocount) {
-    const pagu = "&skip=" + skpr + "&limit=" + limit
-    cntr += limit
-    skpr += 1
-    biosamplesHandover.pages.push({"url": replaceWithProxy(biosamplesHandover.url + pagu), "label": "Part" + skpr})
-    biosamplesTableHandover.pages.push({"url": replaceWithProxy(biosamplesTableHandover.url + pagu), "label": "Part" + skpr})
+  if (biocount > 0) {
+    while (cntr < biocount) {
+      const pagu = "&skip=" + skpr + "&limit=" + limit
+      cntr += limit
+      skpr += 1
+      biosamplesHandover.pages.push({"url": replaceWithProxy(biosamplesHandover.url + pagu), "label": "Part" + skpr})
+      biosamplesTableHandover.pages.push({"url": replaceWithProxy(biosamplesTableHandover.url + pagu), "label": "Part" + skpr})
+    }
   }
 
   const variantsHandover = handoverById(HANDOVER_IDS.variants)
@@ -96,13 +99,13 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
 
   // the histogram is only rendered but correct handover is needed, obviously
   let histoplotUrl
-  // let visualizationLink
+  let visualizationLink
   if (handoverById(HANDOVER_IDS.histoplot)) {
     histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url + "&limit=" + limit
-    // let visualizationAccessId = new URLSearchParams(
-    //   new URL(histoplotUrl).search
-    // ).get("accessid")
-    // visualizationLink = getVisualizationLink(id, visualizationAccessId, "", 0, limit, resultsCount)
+    let visualizationAccessId = new URLSearchParams(
+      new URL(histoplotUrl).search
+    ).get("accessid")
+    visualizationLink = getVisualizationLink(id, visualizationAccessId, "", 0, limit, resultsCount)
   }
 
   // main / samples / variants
@@ -126,6 +129,25 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
     tabComponent = (
       <BiosamplesDataTable apiReply={biosamplesReply} datasetId={id} />
     )
+  // } else if (selectedTab === TABS.samplesMap) {
+  //   tabComponent = (
+  //     <div>
+  //       <h2 className="subtitle has-text-dark">Sample Origins</h2>
+  //       <p>
+  //         The map represents the origins of the matched samples, as derived from
+  //         the original publication or resource repository. In the majority of
+  //         cases this will correspond to the proxy information of the
+  //         corresponding author&apos;s institution. Additional information can be
+  //         found in the{" "}
+  //         <ExternalLink
+  //           href={`${SITE_DEFAULTS.MASTERDOCLINK}/geolocations.html`}
+  //           label="Geographic Coordinates documentation"
+  //         />
+  //         {"."}
+  //       </p>
+  //       {/*<BiosamplesMap apiReply={biosamplesReply} datasetId={id} />*/}
+  //     </div>
+  //   )
   } else if (selectedTab === TABS.variants) {
     tabComponent = (
       <VariantsDataTable apiReply={variantsReply} datasetId={id} />
@@ -159,7 +181,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
           ) : null}
         </div>
         <div className="column is-one-third">
-          {info.counts.variants > 0 ? (
+          {info.counts.variants > 0 && query?.referenceName ? (
             <div>
               <UCSCRegion query={query} />
             </div>
@@ -187,7 +209,6 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
             />
           </div>
         </div>
-{/* 
         {visualizationLink && (
           <div className="column is-one-third">
             <a className="button is-info mb-5" href={visualizationLink}>
@@ -195,7 +216,6 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
             </a>
           </div>
         )}
-*/}
       </div>
       {tabNames?.length > 0 ? (
         <div className="tabs is-boxed ">
@@ -220,7 +240,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
       <hr/>
       <h2 className="subtitle has-text-dark">{id} Data Downloads</h2>
 
-      {biosamplesTableHandover?.pages && (
+      {biosamplesTableHandover?.pages.length > 0 && (
         <div className="tabs">
           <div>
             <b>Download Sample Data (TSV)</b>
@@ -233,7 +253,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
           </div>
         </div>
       )}
-      {biosamplesHandover?.pages && (
+      {biosamplesHandover?.pages.length > 0 && (
         <div className="tabs">
           <div>
             <b>Download Sample Data (JSON)</b>
@@ -246,7 +266,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
           </div>
         </div>
       )}
-      {variantsHandover?.pages && (
+      {variantsHandover?.pages.length > 0 && (
         <div className="tabs ">
           <div>
             <b>Download Variants (Beacon VRS)</b>
@@ -259,7 +279,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
           </div>
         </div>
       )}
-      {vcfHandover?.pages && (
+      {vcfHandover?.pages.length > 0 && (
         <div className="tabs ">
           <div>
             <b>Download Variants (VCF)</b>
@@ -272,7 +292,7 @@ export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
           </div>
         </div>
       )}
-      {pgxsegHandover?.pages && (
+      {pgxsegHandover?.pages.length > 0 && (
         <div className="tabs ">
           <div>
             <b>Download Variants (.pgxseg)</b>
@@ -363,8 +383,9 @@ function ucscHref(query) {
     ucscstart = query.start
     ucscend = query.start
   }
+  let chro = refseq2chro(query.referenceName)
 
-  return `http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position=chr${query.referenceName}%3A${ucscstart}%2D${ucscend}`
+  return `http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position=chr${chro}%3A${ucscstart}%2D${ucscend}`
 }
 
 function PagedLink({ handover }) {

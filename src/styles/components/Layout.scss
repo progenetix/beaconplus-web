@@ -18,15 +18,6 @@ $side-width: 14rem;
   display: flex;
 }
 
-.Layout__header__celllines {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid $border;
-  background-color: $visual-identity-color-celllines;
-  min-height: 25px;
-  display: flex;
-}
-
 .Layout__logo_topright {
   position: absolute;
   top: 10px;

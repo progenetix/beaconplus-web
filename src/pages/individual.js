@@ -3,26 +3,26 @@ import {
   NoResultsHelp,
   urlRetrieveIds
 } from "../hooks/api"
-import { ReferenceLink, BeaconRESTLink, InternalLink, ExternalLink } from "../components/helpersShared/linkHelpers"
+import { ReferenceLink, InternalLink, ExternalLink } from "../components/helpersShared/linkHelpers"
 import { AncestryData } from "../components/AncestryData"
 import { WithData } from "../components/Loader"
 import { withUrlQuery } from "../hooks/url-query"
-import { EntityLayout } from "../components/EntityLayout"
+import { Layout } from "../site-specific/Layout"
 import { ShowJSON } from "../components/RawData"
 
 const itemColl = "individuals"
 // const exampleId = "pgxind-kftx266l"
 
 const IndividualDetailsPage = withUrlQuery(({ urlQuery }) => {
-  const { id, datasetIds, hasAllParams } = urlRetrieveIds(urlQuery)
+  var { id, datasetIds } = urlRetrieveIds(urlQuery)
   return (
-    <EntityLayout title="Individual Details">
-      {!hasAllParams ? (
-        NoResultsHelp(itemColl)
-      ) : (
-        <IndividualLoader id={id} datasetIds={datasetIds} />
-      )}
-    </EntityLayout>
+    <Layout title="Individual Details">
+    {id && datasetIds ? (
+      <IndividualLoader id={id} datasetIds={datasetIds} />
+    ) : (
+      NoResultsHelp(itemColl)
+    )}
+    </Layout>
   )
 })
 
@@ -129,48 +129,32 @@ function Individual({ individual, datasetIds }) {
       <h5>Download</h5>
       <ul>
         <li>Subject data as{" "}
-          <BeaconRESTLink
-            entryType="individuals"
-            idValue={individual.id}
-            datasetIds={datasetIds}
+          <InternalLink
+            href={`/beacon/individuals/${individual.id}`}
             label="Beacon JSON"
           />
         </li>
         <li>Sample data as{" "}
-          <BeaconRESTLink
-            entryType="individuals"
-            idValue={individual.id}
-            responseType="phenopackets"
-            datasetIds={datasetIds}
+          <InternalLink
+            href={`/beacon/individuals/${individual.id}/phenopackets`}
             label="Beacon Phenopacket JSON"
           />
         </li>
         <li>Variants as{" "}
-          <BeaconRESTLink
-            entryType="individuals"
-            idValue={individual.id}
-            responseType="genomicVariations"
-            datasetIds={datasetIds}
+          <InternalLink
+            href={`/beacon/individuals/${individual.id}/genomicVariations`}
             label="Beacon JSON"
           />
         </li>
         <li>Variants as{" "}
-          <BeaconRESTLink
-            entryType="individuals"
-            idValue={individual.id}
-            responseType="genomicVariations"
-            datasetIds={datasetIds}
-            output="pgxseg"
+          <InternalLink
+            href={`/services/pgxsegvariants?individual_ids=${individual.id}`}
             label="Progenetix .pgxseg file"
           />
         </li>
         <li>Variants as{" "}
-          <BeaconRESTLink
-            entryType="individuals"
-            idValue={individual.id}
-            responseType="genomicVariations"
-            datasetIds={datasetIds}
-            output="vcf"
+          <InternalLink
+            href={`/services/vcfvariants?individual_ids=${individual.id}`}
             label="(experimental) VCF 4.4 file"
           />
         </li>

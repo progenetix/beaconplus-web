@@ -9,18 +9,23 @@
 }
 .stain--gpos75 {
   fill: hsl(var(--hue), var(--sat), 30%);
+/*  fill: linear-gradient(to bottom, rgb(255,87,87), rgb(39,39,39) 70%, rgb(87,87,87));*/
 }
 .stain--gpos66 {
+/*  fill: linear-gradient(to bottom, rgb(87,87,87), rgb(39,39,39) 70%, rgb(87,87,87));*/
   fill: hsl(var(--hue), var(--sat), 40%);
 }
 .stain--gpos50 {
   fill: hsl(var(--hue), var(--sat), 45%);
+/*  fill: linear-gradient(to bottom, rgb(196,196,196), rgb(111,111,111) 70%, rgb(196,196,196));*/
 }
 .stain--gpos33 {
   fill: hsl(var(--hue), var(--sat), 50%);
+/*  fill: linear-gradient(to bottom, rgb(201,201,201), rgb(125,125,125) 70%, rgb(201,201,201));*/
 }
 .stain--gpos25 {
   fill: hsl(var(--hue), var(--sat), 38%);
+/*  fill: linear-gradient(to bottom, rgb(223,223,223), rgb(196,196,196) 70%, rgb(223,223,223));*/
 }
 .stain--gvar {
   fill: hsl(var(--hue), var(--sat), 90%);

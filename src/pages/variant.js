@@ -7,7 +7,7 @@ import {
 import { ExternalLink, ReferenceLink } from "../components/helpersShared/linkHelpers"
 import { WithData } from "../components/Loader"
 import { withUrlQuery } from "../hooks/url-query"
-import { EntityLayout } from "../components/EntityLayout"
+import { Layout } from "../site-specific/Layout"
 import { ShowJSON } from "../components/RawData"
 import { BiosamplePlot } from "../components/SVGloaders"
 import React from "react"
@@ -19,13 +19,13 @@ const entity = "variants"
 const VariantDetailsPage = withUrlQuery(({ urlQuery }) => {
   const { id, datasetIds, hasAllParams } = urlRetrieveIds(urlQuery)
   return (
-    <EntityLayout title="Variant Details" headline="Variant Details">
+    <Layout title="Variant Details" headline="Variant Details">
       {!hasAllParams ? (
         NoResultsHelp(entity)
       ) : (
         <VariantLoader id={id} datasetIds={datasetIds} />
       )}
-    </EntityLayout>
+    </Layout>
   )
 })
 

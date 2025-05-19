@@ -1,36 +1,47 @@
 import React from "react"
-import BeaconPlusNav from "../components/BeaconPlusNav"
-import parametersConfig from "../config/beaconSearchParameters.yaml"
-import beaconQueryTypes from  "../config/beaconQueryTypes.yaml"
-import requestTypeExamples from "../config/beaconSearchExamples.yaml"
+import { merge } from "lodash"
 import BiosamplesSearchPanel from "../components/searchForm/BiosamplesSearchPanel"
-import Panel from "../components/Panel"
+import parConfig from "../config/beaconSearchParameters.yaml"
+import searchParLoc from "../site-specific/beaconSearchParameters.yaml"
+import beaconQueryTypes from  "../config/beaconQueryTypes.yaml"
+import { Layout } from "./../site-specific/Layout"
+import baseSearchExamples from "../config/beaconSearchExamples.yaml"
+import locSearchExamples from "../site-specific/beaconSearchExamples.yaml"
+import { DATASETDEFAULT } from "../hooks/api"
 
-export default function searchPage({cytoBands}) {
+const parametersConfig = merge(
+  parConfig,
+  searchParLoc
+)
+
+const searchExamples = merge(
+  baseSearchExamples,
+  locSearchExamples
+)
+
+if (!parametersConfig.parameters?.datasetIds?.defaultValue) {
+  parametersConfig.parameters.datasetIds.defaultValue = [DATASETDEFAULT]
+}
+
+const leadText = `This search form shows parameter combinations and examples for
+different Beacon search patterns. Please be aware that search types and examples
+are _independent_ of each other, so not all combinations are automatically adjusted.
+
+Additionally, the search options here might extend the latest stable version of
+the Beacon API in a sense of "implementation driven development" but are supported
+through this version of the [\`bycon\`](https://bycon.progenetix.org) library.`
+
+export function Page() {
   return (
-    <>
-      <BeaconPlusNav />
-      <div className="section">
-        <div className="BeaconPlus__container">
-          <BiosamplesSearchPanel
-            parametersConfig={parametersConfig}
-            beaconQueryTypes={beaconQueryTypes}
-            requestTypeExamples={requestTypeExamples}
-            cytoBands={cytoBands}
-            collapsed={false}
-          />
-          <Panel className="content">
-            <div>
-                This forward looking Beacon interface proposes additional,
-                planned features beyond the <a href="http://docs.genomebeacons.org/">current Beacon v2 specifications</a>. The Beacon<sup>+</sup> genome variation service tests experimental features and proposed extensions to the <a href="http://beacon-project.io">Beacon</a> protocol. The
-                service is implemented using the <a href="https://github.com/progenetix/bycon">bycon</a> backend
-                and allows access to the various datasets represented through the <a href="http://progenetix.org">Progenetix</a> cancer genomics resource.
-                Further information about the Beacon project can be found through
-                the <a href="http://beacon-project.io/">ELIXIR Beacon website</a>.
-            </div>
-          </Panel>  
-        </div>
-      </div>
-    </>
+    <Layout title="Search Samples" headline="Beacon Search Demonstrator" leadPanelMarkdown={leadText}>
+      <BiosamplesSearchPanel
+        parametersConfig={parametersConfig}
+        beaconQueryTypes={beaconQueryTypes}
+        requestTypeExamples={searchExamples}
+        collapsed={false}
+      />
+    </Layout>
   )
 }
+
+export default Page

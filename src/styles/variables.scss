@@ -1,10 +1,9 @@
 $body-size: 14px;
 
+$visual-identity-color: rgba(65,146,133,1);	
 $orange: hsl(14, 100%, 53%) !default;
-$blue: hsl(216, 100%, 53%) !default;
-$primary: $blue;
-$visual-identity-color: #ff6f48;
-$visual-identity-color-celllines: rgba(228,66,72,0.8);
+$blue: $visual-identity-color;
+$primary: $visual-identity-color;
 
 @import "~bulma/sass/utilities/all";
 

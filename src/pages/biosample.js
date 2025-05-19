@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
 import {
   BIOKEYS,
-  SITE_DEFAULTS,
+  basePath,
   useDataItemDelivery,
   NoResultsHelp,
   urlRetrieveIds
 } from "../hooks/api"
-import { BeaconRESTLink, InternalLink, ReferenceLink } from "../components/helpersShared/linkHelpers"
+import { InternalLink, ReferenceLink } from "../components/helpersShared/linkHelpers"
 import { WithData } from "../components/Loader"
 import { withUrlQuery } from "../hooks/url-query"
 import { AncestryData } from "../components/AncestryData"
-import { EntityLayout } from "../components/EntityLayout"
+import { Layout } from "../site-specific/Layout"
 import { ShowJSON } from "../components/RawData"
 import { AnalysisHistogram } from "../components/SVGloaders"
 import { pluralizeWord }  from "../components/helpersShared/labelHelpers"
@@ -19,8 +19,8 @@ const itemColl = "biosamples"
 // const exampleId = "pgxbs-kftvir6m"
 
 const SampleDetailsPage = withUrlQuery(({ urlQuery }) => {
-  const { id, datasetIds, hasAllParams } = urlRetrieveIds(urlQuery)
-  const iURL = `${SITE_DEFAULTS.API_PATH}beacon/biosamples/${id}/individuals?datasetIds=${datasetIds}&limit=1`
+  var {id, datasetIds } = urlRetrieveIds(urlQuery)
+  const iURL = `${basePath}beacon/biosamples/${id}/individuals?datasetIds=${datasetIds}&limit=1`
   var [individual, setIndividual] = useState([]);
   useEffect(() => {
     fetch( iURL )
@@ -35,13 +35,13 @@ const SampleDetailsPage = withUrlQuery(({ urlQuery }) => {
    }, [setIndividual]);
 
   return (
-    <EntityLayout title="Sample Details">
-      {!hasAllParams ? (
-        NoResultsHelp(itemColl)
-      ) : (
+    <Layout title="Sample Details">
+      {id && datasetIds ? (
         <BiosampleLoader biosId={id} individual={individual} datasetIds={datasetIds} />
+      ) : (
+        NoResultsHelp(itemColl)
       )}
-    </EntityLayout>
+    </Layout>
   )
 })
 
@@ -114,6 +114,27 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
   </ul>
 
   {/*------------------------------------------------------------------------*/}
+
+  {biosample.celllineInfo && (
+    <>
+    <h5>Cell Line Info</h5>
+    <ul>
+    {biosample.celllineInfo.id && (
+      <li>
+        Instance of {" "}
+        <InternalLink
+          href={`/cellline/?id=${biosample.celllineInfo.id}&datasetIds=${ datasetIds }`}
+          label={biosample.celllineInfo.id}
+        />
+      </li>
+    )}
+    </ul>
+    </>
+  )}
+
+
+  {/*------------------------------------------------------------------------*/}
+
 
   <h5>Donor Details</h5>
 
@@ -225,48 +246,32 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
   <h5>Download</h5>
   <ul>
     <li>Sample data as{" "}
-      <BeaconRESTLink
-        entryType="biosamples"
-        idValue={biosId}
-        datasetIds={datasetIds}
+      <InternalLink
+        href={`/beacon/biosamples/${biosId}`}
         label="Beacon JSON"
       />
     </li>
     <li>Sample data as{" "}
-      <BeaconRESTLink
-        entryType="biosamples"
-        idValue={biosId}
-        responseType="phenopackets"
-        datasetIds={datasetIds}
+      <InternalLink
+        href={`/beacon/biosamples/${biosId}/phenopackets`}
         label="Beacon Phenopacket JSON"
       />
     </li>
     <li>Sample variants as{" "}
-      <BeaconRESTLink
-        entryType="biosamples"
-        idValue={biosId}
-        responseType="genomicVariations"
-        datasetIds={datasetIds}
+      <InternalLink
+        href={`/beacon/biosamples/${biosId}/genomicVariations`}
         label="Beacon JSON"
       />
     </li>
     <li>Sample variants as{" "}
-      <BeaconRESTLink
-        entryType="biosamples"
-        idValue={biosId}
-        responseType="genomicVariations"
-        datasetIds={datasetIds}
-        output="pgxseg"
+      <InternalLink
+        href={`/services/pgxsegvariants?biosample_ids=${biosId}`}
         label="Progenetix .pgxseg file"
       />
     </li>
     <li>Sample variants as{" "}
-      <BeaconRESTLink
-        entryType="biosamples"
-        idValue={biosId}
-        responseType="genomicVariations"
-        datasetIds={datasetIds}
-        output="vcf"
+      <InternalLink
+        href={`/services/vcfvariants?biosample_ids=${biosId}`}
         label="(experimental) VCF 4.4 file"
       />
     </li>

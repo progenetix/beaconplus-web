@@ -3,25 +3,24 @@ import {
   NoResultsHelp,
   urlRetrieveIds
 } from "../hooks/api"
-import { BeaconRESTLink, InternalLink } from "../components/helpersShared/linkHelpers"
-
+import { InternalLink } from "../components/helpersShared/linkHelpers"
 import { Loader } from "../components/Loader"
 import { withUrlQuery } from "../hooks/url-query"
-import { EntityLayout } from "../components/EntityLayout"
+import { Layout } from "../site-specific/Layout"
 
 const itemColl = "analyses"
 // const exampleId = "pgxcs-kftvlijb"
 
 const AnalysisDetailsPage = withUrlQuery(({ urlQuery }) => {
-  const { id, datasetIds, hasAllParams } = urlRetrieveIds(urlQuery)
+  var { id, datasetIds} = urlRetrieveIds(urlQuery)
   return (
-    <EntityLayout title="Analysis Details" headline="Analysis Details">
-      {!hasAllParams ? (
-        NoResultsHelp(itemColl)
-      ) : (
+    <Layout title="Analysis Details" headline="Analysis Details">
+      {id && datasetIds ? (
         <AnalysisLoader csId={id} datasetIds={datasetIds} />
+      ) : (
+        NoResultsHelp(itemColl)
       )}
-    </EntityLayout>
+    </Layout>
   )
 })
 
@@ -79,48 +78,32 @@ function Analysis({ analysis, csId, datasetIds }) {
   <h5>Download</h5>
   <ul>
     <li>Analysis data as{" "}
-      <BeaconRESTLink
-        entryType="analyses"
-        idValue={csId}
-        datasetIds={datasetIds}
+      <InternalLink
+        href={`/beacon/analyses/${csId}`}
         label="Beacon JSON"
       />
     </li>
     <li>Sample data as{" "}
-      <BeaconRESTLink
-        entryType="analyses"
-        idValue={csId}
-        responseType="biosamples"
-        datasetIds={datasetIds}
+      <InternalLink
+        href={`/beacon/analyses/${csId}/biosamples`}
         label="Beacon biosample JSON"
       />
     </li>
     <li>Analysis variants as{" "}
-      <BeaconRESTLink
-        entryType="analyses"
-        idValue={csId}
-        responseType="genomicVariations"
-        datasetIds={datasetIds}
+      <InternalLink
+        href={`/beacon/analyses/${csId}/genomicVariations`}
         label="Beacon JSON"
       />
     </li>
     <li>Analysis variants as{" "}
-      <BeaconRESTLink
-        entryType="analyses"
-        idValue={csId}
-        responseType="genomicVariations"
-        datasetIds={datasetIds}
-        output="pgxseg"
+      <InternalLink
+        href={`/services/pgxsegvariants?datasetIds=${datasetIds}&analysis_ids=${csId}`}
         label="Progenetix .pgxseg file"
       />
     </li>
     <li>Analysis variants as{" "}
-      <BeaconRESTLink
-        entryType="analyses"
-        idValue={csId}
-        responseType="genomicVariations"
-        datasetIds={datasetIds}
-        output="vcf"
+      <InternalLink
+        href={`/services/vcfvariants?datasetIds=${datasetIds}&analysis_ids=${csId}`}
         label="(experimental) VCF 4.4 file"
       />
     </li>
